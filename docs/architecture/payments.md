@@ -1,97 +1,115 @@
 # Architecture — Paiements
 
-> Forgekit utilise **Lemon Squeezy** comme Merchant of Record EU (gère TVA + facturation) et **Stripe Connect** pour les payouts aux créateurs en phase 2.
-> Author : Aïssa BELKOUSSA
+> Forgekit utilise **Stripe Billing** pour les abonnements B2B (plans Teams et Enterprise). L'annuaire public reste gratuit : aucun paiement n'est requis pour browse, installer un skill via le CLI ou laisser une review.
+> Auteur : Aïssa BELKOUSSA
+> Mis à jour : 2026-05-15 (pivot B2B Teams)
 
 ## Vue d'ensemble
 
 ```
-┌────────────┐    achat skill     ┌──────────────────┐
-│ Acheteur   │ ─────────────────▶ │ Lemon Squeezy    │
-│ (web)      │                    │ (MoR EU)         │
-└────────────┘ ◀──── receipt ──── └────────┬─────────┘
-                                           │ webhook
-                                           ▼
-                                  ┌──────────────────┐
-                                  │ Edge Function    │
-                                  │ Supabase Deno    │
-                                  │ — verify HMAC    │
-                                  │ — insert purchase│
-                                  │ — split revenue  │
-                                  └────────┬─────────┘
-                                           │
-                                           ▼
-                                  ┌──────────────────┐
-                                  │ Postgres         │
-                                  │ purchases table  │
-                                  └──────────────────┘
-
-Mensuel cron :
-   ┌──────────────────────────────┐    transfers    ┌─────────────┐
-   │ cron-payouts Edge Function   │ ──────────────▶ │ Stripe       │
-   │ — calcule total créateur     │                 │ Connect      │
-   │ — transfer Stripe            │ ◀── webhook ─── │ (Express)    │
-   └──────────────────────────────┘                 └─────────────┘
+┌────────────┐  upgrade plan  ┌──────────────────┐
+│ Admin team │ ─────────────▶ │ Stripe Billing   │
+│ (web)      │                │ Checkout + Portal│
+└────────────┘ ◀── invoice ── └────────┬─────────┘
+                                       │ webhook (signed)
+                                       ▼
+                              ┌──────────────────┐
+                              │ Edge Function    │
+                              │ Supabase Deno    │
+                              │ — verify sig     │
+                              │ — sync workspace │
+                              │ — set seats      │
+                              └────────┬─────────┘
+                                       │
+                                       ▼
+                              ┌──────────────────┐
+                              │ Postgres         │
+                              │ workspaces       │
+                              │ subscriptions    │
+                              │ seats            │
+                              └──────────────────┘
 ```
 
-## Revenue share
+## Plans facturés
 
-- **Créateur** : 75 % du net après TVA
-- **Plateforme** : 25 %
-- Calcul **toujours en cents entiers** : `platform = round(net * 0.25)` puis `creator = net - platform`
-- Voir `packages/shared/src/utils/index.ts` : `splitRevenue()`
+| Plan | Prix | Modèle Stripe | Détails |
+|---|---|---|---|
+| Public | gratuit | — | aucun objet Stripe |
+| Teams | 9 €/seat/mois | `licensed` per-seat, monthly | 5 seats min, 50 seats max |
+| Enterprise | 29 €/seat/mois | `licensed` per-seat, monthly ou annual | 25 seats min, contrat custom |
 
-## Flow d'achat one-shot
+Annuel disponible sur demande (Enterprise) avec PO/NET30 via Stripe Invoicing.
 
-1. Acheteur clique "Acheter" sur `/skills/[slug]`
-2. Server Action crée un checkout LS via `createSkillCheckout()` avec `custom_data: { user_id, skill_id }`
-3. Redirect vers LS hosted checkout (ou overlay)
-4. Paiement validé → LS envoie webhook signé HMAC-SHA256
-5. Edge Function `lemonsqueezy-webhook` vérifie signature, parse event
-6. Sur `order_created` : insert `purchases` avec split, status `completed`
-7. Sur `order_refunded` : update purchase status `refunded`
-8. Email confirmation envoyé via Resend (event downstream)
+## Flow Teams (self-serve)
 
-## Flow abonnement
+1. Admin crée un workspace gratuit, invite collègues
+2. Workspace hit la limite Public (skills internes / SSO / audit)
+3. Clic « Upgrade to Teams » → Server Action crée Stripe Checkout Session (mode `subscription`, `quantity = seats`)
+4. Stripe Checkout hosted → carte ou SEPA
+5. Webhook `checkout.session.completed` → Edge Function `stripe-webhook`
+   - Vérifie signature `Stripe-Signature`
+   - Crée `subscriptions` + lie `workspace_id`
+   - Active features Teams (SSO, audit, allowlist, private skills)
+6. Webhook `customer.subscription.updated` → ajuste `seats`, `status`
+7. Webhook `invoice.payment_failed` → grace period 7 j, dégrade vers Public si non résolu
+8. Webhook `customer.subscription.deleted` → workspace passe en Public (skills internes conservés read-only)
 
-- LS gère le cycle complet (création, renouvellement, échec, annulation)
-- Webhook handle `subscription_created/updated/cancelled/expired/resumed`
-- Table `subscriptions` synchronisée 1:1 avec LS
-- Accès skill = subscription `active` OU purchase one-shot `completed`
+## Flow Enterprise (sales-led)
 
-## TVA
+- Devis hors plateforme, contrat signé
+- Stripe Invoicing : facture annuelle SEPA/virement, NET30
+- Provisioning manuel des features (SCIM, Confidential Compute, on-prem mirror)
+- Signing key custom générée et stockée en Supabase Vault
+- Renouvellement géré par Customer Success (rappel J-60)
 
-- LS collecte et reverse la TVA EU automatiquement (MoR)
-- Forgekit stocke `vat_cents` pour reporting interne mais ne facture pas la TVA séparément
-- Voir `computeVAT()` dans `@forgekit/shared` pour preview UI uniquement
+## Seats
+
+- Ajout d'un membre au workspace = `subscriptions.update({ quantity: n+1 })` avec proration
+- Retrait = proration créditée sur facture suivante
+- Plafonds : Teams hard cap 50 seats (au-delà, force upgrade Enterprise)
+
+## TVA et facturation
+
+- Stripe Tax activé (auto-calcul TVA EU, gestion seuils OSS)
+- Forgekit reste vendeur (pas de MoR) — KBis FR, SIREN exposé sur facture
+- Numérotation factures déléguée à Stripe Invoicing
+- Reverse charge B2B intra-EU géré par Stripe Tax
 
 ## Sécurité
 
-- Webhook signature : HMAC-SHA256 vérifiée avec `timingSafeEqual`
-- Secret stocké en `LEMONSQUEEZY_WEBHOOK_SECRET` (Supabase Vault en prod)
-- Idempotency : table `purchases` a `unique(user_id, skill_id, ls_order_id)` — doublons rejetés
-- Pas de stockage carte / IBAN côté Forgekit
-- Stripe Connect : KYC géré par Stripe (Express accounts)
+- Webhook signature Stripe vérifiée avec `stripe.webhooks.constructEvent` + `timingSafeEqual`
+- Secret stocké en `STRIPE_WEBHOOK_SECRET` (Supabase Vault en prod)
+- Idempotency-Key Stripe sur toute mutation côté serveur
+- Pas de stockage carte/IBAN côté Forgekit (PCI-DSS SAQ-A)
+- Customer Portal Stripe pour gestion CB, factures, annulation
 
 ## Variables d'environnement
 
 ```
-LEMONSQUEEZY_API_KEY
-LEMONSQUEEZY_STORE_ID
-LEMONSQUEEZY_WEBHOOK_SECRET
 STRIPE_SECRET_KEY
+STRIPE_PUBLISHABLE_KEY
 STRIPE_WEBHOOK_SECRET
-STRIPE_CONNECT_CLIENT_ID
+STRIPE_PRICE_TEAMS_MONTHLY
+STRIPE_PRICE_ENTERPRISE_MONTHLY
+STRIPE_PRICE_ENTERPRISE_ANNUAL
+STRIPE_TAX_ENABLED=true
 ```
 
 ## Tests
 
-- Sandbox LS : compte test séparé, store_id distinct
-- Stripe : keys `sk_test_…`
-- Webhook local : `ngrok http 54321` + `scripts/lemonsqueezy/test-webhook.ts`
+- Stripe test mode : `sk_test_…`, `whsec_test_…`
+- Webhook local : `stripe listen --forward-to localhost:54321/functions/v1/stripe-webhook`
+- Cartes test : `4242 4242 4242 4242` (succès), `4000 0000 0000 0341` (échec recurring)
+- SEPA test : `DE89370400440532013000`
 
 ## Phases
 
-- **Phase 1** (lancement) : Lemon Squeezy seul, paiements en escrow Forgekit, payouts manuels mensuels (virement perso ou Wise)
-- **Phase 2** (M6+) : Stripe Connect Express activé, payouts automatiques le 5 de chaque mois
-- **Phase 3** (M12+) : metering pay-per-use, factures B2B PO/NET30 pour Teams plan
+- **Phase 1** (lancement, M1–M3) : Public gratuit + Teams self-serve via Stripe Checkout, factures Stripe automatiques.
+- **Phase 2** (M4–M6) : Customer Portal complet, gestion seats UI, dunning automatisé.
+- **Phase 3** (M7+) : Enterprise sales-led, Stripe Invoicing PO/NET30, contrats annuels, SCIM provisioning.
+
+## Hors scope (abandonné)
+
+- **Revenue share créateurs 75/25** : abandonné avec le pivot 2026-05-15. Les skills publics restent gratuits, les créateurs ne sont pas rémunérés à la vente. Une rémunération indirecte (sponsoring de skills certifiés, programme partenaires) sera étudiée en Phase 3.
+- **Lemon Squeezy MoR** : remplacé par Stripe Billing direct, modèle B2B subscription incompatible avec le pattern MoR EU de LS pour cette taille de ticket.
+- **Stripe Connect Express** : plus nécessaire (pas de payouts créateurs).

@@ -7,12 +7,12 @@
   ██║     ╚██████╔╝██║  ██║╚██████╔╝███████╗██║  ██╗██║   ██║
   ╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝
 
-  Marketplace de skills IA pour devs pro — Claude Code, Cursor, Codex
+  Annuaire public gratuit + gouvernance B2B des skills IA pour devs
 
 ================================================================================
 
   Project     : Forgekit (nom de travail — à valider)
-  Tagline     : Le marketplace des skills IA pour devs pro
+  Tagline     : L'annuaire des skills IA + le control plane des équipes dev
   Author      : Aïssa BELKOUSSA
   Contact     : contact@aissabelkoussa.fr
   Website     : à définir (forgekit.dev / devshelf.dev — à arbitrer)
@@ -20,26 +20,32 @@
   Repository  : aissablk1/forgekit-marketplace (privé)
   License     : Propriétaire — tous droits réservés
   Created     : 2026-05-14
-  Updated     : 2026-05-14
-  Version     : 0.0.1
-  Status      : Phase 0 — scaffolding initial
+  Updated     : 2026-05-15
+  Version     : 0.0.2
+  Status      : Phase 0 — pivot B2B Teams (annuaire gratuit + plans payants)
   Dev port    : 5309 (port à vie — ne pas réassigner)
 
 ================================================================================
   DESCRIPTION
 ================================================================================
 
-  Forgekit est un marketplace de « skills » IA destinés aux outils de
-  développement modernes (Claude Code, Cursor, Codex, Windsurf, Gemini CLI).
+  Forgekit est un annuaire public gratuit de « skills » IA pour les outils
+  de développement (Claude Code, Cursor, Codex, Windsurf, Gemini CLI), doublé
+  d'un control plane B2B payant pour les équipes qui veulent gouverner leur
+  usage interne des skills.
 
-  Les skills sont des extensions structurées (frontmatter + instructions
-  Markdown + ressources) qui ajoutent des capacités spécialisées à un agent
-  IA développeur — frontend design, audit sécurité, refactoring, SEO, etc.
+  Pivot 2026-05-15 : Anthropic publie ses skills gratuitement, GitHub regorge
+  de skills communautaires. Vendre un skill à l'unité n'a plus de sens. La
+  valeur capturable se déplace vers la gouvernance B2B : workspace privé,
+  skills internes non publiés, SSO, audit log, allowlist/blocklist, partage
+  cross-IDE, conformité.
 
-  Le marketplace résout trois douleurs identifiées :
-  1. Découvrabilité — explosion des skills sans hub centralisé
-  2. Sécurité — audit anti-prompt-injection avant publication
-  3. Monétisation — revenue share pour créateurs (75/25)
+  Modèle économique en trois plans :
+  1. Public         gratuit       browse, install CLI, reviews
+  2. Teams          9 €/seat/mois workspace privé, SSO, audit, allowlist
+                    (5 à 50 devs) skills internes non publics
+  3. Enterprise    29 €/seat/mois SCIM, Confidential Compute, on-prem mirror
+                    (≥ 25 seats)  SOC 2, custom signing key, SLA
 
 ================================================================================
   STACK
@@ -51,7 +57,8 @@
   Backend      Supabase Postgres 16 + Auth (Google/GitHub) + Storage
                + Edge Functions (Deno) + Cloudflare R2
 
-  Paiement     Lemon Squeezy (MoR EU) + Stripe Connect (payouts phase 2)
+  Paiement     Stripe Billing (subscriptions Teams/Enterprise, seats,
+               proration, factures B2B SEPA + carte + virement)
 
   CLI          Node.js 22 + commander + ora + chalk + inquirer
                npm scope @forgekit/cli
@@ -140,7 +147,10 @@
   - Direction esthétique : « Editorial Premium » (Migra display + Geist body)
   - Polices bannies : Inter, Roboto, Arial, Open Sans, Lato, system-ui,
     Space Grotesk (CLAUDE.md anti-slop §10)
-  - Confidential Computing exploré comme upsell consulting (angle parallèle)
+  - Confidential Computing intégré dans Enterprise (différenciateur clé)
+  - Pivot 2026-05-15 : abandon vente skill à l'unité (75/25), bascule sur
+    annuaire gratuit + B2B Teams payant. Voir docs/specs/positioning.md
+    et docs/specs/pricing.md.
 
 ================================================================================
   © 2026 Aïssa BELKOUSSA — Tous droits réservés

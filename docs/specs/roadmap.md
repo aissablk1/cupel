@@ -2,11 +2,16 @@
 
 > Auteur : Aïssa BELKOUSSA
 > Créé : 2026-05-14
+> Mis à jour : 2026-05-15 (pivot B2B Teams)
 > Statut : Plan de travail solo-founder, ajusté mensuellement.
+
+## Contexte du pivot 2026-05-15
+
+Anthropic publie ses propres skills gratuitement et GitHub regorge de skills communautaires. Vendre un skill à l'unité (modèle initial 75/25) n'a plus de sens. La valeur capturable se déplace vers la gouvernance B2B : workspace privé, SSO, audit, allowlist, skills internes non publics, conformité. Voir `docs/specs/positioning.md` et `docs/specs/pricing.md`.
 
 ## Phase 0 — Scaffolding (M0, mai 2026)
 
-**Objectif** : poser fondations techniques + identité projet.
+**Objectif** : poser fondations techniques + identité projet + pivot documenté.
 
 - Monorepo pnpm + Turborepo opérationnel
 - Next.js 15 + Tailwind 4 + shadcn/ui en place
@@ -15,87 +20,99 @@
 - Direction esthétique « Editorial Premium » figée (Migra + Geist)
 - CI lint/test/build vert
 - `PROJECT.nfo` + `README.md` + `LICENSE` + `CHANGELOG.md`
+- **Pivot B2B Teams** documenté (pricing, positioning, payments)
 
-**Done when** : `pnpm dev` lance le projet et `pnpm test` passe en CI.
+**Done when** : `pnpm dev` lance le projet, `pnpm test` passe en CI, le pivot est lisible dans la doc.
 
-## Phase 1 — MVP privé (M1–M2, juin-juillet 2026)
+## Phase 1 — Annuaire public gratuit (M1–M2, juin-juillet 2026)
 
-**Objectif** : 10 skills publiés en interne, paiement réel fonctionnel.
+**Objectif** : annuaire navigable, install CLI fonctionnel, 100 skills indexés.
 
-- Schéma DB : `skills`, `skill_versions`, `purchases`, `users`, `subscriptions`
-- RLS strict sur toutes les tables sensibles
+- Schéma DB : `skills`, `skill_versions`, `users`, `workspaces`, `reviews`
+- RLS strict (lecture publique pour skills publics, écriture restreinte)
 - Auth GitHub + Google opérationnelle
-- Upload skill via dashboard créateur (drag-drop zip)
-- Pipeline de validation : static analysis + LLM review (Claude Haiku)
-- Signature Ed25519 sur publication
-- Integration Lemon Squeezy : checkout + webhook signé HMAC vérifié
-- Email transactionnel (Resend) sur achat + access link
-- 10 skills seed (les miens) publiés
-- Beta privée : 20 testeurs réseau personnel
-
-**Done when** : un acheteur paie 29 €, reçoit accès, télécharge skill via CLI.
-
-## Phase 2 — Lancement public (M3, août 2026)
-
-**Objectif** : MVP public, premiers créateurs externes onboardés.
-
-- Landing publique, SEO `/skills/[slug]`, OG images dynamiques
+- Browse public : recherche, filtres (stack, IDE, langue, tag)
+- Upload skill via dashboard créateur (drag-drop zip ou import GitHub)
+- Pipeline validation : static analysis + LLM review (Claude Haiku) + signature Ed25519
 - `@forgekit/cli` publié sur npm (`npx forgekit install <slug>`)
-- Dashboard créateur : analytics ventes, payouts (manuels phase 1)
-- Programme « Early creators » : 10 créateurs invités, 0 % fee 3 mois
+- 100 skills seed (curation + import GitHub awesome lists)
+- Reviews + ratings (1–5 stars)
+
+**Done when** : un dev anonyme trouve un skill, l'installe via CLI, laisse une review.
+
+## Phase 2 — Workspaces Teams self-serve (M3–M4, août-septembre 2026)
+
+**Objectif** : premier plan payant. Teams en self-serve via Stripe Checkout.
+
+- Workspaces multi-membres (invitations email)
+- Skills internes non publics (upload privé, visible workspace uniquement)
+- SSO Google Workspace + Microsoft Entra ID (WorkOS)
+- Audit log : qui a installé/utilisé quel skill, quand
+- Allowlist / blocklist de skills par workspace
+- Partage cross-IDE (mapping Claude Code ↔ Cursor ↔ Codex ↔ Windsurf)
+- **Stripe Billing** : Checkout Session, subscription per-seat 9 €/mois, Stripe Tax, Customer Portal
+- Webhook handler complet (`checkout.session.completed`, `customer.subscription.updated`, `invoice.payment_failed`)
+- Landing dédiée `/teams` + page comparaison plans
 - Status page Statuspage, monitoring Sentry + Better Stack
-- Doc publique `/docs` (Spec, Format SKILL.md, CLI)
-- Press kit + 5 articles SEO + Product Hunt launch
+- Product Hunt launch + 5 articles SEO
 
-**KPI** : 30 skills publiés, 100 ventes, $3k GMV, 500 inscrits.
+**KPI** : 5 workspaces Teams payants (≥ 25 seats cumulés), 200 skills indexés, 2 000 inscrits.
 
-## Phase 3 — Croissance & payouts (M4–M6, septembre-novembre 2026)
+## Phase 3 — Enterprise & conformité (M5–M7, octobre-décembre 2026)
 
-**Objectif** : automatisation payouts + premiers abonnements.
+**Objectif** : premiers contrats Enterprise sales-led, conformité activable.
 
-- Stripe Connect Express activé pour créateurs (KYC géré par Stripe)
-- Payouts auto le 5 de chaque mois (75 % net créateur)
-- Subscriptions (skill packs mensuels) via Lemon Squeezy
-- `@forgekit/sdk` (programmatic install in CI/CD)
-- Search + filtres avancés (stack, IDE, langue, tag)
-- Reviews + ratings (1-5 stars, max 1 review par achat)
-- Programme affiliation (créateurs touchent 10 % sur referrals)
+- Plan Enterprise 29 €/seat/mois (min 25 seats)
+- SCIM provisioning (Okta, Entra ID, Google Workspace)
+- Stripe Invoicing PO/NET30, contrats annuels SEPA/virement
+- Confidential Compute pipeline (AWS Nitro Enclaves, cf. ADR 0005)
+- On-prem R2 mirror (skills cache self-hosted)
+- Custom signing key par tenant (Supabase Vault)
+- Préparation SOC 2 Type I (politiques + Vanta)
+- API publique read (catalog) + write (admin workspace)
+- Webhooks workspace (sur publication / install / révocation)
+- Skills certifiés « Forgekit Verified » (review humain payée par éditeur)
 
-**KPI** : 100 skills, 500 ventes/mois, $10k GMV mensuel.
+**KPI** : 2 contrats Enterprise (≥ 50 seats chacun), 15 workspaces Teams, 15 k€ MRR.
 
-## Phase 4 — Pro features (M7–M9, déc 2026 – fév 2027)
+## Phase 4 — Écosystème & intégrations (M8–M10, janvier-mars 2027)
 
-**Objectif** : packaging Teams + premiers contrats B2B.
+**Objectif** : devenir le standard de gouvernance multi-IDE.
 
-- Plan Teams (5/20/100 seats) avec SSO via WorkOS
-- License keys par seat, révocation côté CLI
-- Audit log conformité (qui a installé quoi, quand)
-- Factures B2B PO/NET30 (Lemon Squeezy ou Stripe Invoicing)
-- API publique read (catalog) + write (créateurs)
-- Webhooks marketplace (sur publication / achat) pour intégrations clients
-- Skills certifiés « Forgekit Verified » (review humain payée)
-
-**KPI** : 3 clients Teams >50 seats, $25k MRR.
-
-## Phase 5 — Confidential & Enterprise (M10–M12, mars-mai 2027)
-
-**Objectif** : positionnement haut de gamme + plateforme d'écosystème.
-
-- Confidential validation pipeline (AWS Nitro, cf. ADR 0005)
+- Intégrations natives : Cursor, Codex, Windsurf, Gemini CLI, JetBrains AI Assistant
+- Programme partenaires éditeurs IDE (revshare sur referrals)
+- Marketplace meta : tags compliance (SOC 2 ready, GDPR, HIPAA-aware)
 - Transparency log Sigstore Rekor self-hosted EU
-- Enterprise SLA + support dédié (Linear shared)
-- Marketplace meta : tags compliance (SOC2 ready, GDPR, HIPAA-aware)
-- Programme partenaires (Cursor, Codex, Windsurf, Gemini)
+- Sponsoring de skills certifiés (créateurs touchent sur abonnements Teams qui les utilisent — modèle à valider)
+- CLI v2 : profiles par workspace, auto-update, telemetry opt-in
+
+**KPI** : 50 workspaces Teams, 5 Enterprise, 40 k€ MRR.
+
+## Phase 5 — Scale & SOC 2 (M11–M12, avril-mai 2027)
+
+**Objectif** : crédibilité grande entreprise.
+
+- SOC 2 Type II audit (12 mois de logs requis, donc commencer M5)
+- ISO 27001 (gap analysis)
+- DPA standardisé, sub-processors page publique
+- Enterprise SLA 99,9 % + support dédié (Linear shared)
 - Bilan 12 mois, levée éventuelle ou bootstrap continu
 
-**KPI cible 12M** : $50k MRR, 500 créateurs, 5000 acheteurs.
+**KPI cible 12 M** : 50 k€ MRR, 10 Enterprise, 100 workspaces Teams, 5 000 skills indexés.
 
 ## Risques transverses
 
 | Risque | Mitigation |
 |---|---|
-| Concurrence (Anthropic skill hub officiel) | Différenciation par curation + sécurité signée |
-| Dépendance Claude Code | SDK agnostique (Cursor, Codex, Gemini supportés) |
+| Anthropic ou GitHub lance un control plane B2B équivalent | Vitesse + curation EU + Confidential Compute différenciateur |
+| Skills internes des entreprises ne quittent pas leur Git | Argumentaire : Forgekit n'exfiltre pas, le code reste chez Supabase EU / on-prem mirror |
+| Dépendance Claude Code | Multi-IDE dès Phase 2 (mapping cross-IDE inclus dans Teams) |
 | Coût Vercel / Supabase au scale | Alertes spend, ADR sortie planifié |
-| Solo-founder bandwidth | Sub-traitance design / RA selon besoin |
-| Compliance EU AI Act | ADR 0005 + suivi DGFIP, audit annuel |
+| Solo-founder bandwidth | Sub-traitance design / RA / SOC 2 selon besoin |
+| Compliance EU AI Act + DORA | ADR 0005 + suivi DGFIP, audit annuel, DPA standardisé |
+
+## Hors scope (abandonné au pivot)
+
+- Marketplace payant à l'unité (vente skill 29 €) — Anthropic + GitHub gratuits rendent le modèle non-viable
+- Revenue share créateurs 75/25 — remplacé par sponsoring de skills certifiés en Phase 4
+- Lemon Squeezy + Stripe Connect — remplacé par Stripe Billing direct (B2B subscription)

@@ -1,4 +1,7 @@
 /**
+ * ARCHIVED 2026-05-15 — Pivot v0 marketplace payant individuel → annuaire gratuit + B2B Teams.
+ * Voir docs/archive/README.md. Ne plus importer ; conservé pour traçabilité.
+ *
  * Checkout — /[locale]/checkout/[skillId]
  * Author: Aïssa BELKOUSSA
  */

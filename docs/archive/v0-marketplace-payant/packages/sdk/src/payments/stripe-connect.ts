@@ -1,3 +1,7 @@
+// ARCHIVED 2026-05-15 — Pivot v0 marketplace payant → annuaire gratuit + B2B Teams.
+// Stripe Connect (payouts créateurs) remplacé par Stripe Billing standard pour Teams.
+// Voir docs/archive/README.md.
+//
 // Forgekit SDK — Stripe Connect (payouts créateurs)
 // Author: Aïssa BELKOUSSA
 // Phase 2 — payouts mensuels aux créateurs via Stripe Connect Express

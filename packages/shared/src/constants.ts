@@ -68,3 +68,67 @@ export const VAT_RATES_EU: Record<string, number> = {
 };
 
 export const MAX_SKILL_ZIP_BYTES = 50 * 1024 * 1024;
+
+// =============================================================================
+// TEAMS (B2B) — Plans
+// =============================================================================
+
+export const PLAN_FEATURES = {
+  public_browse: 'public_browse',
+  cli_install: 'cli_install',
+  reviews: 'reviews',
+  private_skills: 'private_skills',
+  org_members: 'org_members',
+  allowlist: 'allowlist',
+  audit_log: 'audit_log',
+  sso_saml: 'sso_saml',
+  scim_provisioning: 'scim_provisioning',
+  dedicated_support: 'dedicated_support',
+  custom_contract: 'custom_contract',
+  on_prem_registry: 'on_prem_registry',
+} as const;
+export type PlanFeature = (typeof PLAN_FEATURES)[keyof typeof PLAN_FEATURES];
+
+export const PLANS = {
+  free: {
+    price_eur_month: 0,
+    min_seats: 1,
+    max_seats: null as number | null,
+    features: ['public_browse', 'cli_install', 'reviews'] as PlanFeature[],
+  },
+  teams: {
+    price_eur_month: 9,
+    min_seats: 5,
+    max_seats: 50 as number | null,
+    features: [
+      'public_browse',
+      'cli_install',
+      'reviews',
+      'private_skills',
+      'org_members',
+      'allowlist',
+      'audit_log',
+    ] as PlanFeature[],
+  },
+  enterprise: {
+    price_eur_month: 29,
+    min_seats: 25,
+    max_seats: null as number | null,
+    features: [
+      'public_browse',
+      'cli_install',
+      'reviews',
+      'private_skills',
+      'org_members',
+      'allowlist',
+      'audit_log',
+      'sso_saml',
+      'scim_provisioning',
+      'dedicated_support',
+      'custom_contract',
+      'on_prem_registry',
+    ] as PlanFeature[],
+  },
+} as const;
+
+export type OrgPlanId = keyof typeof PLANS;

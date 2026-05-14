@@ -1,3 +1,7 @@
+// ARCHIVED 2026-05-15 — Pivot v0 marketplace payant → annuaire gratuit + B2B Teams.
+// Wrapper checkout one-shot LS obsolète. Webhook LS conservé en place pour Teams.
+// Voir docs/archive/README.md.
+//
 // Forgekit SDK — Lemon Squeezy wrapper
 // Author: Aïssa BELKOUSSA
 

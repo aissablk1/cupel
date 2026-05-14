@@ -1,10 +1,22 @@
 # Forgekit
 
-> Marketplace de skills IA pour devs pro — Claude Code, Cursor, Codex, Windsurf.
+> Annuaire public gratuit de skills IA + control plane B2B pour équipes dev — Claude Code, Cursor, Codex, Windsurf, Gemini CLI.
 
 **Auteur** : Aïssa BELKOUSSA — contact@aissabelkoussa.fr — aissabelkoussa.fr
-**Statut** : Phase 0 — scaffolding (mai 2026)
+**Statut** : Phase 0 — pivot B2B Teams (2026-05-15)
 **Licence** : propriétaire, tous droits réservés
+
+## Positionnement
+
+Anthropic publie ses skills gratuitement et GitHub regorge de skills communautaires : vendre un skill à l'unité n'a plus de sens. Forgekit capture la valeur là où elle reste : **la gouvernance B2B**. Côté public, tout est gratuit (browse, install CLI, reviews). Côté entreprise, deux plans payants apportent workspace privé, SSO, audit log, allowlist/blocklist, skills internes non publiés, et — sur Enterprise — Confidential Compute, SCIM et SOC 2.
+
+| Plan | Prix | Cible | Cœur de valeur |
+|---|---|---|---|
+| Public | gratuit | tout dev | browse, install via CLI, reviews |
+| Teams | 9 €/seat/mois | 5–50 devs | workspace privé, SSO, audit, allowlist, skills internes |
+| Enterprise | 29 €/seat/mois | ≥ 25 seats | SCIM, Confidential Compute, on-prem mirror, SOC 2, custom signing key |
+
+Détails : `docs/specs/pricing.md` et `docs/specs/positioning.md`.
 
 ---
 
@@ -14,7 +26,7 @@
 |---|---|
 | Frontend | Next.js 15 (App Router, RSC), Tailwind CSS 4, shadcn/ui, Framer Motion, react-hook-form, zod, next-intl |
 | Backend | Supabase Postgres 16, Auth (Google + GitHub), Storage, Edge Functions (Deno), Cloudflare R2 |
-| Paiement | Lemon Squeezy (MoR EU), Stripe Connect (payouts, phase 2) |
+| Paiement | Stripe Billing (subscriptions Teams/Enterprise, seats, proration, factures B2B SEPA + carte + virement) |
 | CLI | Node.js 22, commander, ora, chalk, inquirer — npm `@forgekit/cli` |
 | Sécurité | Static analysis + LLM review (Claude Haiku) + signature SHA-256 + manifest signé Ed25519 |
 | Monitoring | Sentry, Plausible, Better Stack Logs, Statuspage |
