@@ -1,0 +1,47 @@
+# Dépendances
+node_modules
+.pnpm-store
+
+# Build outputs
+.next
+.turbo
+.vercel
+dist
+build
+out
+coverage
+
+# Lockfiles
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+bun.lock
+
+# Supabase
+supabase/.branches
+supabase/.temp
+supabase/migrations/*.sql
+
+# Generated
+**/*.gen.ts
+**/*.generated.ts
+packages/shared/src/types/supabase.ts
+
+# Backups locaux
+_backup
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Sessions locales
+docs/sessions
+
+# Divers
+.DS_Store

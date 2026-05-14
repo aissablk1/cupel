@@ -1,0 +1,86 @@
+---
+name: {{SKILL_NAME}}
+slug: {{SKILL_SLUG}}
+version: 0.1.0
+author: {{AUTHOR}}
+license: MIT
+description: {{DESCRIPTION}}
+platforms:
+  - claude_code
+  - cursor
+tags:
+  - {{CATEGORY}}
+created: {{DATE}}
+---
+
+# {{SKILL_NAME}}
+
+> {{DESCRIPTION}}
+
+Skill scaffoldé via `forgekit init`. Édite ce fichier pour décrire précisément
+le contexte d'invocation, les exemples concrets et les limites connues.
+
+---
+
+## Usage
+
+Décris ici **quand** ce skill doit être invoqué par l'agent. Sois précis sur les
+déclencheurs (mots-clés, types de tâches, contextes de fichier). Un skill avec
+un Usage flou ne sera jamais invoqué au bon moment.
+
+**Déclencheurs typiques** :
+
+- Quand l'utilisateur demande « … »
+- Quand un fichier `.X` est ouvert
+- Quand la tâche concerne le domaine Y
+
+**Ne pas invoquer si** :
+
+- La tâche relève d'un autre skill plus spécifique
+- Le contexte ne contient pas les éléments requis
+
+---
+
+## Examples
+
+Trois exemples concrets minimum, sous forme entrée utilisateur → sortie attendue.
+
+### Exemple 1 — cas nominal
+
+**Entrée** :
+
+```
+[ce que l'utilisateur tape]
+```
+
+**Sortie attendue** :
+
+```
+[ce que l'agent produit]
+```
+
+### Exemple 2 — cas limite
+
+…
+
+### Exemple 3 — cas d'erreur géré
+
+…
+
+---
+
+## Limitations
+
+Liste honnête de ce que ce skill **ne** sait **pas** faire. Aide l'agent à
+déclencher un fallback ou un autre skill au bon moment.
+
+- Ne couvre pas le scénario X
+- Ne fonctionne pas avec la version < N de la dépendance Y
+- Ne remplace pas une revue humaine pour Z
+
+---
+
+## Références
+
+- [Lien doc 1]
+- [Lien doc 2]

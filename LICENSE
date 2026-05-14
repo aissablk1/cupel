@@ -1,0 +1,61 @@
+Forgekit — Licence propriétaire
+Copyright (c) 2026 Aïssa BELKOUSSA. Tous droits réservés.
+
+Le présent logiciel et l'ensemble de ses composants — code source, scripts,
+documentation, schémas de base de données, designs, marques et identifiants —
+ci-après désignés « le Logiciel », sont la propriété exclusive et entière
+d'Aïssa BELKOUSSA.
+
+1. RESTRICTIONS
+
+   Sauf autorisation écrite préalable d'Aïssa BELKOUSSA, il est strictement
+   interdit, en tout ou en partie, de :
+
+   a) copier, reproduire, dupliquer, photocopier ou transmettre le Logiciel ;
+   b) modifier, adapter, traduire, fusionner, créer des œuvres dérivées ;
+   c) décompiler, désassembler, faire de l'ingénierie inverse ou tenter de
+      reconstituer le code source à partir d'une forme distribuée ;
+   d) sous-licencier, vendre, louer, prêter, distribuer ou diffuser le
+      Logiciel à un tiers ;
+   e) supprimer, altérer ou masquer toute mention de droit d'auteur, marque
+      ou attribution figurant dans le Logiciel ;
+   f) utiliser le Logiciel pour entraîner un modèle d'apprentissage
+      automatique sans autorisation écrite préalable.
+
+2. USAGE AUTORISÉ
+
+   L'accès au code source est strictement réservé à l'auteur et aux
+   collaborateurs explicitement désignés par lui. Les artefacts publics
+   (npm packages `@forgekit/cli`, `@forgekit/sdk`) sont distribués sous
+   licence dédiée mentionnée dans leur `package.json` respectif.
+
+3. SKILLS PUBLIÉS PAR DES TIERS
+
+   Les skills publiés sur le marketplace Forgekit par des créateurs tiers
+   restent la propriété de leurs auteurs respectifs, sous la licence SPDX
+   qu'ils déclarent. Cette licence ne s'applique qu'au code de la plateforme.
+
+4. ABSENCE DE GARANTIE
+
+   LE LOGICIEL EST FOURNI « EN L'ÉTAT », SANS GARANTIE D'AUCUNE SORTE,
+   EXPRESSE OU IMPLICITE, Y COMPRIS NOTAMMENT LES GARANTIES DE QUALITÉ
+   MARCHANDE, D'ADÉQUATION À UN USAGE PARTICULIER ET DE NON-VIOLATION.
+
+5. LIMITATION DE RESPONSABILITÉ
+
+   EN AUCUN CAS L'AUTEUR NE POURRA ÊTRE TENU RESPONSABLE D'UN QUELCONQUE
+   DOMMAGE DIRECT, INDIRECT, ACCESSOIRE, SPÉCIAL, EXEMPLAIRE OU CONSÉCUTIF
+   RÉSULTANT DE L'UTILISATION DU LOGICIEL.
+
+6. DROIT APPLICABLE
+
+   La présente licence est régie par le droit français. Tout litige sera
+   soumis à la compétence exclusive des tribunaux du ressort du domicile
+   de l'auteur.
+
+7. CONTACT
+
+   Aïssa BELKOUSSA — contact@aissabelkoussa.fr
+
+————————————————————————————————————————————————————————————————————————
+© 2026 Aïssa BELKOUSSA — Tous droits réservés.
