@@ -11,14 +11,20 @@ export default async function SkillsCatalogPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations('skills');
-  const supabase = await createClient();
 
-  const { data: skills } = await supabase
-    .from('skills')
-    .select('id, slug, name, tagline, icon_url, install_count, rating_avg, price_cents, pricing_model, platforms, creator:profiles!skills_creator_id_fkey(username, display_name)')
-    .eq('status', 'published')
-    .order('install_count', { ascending: false })
-    .limit(48);
+  let skills: SkillCardData[] | null = null;
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from('skills')
+      .select('id, slug, name, tagline, icon_url, install_count, rating_avg, price_cents, pricing_model, platforms')
+      .eq('status', 'published')
+      .order('install_count', { ascending: false })
+      .limit(48);
+    skills = data as unknown as SkillCardData[] | null;
+  } catch {
+    skills = null;
+  }
 
   return (
     <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-16">

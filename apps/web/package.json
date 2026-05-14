@@ -30,7 +30,7 @@
     "lucide-react": "^0.447.0",
     "motion": "^11.11.4",
     "next": "15.0.0",
-    "next-intl": "^3.20.0",
+    "next-intl": "^3.26.0",
     "phosphor-react": "^1.4.1",
     "pino": "^9.4.0",
     "react": "19.0.0-rc-65a56d0e-20241020",

@@ -13,20 +13,26 @@ export async function middleware(req: NextRequest) {
   const intlRes = intlMiddleware(req);
   const res = intlRes ?? NextResponse.next();
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return res;
+
+  try {
+    const supabase = createServerClient(url, key, {
       cookies: {
         getAll: () => req.cookies.getAll(),
         setAll: (toSet) => {
           toSet.forEach(({ name, value, options }) => res.cookies.set(name, value, options));
         },
       },
-    },
-  );
-
-  await supabase.auth.getUser();
+    });
+    await Promise.race([
+      supabase.auth.getUser(),
+      new Promise((resolve) => setTimeout(resolve, 800)),
+    ]);
+  } catch {
+    // Supabase indisponible — on continue sans session
+  }
   return res;
 }
 
