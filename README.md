@@ -50,7 +50,7 @@ pnpm install
 cp .env.example .env.local       # remplir
 pnpm supabase:start              # Supabase local
 pnpm supabase:push               # appliquer migrations
-pnpm dev                         # Next.js sur :3000
+pnpm dev                         # Next.js sur :5309 (port à vie)
 ```
 
 ## Commandes utiles
