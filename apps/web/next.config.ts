@@ -22,7 +22,6 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   experimental: {
-    typedRoutes: true,
     ppr: false,
   },
   images: {
