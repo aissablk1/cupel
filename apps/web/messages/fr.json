@@ -1,0 +1,107 @@
+{
+  "nav": {
+    "explore": "Explorer",
+    "create": "Créer",
+    "pricing": "Tarifs",
+    "login": "Se connecter",
+    "dashboard": "Tableau de bord"
+  },
+  "landing": {
+    "announcement": "500+ skills curés pour Claude Code & Cursor — install en une commande",
+    "h1_top": "Le marketplace",
+    "h1_bottom": "des skills IA pour devs pro",
+    "lede": "Découvrez, installez et vendez des skills Claude Code, Cursor, Codex et Windsurf, audités, signés et prêts à l'emploi.",
+    "cta_primary": "Explorer le catalogue ›",
+    "cta_secondary": "Publier un skill ›",
+    "terminal_title": "Installez en une commande",
+    "section_usage_kicker": "Trois usages",
+    "section_usage_title": "Plus qu'un dépôt. Un studio.",
+    "usage_discover_title": "Découvrir",
+    "usage_discover_body": "Plus de 500 skills curés à la main, filtrables par plateforme, catégorie, prix, note.",
+    "usage_install_title": "Installer",
+    "usage_install_body": "Une seule commande. Détection automatique de votre IDE. Mises à jour gérées.",
+    "usage_sell_title": "Monétiser",
+    "usage_sell_body": "Publiez vos propres skills avec revenue share 75/25. Paiements MoR EU, TVA incluse.",
+    "platforms_title": "Plateformes supportées",
+    "footer_signature": "Conçu par Aïssa BELKOUSSA — Paris"
+  },
+  "skills": {
+    "title": "Catalogue de skills",
+    "search_placeholder": "Rechercher un skill, un créateur, une catégorie…",
+    "filter_platform": "Plateforme",
+    "filter_category": "Catégorie",
+    "filter_price": "Prix",
+    "filter_rating": "Notation",
+    "results_count": "{count, plural, =0 {Aucun skill} =1 {1 skill} other {# skills}}",
+    "card_install_count": "{count, plural, =0 {Aucune install} =1 {1 install} other {# installs}}",
+    "free": "Gratuit",
+    "empty_state": "Aucun skill ne correspond à votre recherche. Essayez d'autres filtres."
+  },
+  "skill_detail": {
+    "verified": "Créateur vérifié",
+    "signed": "Skill signé",
+    "audited": "Audité",
+    "tab_description": "Description",
+    "tab_screenshots": "Captures",
+    "tab_reviews": "Avis",
+    "tab_changelog": "Changelog",
+    "install_cta": "Installer",
+    "add_to_cart": "Ajouter au panier",
+    "platforms": "Plateformes",
+    "version": "Dernière version",
+    "creator": "Créateur",
+    "similar": "Skills similaires"
+  },
+  "dashboard": {
+    "welcome": "Bienvenue, {name}",
+    "stats_installed": "Skills installés",
+    "stats_purchases": "Achats",
+    "stats_savings": "Économies bundles",
+    "recent_title": "Activité récente"
+  },
+  "creator": {
+    "mrr": "MRR ce mois",
+    "installs_month": "Installs ce mois",
+    "rating_avg": "Note moyenne",
+    "new_skill": "Nouveau skill",
+    "payouts_next": "Prochain versement",
+    "skills_title": "Mes skills"
+  },
+  "login": {
+    "title": "Se connecter à Forgekit",
+    "lede": "Connectez-vous pour installer, acheter ou publier des skills.",
+    "google": "Continuer avec Google",
+    "github": "Continuer avec GitHub",
+    "tos": "En continuant, vous acceptez nos conditions générales et notre politique de confidentialité."
+  },
+  "checkout": {
+    "title": "Finaliser l'achat",
+    "one_shot": "Achat unique",
+    "subscription": "Abonnement mensuel",
+    "ht": "Sous-total HT",
+    "vat": "TVA ({rate}%)",
+    "total": "Total",
+    "permanent_access": "Accès permanent",
+    "updates_included": "Mises à jour incluses",
+    "refund": "Garantie satisfait ou remboursé 14 jours"
+  },
+  "cli": {
+    "title": "Forgekit CLI",
+    "lede": "Installez, gérez et publiez vos skills depuis le terminal.",
+    "step_install": "Installer",
+    "step_login": "Se connecter",
+    "step_use": "Utiliser",
+    "tab_macos": "macOS",
+    "tab_linux": "Linux",
+    "tab_windows": "Windows"
+  },
+  "common": {
+    "back": "Retour",
+    "next": "Suivant",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "loading": "Chargement…",
+    "error_generic": "Une erreur est survenue. Réessayez."
+  }
+}

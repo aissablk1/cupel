@@ -1,0 +1,141 @@
+/* =============================================================================
+   Forgekit — Global styles
+   Direction esthétique : Editorial Premium (DESIGN.md)
+   Author: Aïssa BELKOUSSA
+   ============================================================================= */
+
+@import "tailwindcss";
+
+@theme inline {
+  /* Couleurs */
+  --color-ivory: #FAF8F5;
+  --color-ink: #0B0D0E;
+  --color-graphite: #3A3D40;
+  --color-mist: #ECE8E0;
+  --color-linen: #DDD7CB;
+
+  --color-terracotta: #C9573B;
+  --color-terracotta-soft: #E08070;
+  --color-sage: #7A8471;
+  --color-night: #1A1F2E;
+  --color-gold: #C8A668;
+  --color-carmine: #962D2D;
+
+  /* Aliases sémantiques */
+  --color-background: var(--color-ivory);
+  --color-foreground: var(--color-ink);
+  --color-muted: var(--color-graphite);
+  --color-border: var(--color-linen);
+  --color-accent: var(--color-terracotta);
+  --color-accent-secondary: var(--color-sage);
+  --color-success: var(--color-sage);
+  --color-danger: var(--color-carmine);
+  --color-warning: var(--color-gold);
+
+  /* Typographie */
+  --font-display: "Migra", "Newsreader", Georgia, serif;
+  --font-body: "Geist", "GeistFallback", -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "JetBrainsMonoFallback", ui-monospace, monospace;
+  --font-italic: "Newsreader", Georgia, serif;
+
+  /* Échelle 1.250 (major third) */
+  --text-xs: 0.64rem;
+  --text-sm: 0.8rem;
+  --text-base: 1rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.563rem;
+  --text-3xl: 1.953rem;
+  --text-4xl: 2.441rem;
+  --text-5xl: 3.052rem;
+  --text-6xl: 3.815rem;
+  --text-7xl: 4.768rem;
+
+  /* Espacements baseline 8 px */
+  --spacing-2xs: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  --spacing-4xl: 96px;
+  --spacing-5xl: 128px;
+  --spacing-6xl: 192px;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+
+  /* Easings (DESIGN.md) */
+  --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in: cubic-bezier(0.85, 0, 0.15, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Base reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  font-feature-settings: "ss01", "ss02", "cv11";
+}
+
+::selection {
+  background: var(--color-terracotta);
+  color: var(--color-ivory);
+}
+
+/* Typographie utilitaire */
+.font-display { font-family: var(--font-display); letter-spacing: -0.02em; }
+.font-italic-editorial { font-family: var(--font-italic); font-style: italic; }
+.font-mono { font-family: var(--font-mono); }
+
+/* Focus visible — terracotta + offset */
+:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}
+
+/* Liens éditoriaux */
+a.link-editorial {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  transition: color 200ms var(--ease-out);
+}
+a.link-editorial:hover {
+  color: var(--color-terracotta);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Grid baseline visible en dev (toggle via class) */
+.debug-grid {
+  background-image: linear-gradient(to bottom, rgba(201, 87, 59, 0.08) 1px, transparent 1px);
+  background-size: 100% 8px;
+}
