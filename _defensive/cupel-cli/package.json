@@ -1,0 +1,24 @@
+{
+  "name": "cupel-cli",
+  "version": "1.0.0",
+  "description": "Did you mean `cupel`? — defensive placeholder for typosquat prevention.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "cupel-cli": "./bin/index.mjs"
+  },
+  "files": ["bin", "README.md"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aissablk1/cupel"
+  },
+  "homepage": "https://github.com/aissablk1/cupel",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Aïssa BELKOUSSA <contact@aissabelkoussa.fr>",
+  "keywords": ["cupel", "placeholder", "did-you-mean"],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

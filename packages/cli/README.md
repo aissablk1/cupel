@@ -87,7 +87,7 @@ Détails complets des règles : [code source `src/commands/doctor.ts`](https://g
      Vérifie le contenu, supprime via `cupel remove <slug>` si compromis.
 
   ─────────────────────────────────────────────────────────
-  Audit manuel approfondi de ton workspace par Aïssa BELKOUSSA — 400€
+  Audit async par Aïssa BELKOUSSA — 590€ (rapport PDF + Loom + politique CI, livré J+5)
   → https://aissabelkoussa.fr/cupel
 ```
 
@@ -127,7 +127,7 @@ Intégration GitHub Actions :
 
 Le CLI te dit **ce qui** cloche. Pour comprendre *pourquoi* certains signaux remontent sur ton stack et *comment réparer* sans casser tes workflows, un audit manuel est disponible :
 
-→ **[aissabelkoussa.fr/cupel](https://aissabelkoussa.fr/cupel)** — diagnostic 30 min gratuit, audit complet à 400€ (tarif découverte, TJM normal 800€).
+→ **[aissabelkoussa.fr/cupel](https://aissabelkoussa.fr/cupel)** — diagnostic 30 min gratuit, audit async 590 € (rapport PDF + Loom + politique CI, livré J+5), audit équipe 1 490 €.
 
 ---
 

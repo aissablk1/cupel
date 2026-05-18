@@ -1,0 +1,95 @@
+name: Release cupel
+
+# Publication auto sur npm avec provenance (sigstore signature)
+# Trigger : git tag cupel-cli-v0.3.1 && git push origin cupel-cli-v0.3.1
+
+on:
+  push:
+    tags:
+      - "cupel-cli-v*"
+
+permissions:
+  contents: read
+  id-token: write  # ← obligatoire pour sigstore provenance
+
+jobs:
+  publish:
+    name: Build, test & publish to npm with provenance
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+          registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
+
+      - name: Install dependencies (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm --filter cupel typecheck
+
+      - name: Run 37 unit tests
+        run: pnpm --filter cupel test
+
+      - name: Build
+        run: pnpm --filter cupel build
+
+      - name: Smoke test (binary works)
+        run: |
+          node packages/cli/bin/cupel.mjs --version
+          node packages/cli/bin/cupel.mjs --help > /dev/null
+          node packages/cli/bin/cupel.mjs --path /tmp --sarif | node -e "JSON.parse(require('fs').readFileSync(0,'utf8'))"
+
+      - name: Verify version matches git tag
+        run: |
+          tag_version=${GITHUB_REF_NAME#cupel-cli-v}
+          pkg_version=$(node -e "console.log(require('./packages/cli/package.json').version)")
+          if [ "$tag_version" != "$pkg_version" ]; then
+            echo "::error::Tag version ($tag_version) does not match package.json version ($pkg_version)"
+            exit 1
+          fi
+          echo "✓ Version match : $tag_version"
+
+      - name: Publish to npm with provenance
+        run: cd packages/cli && npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release with changelog
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: cupel ${{ github.ref_name }}
+          generate_release_notes: true
+          body: |
+            ## Installation
+
+            ```bash
+            npx cupel
+            ```
+
+            Or globally:
+
+            ```bash
+            npm i -g cupel
+            ```
+
+            Verify the package signature:
+
+            ```bash
+            npm audit signatures
+            ```
+
+            ## What's new
+
+            See [CHANGELOG.md](https://github.com/aissablk1/cupel/blob/main/CHANGELOG.md)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
