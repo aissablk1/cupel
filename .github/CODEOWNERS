@@ -1,0 +1,12 @@
+# Cupel — code ownership
+# Every PR requires review by the listed owner before merge.
+
+# Default: all paths require review by Aïssa
+* @aissablk1
+
+# Specifically guarded paths (no exception, even on dependency bumps)
+/packages/cli/src/commands/doctor.ts @aissablk1
+/packages/cli/src/lib/platforms.ts @aissablk1
+/packages/cli/package.json @aissablk1
+/.github/workflows/ @aissablk1
+/.github/SECURITY.md @aissablk1

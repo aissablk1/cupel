@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability (private)
+    url: https://github.com/aissablk1/cupel/security/advisories/new
+    about: Report a security issue privately via GitHub PVR.
+  - name: Question or discussion
+    url: https://github.com/aissablk1/cupel/discussions
+    about: Use GitHub Discussions for usage questions or feature ideas.
+  - name: Commercial audit
+    url: https://aissabelkoussa.fr/cupel
+    about: Need a human review of your skill stack? Book an audit.

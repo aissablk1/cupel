@@ -1,0 +1,51 @@
+name: False positive
+description: cupel flagged a legitimate skill or pattern
+labels: ["false-positive", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        cupel is intentionally conservative. False positives happen — especially when documentation contains examples of dangerous commands.
+        Help me triage by sharing the exact context.
+
+  - type: input
+    id: rule
+    attributes:
+      label: Rule that fired incorrectly
+      placeholder: "e.g. rm_rf_root, shell_pipe_to_interpreter"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: The matched content
+      description: Paste the exact line(s) that triggered the rule.
+      render: shell
+    validations:
+      required: true
+
+  - type: input
+    id: file-type
+    attributes:
+      label: Filename / extension
+      placeholder: "e.g. SKILL.md, install.sh, README.md"
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is this a false positive?
+      placeholder: |
+        "This is example documentation showing what NOT to do, not an executable command."
+        OR
+        "This is a comment in a script that explains the pattern, not the actual call."
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: How could cupel handle this better?
+      placeholder: "Ignore matches inside fenced code blocks of .md files? Add a `cupel: ignore` directive comment?"

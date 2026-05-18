@@ -9,6 +9,23 @@ Auteur : Aïssa BELKOUSSA.
 
 ---
 
+## [0.3.1] — 2026-05-18
+
+### Added (UX + community)
+- Header de scan sur `stderr` : « cupel scan — N platforms detected, local only, zero network… » au début, « N skills analysed in X.Xs » à la fin. N'apparaît PAS en mode `--json` ou `--sarif` (pas de pollution des pipes machine).
+- Empty state explicite : si aucun skill détecté, liste les 6 plateformes scannées et suggère `cupel --path <dossier>` au lieu d'un lien vague.
+
+### Changed
+- Footer CTA séparé du rapport d'alerte : avant, le pitch « audit 400 € » apparaissait juste après les dangers (anti-pattern UX). Maintenant : action concrète d'inspection (`cupel --verbose`) en premier, CTA neutre identique en footer.
+
+### Repository hygiene (pré-launch Show HN)
+- `.github/SECURITY.md` : politique de divulgation, GitHub Private Vulnerability Reporting, fenêtres de réponse, transparency supply-chain
+- `.github/ISSUE_TEMPLATE/*.yml` : 3 templates (bug, false positive, rule proposal RFC)
+- `.github/PULL_REQUEST_TEMPLATE.md` : checklist (tests, conventional commits, no lifecycle scripts)
+- `.github/CODEOWNERS` : revue obligatoire @aissablk1 sur paths critiques (doctor.ts, package.json, workflows)
+- `.github/workflows/cupel-cli.yml` : CI dédiée CLI (Node 22 × ubuntu/macOS, typecheck, test, build, smoke tests SARIF, audit supply-chain, check absence de lifecycle scripts)
+- `ROADMAP.md` : plan public v0.4 (réduction faux positifs) → v0.5 (cache incrémental) → v1.0 (AST + signatures)
+
 ## [0.3.0] — 2026-05-18
 
 ### Added

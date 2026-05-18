@@ -365,8 +365,14 @@ function renderReport(audits: SkillAudit[], verbose: boolean): void {
   const brand = chalk.hex(COLORS.brand);
 
   if (audits.length === 0) {
-    console.log(ink('\n  Aucun skill détecté.\n'));
-    console.log(sage('  Lance `cupel install <slug>` ou explore https://cupel.dev\n'));
+    console.log(ink('\n  Aucun skill détecté sur cette machine.\n'));
+    console.log(sage('  Plateformes scannées :'));
+    console.log(sage('    ~/.claude/skills/        ~/.config/cursor/skills/'));
+    console.log(sage('    ~/.codex/skills/         ~/.config/windsurf/skills/'));
+    console.log(sage('    ~/.gemini/skills/        ~/.continue/skills/'));
+    console.log();
+    console.log(sage('  Pour tester cupel sur un dossier précis :'));
+    console.log(brand('    cupel --path /chemin/vers/dossier/skills') + sage('\n'));
     return;
   }
 
@@ -419,18 +425,16 @@ function renderReport(audits: SkillAudit[], verbose: boolean): void {
     console.log(sage('  Inventaire propre. ✓\n'));
   }
 
-  // CTA — audit manuel par Aïssa
-  console.log(sage('  ─────────────────────────────────────────────────────────'));
+  // Action concrète avant CTA — anti-pitch UX (axe agent UX#4)
   if (totals.danger + totals.warn > 0) {
-    console.log(
-      ink('  Audit manuel approfondi de ton workspace par ') +
-        brand('Aïssa BELKOUSSA') +
-        ink(' — 400€'),
-    );
-    console.log(brand('  → https://aissabelkoussa.fr/cupel') + sage('\n'));
-  } else {
-    console.log(sage('  cupel — par Aïssa BELKOUSSA — aissabelkoussa.fr/cupel\n'));
+    console.log(ink('  Inspecter en détail :'));
+    console.log(brand('    cupel --verbose'));
+    console.log(sage('  Règles documentées : github.com/aissablk1/cupel#what-cupel-detects\n'));
   }
+
+  // CTA discret, identique quelque soit le résultat (pas pushy sur les alertes)
+  console.log(sage('  ─────────────────────────────────────────────────────────'));
+  console.log(sage('  cupel — par Aïssa BELKOUSSA · aissabelkoussa.fr/cupel\n'));
 }
 
 // ─── SARIF 2.1.0 output (GitHub Code Scanning, GitLab, VS Code) ───────────
@@ -517,8 +521,17 @@ function renderSarif(audits: SkillAudit[], version: string): string {
 
 export async function doctorCommand(opts: DoctorOptions = {}): Promise<void> {
   const audits: SkillAudit[] = [];
+  const startMs = Date.now();
+  const isMachineOutput = opts.json || opts.sarif;
 
+  // Header progressif sur stderr — pas de pollution des pipes stdout (axe UX agent #2)
   const homePlatforms = detectInstalledPlatforms();
+  if (!isMachineOutput) {
+    process.stderr.write(
+      `cupel scan — ${homePlatforms.length} platform${homePlatforms.length > 1 ? 's' : ''} detected, local only, zero network…\n`,
+    );
+  }
+
   for (const p of homePlatforms) {
     audits.push(...scanRoot(getPlatformSkillsRoot(p), p, 'home'));
   }
@@ -529,6 +542,12 @@ export async function doctorCommand(opts: DoctorOptions = {}): Promise<void> {
     for (const { platform, root } of projectRoots) {
       audits.push(...scanRoot(root, platform, 'project'));
     }
+  }
+
+  // Compteur de fin de scan sur stderr (n'apparaît qu'en mode humain)
+  if (!isMachineOutput) {
+    const elapsed = ((Date.now() - startMs) / 1000).toFixed(2);
+    process.stderr.write(`cupel scan — ${audits.length} skill${audits.length > 1 ? 's' : ''} analysed in ${elapsed}s\n`);
   }
 
   if (opts.sarif) {

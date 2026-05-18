@@ -1,0 +1,63 @@
+name: Rule proposal (RFC)
+description: Propose a new detection rule
+labels: ["rfc-rule", "discussion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        cupel is **curated**, not crowdsourced. Every rule must:
+        1. Address a real attack pattern, with at least 2 documented occurrences
+        2. Have a false-positive rate below 5 % on the public skill ecosystem
+        3. Be implementable as a regex (or a tight AST predicate, in v0.4+)
+
+        Most rule proposals are rejected. Please don't take it personally — opinionated detection is the whole value prop.
+
+  - type: input
+    id: signal-name
+    attributes:
+      label: Proposed signal name (snake_case)
+      placeholder: "e.g. ipfs_exfil, dependency_fetch_runtime"
+    validations:
+      required: true
+
+  - type: textarea
+    id: attack-pattern
+    attributes:
+      label: Attack pattern
+      description: What does the attack look like? Show a minimal payload.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: real-world
+    attributes:
+      label: Real-world occurrences (≥ 2 required)
+      description: Links to CVEs, security blog posts, GitHub issues, etc.
+      placeholder: |
+        - https://snyk.io/blog/example
+        - https://github.com/example/repo/issues/123
+    validations:
+      required: true
+
+  - type: textarea
+    id: regex
+    attributes:
+      label: Suggested regex
+      description: Don't worry if it's not perfect — a working draft is enough.
+      render: javascript
+
+  - type: textarea
+    id: false-positives
+    attributes:
+      label: False positive analysis
+      description: Test your regex on the awesome-claude-code-agents corpus. How many legitimate skills would this regex match?
+      placeholder: "Tested on 50 skills from awesome-claude-code-agents → X matches, of which Y are true positives."
+    validations:
+      required: true
+
+  - type: input
+    id: suggested-weight
+    attributes:
+      label: Suggested weight (0-50)
+      placeholder: "Higher = more dangerous. See existing rules for calibration."

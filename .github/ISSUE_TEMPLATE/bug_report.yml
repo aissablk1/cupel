@@ -1,0 +1,68 @@
+name: Bug report
+description: A reproducible bug in cupel
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Please fill in what's relevant — drop sections that don't apply.
+        Security issues: use the [private disclosure form](https://github.com/aissablk1/cupel/security/advisories/new) instead.
+
+  - type: input
+    id: version
+    attributes:
+      label: cupel version
+      placeholder: "0.3.0 (run `npx cupel --version`)"
+    validations:
+      required: true
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js version
+      placeholder: "22.x (run `node --version`)"
+    validations:
+      required: true
+
+  - type: input
+    id: platform
+    attributes:
+      label: OS / Platform
+      placeholder: "macOS 14.5 / Ubuntu 24.04 / Windows 11"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: How to reproduce
+      description: Minimal steps. Include a small test skill (or `tar` of one) if possible.
+      placeholder: |
+        1. Create a skill with `SKILL.md` containing `…`
+        2. Run `npx cupel --path /path/to/skill`
+        3. Observe `…`
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      placeholder: "cupel should have flagged this as `danger` because…"
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What actually happened
+      description: Paste the full output of `npx cupel --verbose` if relevant.
+      render: shell
+
+  - type: checkboxes
+    id: confirms
+    attributes:
+      label: Pre-flight
+      options:
+        - label: I checked existing issues and didn't find a duplicate
+          required: true
+        - label: I'm running the latest version of cupel
+          required: false
