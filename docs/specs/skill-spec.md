@@ -141,7 +141,7 @@ Clé publique : embarquée dans `cupel`, ET disponible sur
 ## Installation côté utilisateur
 
 ```bash
-npx cupel install my-awesome-skill@1.2.0
+npx @aissabelkoussa/cupel install my-awesome-skill@1.2.0
 # - download skill.zip + manifest.sig
 # - verify Ed25519 signature contre pubkey embarquée
 # - verify SHA-256 chaque fichier

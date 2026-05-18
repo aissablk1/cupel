@@ -77,7 +77,7 @@ Trois promesses :
 
 **Headline** : « L'annuaire des skills IA pour devs. Trouve, installe, contribue — gratuitement. »
 **Sub** : « 100+ skills audités et signés pour Claude Code, Cursor, Codex, Windsurf, Gemini CLI. »
-**CTA** : `npx cupel install <skill>` + bouton « Browse skills »
+**CTA** : `npx @aissabelkoussa/cupel install <skill>` + bouton « Browse skills »
 
 ### Teams (landing /teams)
 

@@ -27,16 +27,16 @@ On y dépose l'échantillon de métal, on chauffe à 1000 °C, et la céramique 
 npx cupel
 
 # Sortie JSON pour CI/pipeline
-npx cupel --json
+npx @aissabelkoussa/cupel --json
 
 # Échec du pipeline si un skill est en tier danger
-npx cupel --strict
+npx @aissabelkoussa/cupel --strict
 
 # Détail complet, même sur les skills propres
-npx cupel --verbose
+npx @aissabelkoussa/cupel --verbose
 
 # Cibler un dossier précis
-npx cupel --path ~/.config/cursor/skills
+npx @aissabelkoussa/cupel --path ~/.config/cursor/skills
 ```
 
 Prérequis : **Node.js ≥ 22**.
@@ -105,7 +105,7 @@ Intégration GitHub Actions :
 
 ```yaml
 - name: Cupel — audit skills IA
-  run: npx cupel --strict --json > cupel-report.json
+  run: npx @aissabelkoussa/cupel --strict --json > cupel-report.json
 ```
 
 ---

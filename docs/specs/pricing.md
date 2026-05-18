@@ -17,7 +17,7 @@
 
 **Inclus**
 - Browse l'annuaire complet
-- Install via `npx cupel install <slug>`
+- Install via `npx @aissabelkoussa/cupel install <slug>`
 - Laisser des reviews (1–5 stars + commentaire)
 - Publier des skills publics (signés Ed25519 par la plateforme)
 - 1 workspace personnel solo

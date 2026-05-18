@@ -34,7 +34,7 @@ Anthropic publie ses propres skills gratuitement et GitHub regorge de skills com
 - Browse public : recherche, filtres (stack, IDE, langue, tag)
 - Upload skill via dashboard créateur (drag-drop zip ou import GitHub)
 - Pipeline validation : static analysis + LLM review (Claude Haiku) + signature Ed25519
-- `cupel` publié sur npm (`npx cupel install <slug>`)
+- `cupel` publié sur npm (`npx @aissabelkoussa/cupel install <slug>`)
 - 100 skills seed (curation + import GitHub awesome lists)
 - Reviews + ratings (1–5 stars)
 

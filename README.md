@@ -31,16 +31,16 @@ On y dépose l'échantillon de métal, on chauffe à 1000 °C, et la céramique 
 npx cupel
 
 # Sortie JSON pour CI / pipeline
-npx cupel --json
+npx @aissabelkoussa/cupel --json
 
 # Échec du pipeline si un skill est en tier `danger`
-npx cupel --strict
+npx @aissabelkoussa/cupel --strict
 
 # Détail complet, même sur les skills sains
-npx cupel --verbose
+npx @aissabelkoussa/cupel --verbose
 
 # Cibler un dossier précis
-npx cupel --path ~/.config/cursor/skills
+npx @aissabelkoussa/cupel --path ~/.config/cursor/skills
 ```
 
 Prérequis : **Node.js ≥ 22**.
@@ -106,7 +106,7 @@ Cupel exporte au format **SARIF 2.1.0** consommé nativement par GitHub Code Sca
 
 ```yaml
 - name: Cupel — audit skills IA
-  run: npx cupel --strict --sarif > cupel.sarif
+  run: npx @aissabelkoussa/cupel --strict --sarif > cupel.sarif
 
 - uses: github/codeql-action/upload-sarif@v3
   with:
@@ -118,7 +118,7 @@ Les findings remontent dans l'onglet **Security** du repo, avec lien direct vers
 ### Autres CI (Jenkins, CircleCI, etc.)
 
 ```bash
-npx cupel --strict --json > cupel-report.json
+npx @aissabelkoussa/cupel --strict --json > cupel-report.json
 ```
 
 ---

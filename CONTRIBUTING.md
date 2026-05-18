@@ -23,7 +23,7 @@ Merci de l'intérêt pour Cupel. Ce document couvre **deux flux** :
 1. **Initialiser**
 
    ```bash
-   npx cupel init my-awesome-skill
+   npx @aissabelkoussa/cupel init my-awesome-skill
    ```
 
    Génère un dossier conforme à `docs/specs/skill-spec.md`.
@@ -38,7 +38,7 @@ Merci de l'intérêt pour Cupel. Ce document couvre **deux flux** :
 3. **Tester localement**
 
    ```bash
-   npx cupel validate ./my-awesome-skill
+   npx @aissabelkoussa/cupel validate ./my-awesome-skill
    ```
 
    Vérifie : frontmatter, hashes, absence d'`eval`/`exec`, secrets, etc.
@@ -46,7 +46,7 @@ Merci de l'intérêt pour Cupel. Ce document couvre **deux flux** :
 4. **Soumettre**
 
    ```bash
-   npx cupel publish ./my-awesome-skill
+   npx @aissabelkoussa/cupel publish ./my-awesome-skill
    ```
 
    Upload vers Cupel, déclenche le pipeline de validation. Délai
