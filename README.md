@@ -100,11 +100,25 @@ Exit codes :
 - `1` — erreur d'exécution (chemin invalide, permissions)
 - `2` — au moins un skill en tier `danger` (`--strict` activé)
 
-Exemple GitHub Actions :
+### GitHub Actions + Code Scanning (depuis v0.3)
+
+Cupel exporte au format **SARIF 2.1.0** consommé nativement par GitHub Code Scanning, GitLab Code Quality et VS Code SARIF Viewer :
 
 ```yaml
 - name: Cupel — audit skills IA
-  run: npx cupel --strict --json > cupel-report.json
+  run: npx cupel --strict --sarif > cupel.sarif
+
+- uses: github/codeql-action/upload-sarif@v3
+  with:
+    sarif_file: cupel.sarif
+```
+
+Les findings remontent dans l'onglet **Security** du repo, avec lien direct vers le code source des règles.
+
+### Autres CI (Jenkins, CircleCI, etc.)
+
+```bash
+npx cupel --strict --json > cupel-report.json
 ```
 
 ---
