@@ -1,6 +1,6 @@
 {
-  "name": "cupel",
-  "version": "0.3.1",
+  "name": "@aissabelkoussa/cupel",
+  "version": "0.3.2",
   "description": "Cupel — audit local des skills IA (Claude Code, Cursor, Codex). 14 règles de détection : prompt injection, ASCII smuggling, tool poisoning, exfiltration credentials, reverse shells, obfuscation hex. Zero network. Inspiré de la coupelle de l'essayeur d'or, qui sépare le pur de l'impur depuis 4000 ans.",
   "author": "Aïssa BELKOUSSA <contact@aissabelkoussa.fr>",
   "license": "MIT",
@@ -28,7 +28,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@cupel/shared": "workspace:*",
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
     "conf": "^13.0.1",
