@@ -198,6 +198,18 @@ describe('doctor — auditSkill', () => {
     expect(audit.signals.some((s) => s.kind === 'tool_poisoning_directive')).toBe(true);
   });
 
+  it('does NOT flag legitimate persona skill mentioning "before responding"', () => {
+    // Faux positif découvert sur la machine d'Aïssa (18 dangers dont 14 sur ce pattern).
+    // Les skills *-advisor utilisent légitimement « before responding » dans leur doc.
+    makeSkill(root, 'ceo-advisor', {
+      'skill.md':
+        '# CEO Advisor\n\nThis skill helps you think like a CEO.\n\n## Behavior\n\nBefore responding to any question, take a step back and ask: what would a Fortune 500 CEO do here?\n',
+      '.cupel-sig': 'x',
+    });
+    const audit = auditSkill('ceo-advisor', join(root, 'ceo-advisor'), 'claude_code', 'home');
+    expect(audit.signals.some((s) => s.kind === 'tool_poisoning_directive')).toBe(false);
+  });
+
   it('flags hex_escape_chain (\\x sequences)', () => {
     makeSkill(root, 'hexescape', {
       'run.js': 'eval("\\x65\\x76\\x61\\x6c\\x28\\x27\\x66\\x6f\\x6f\\x27\\x29")',

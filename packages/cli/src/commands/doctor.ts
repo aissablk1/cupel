@@ -140,8 +140,12 @@ const RULES: Array<{
   {
     kind: 'tool_poisoning_directive',
     weight: 40,
-    // Directives cachées ciblant l'agent dans commentaires HTML ou texte
-    regex: /<!--\s*(?:SYSTEM|INTERNAL|ASSISTANT|CLAUDE|GPT|AI)[\s:]|\b(?:IMPORTANT FOR (?:ASSISTANT|AI|MODEL|LLM)|BEFORE RESPONDING|HIDDEN INSTRUCTION|DO NOT (?:TELL|MENTION|REVEAL) (?:THE )?USER)\b/i,
+    // Directives cachées ciblant l'agent. Pattern resserré pour éviter les
+    // faux positifs sur les skills de persona/advisor qui décrivent
+    // légitimement leur comportement avec « before responding ».
+    // Le vrai signal d'attaque combine un marqueur de canal caché
+    // (HTML comment, tag explicite) avec une instruction.
+    regex: /<!--\s*(?:SYSTEM|INTERNAL|ASSISTANT|CLAUDE|GPT|AI)\s*[:>]|\bIMPORTANT FOR (?:ASSISTANT|AI|MODEL|LLM)\b|\bHIDDEN INSTRUCTION\b|\bDO NOT (?:TELL|MENTION|REVEAL) (?:THE )?USER\b/i,
     describe: (m) => `directive cachée ciblant l'agent : ${m[0].slice(0, 60)}`,
   },
   {

@@ -9,6 +9,23 @@ Auteur : Aïssa BELKOUSSA.
 
 ---
 
+## [0.3.3] — 2026-05-18
+
+### Fixed (faux positif massif)
+
+- **`tool_poisoning_directive`** : regex resserré pour ne plus matcher `BEFORE RESPONDING` seul. Le pattern d'attaque réel combine un marqueur de canal caché (HTML comment `<!-- SYSTEM: ... -->`, `IMPORTANT FOR ASSISTANT`, `HIDDEN INSTRUCTION`, `DO NOT TELL/MENTION/REVEAL USER`). Découverte : sur la machine de l'auteur, 14 sur 18 dangers étaient des skills `*-advisor` légitimes qui mentionnaient « before responding » dans leur description de persona.
+- Nouveau test anti-faux-positif `does NOT flag legitimate persona skill mentioning "before responding"`. 37 → 38 tests verts.
+
+Impact concret : machine de l'auteur passe de **18 → 4 dangers** (cohérent avec article blog).
+
+## [0.3.2] — 2026-05-18
+
+### Fixed (critique — package cassé en 0.3.1)
+
+- **Retire `@cupel/shared` workspace dep** du `package.json` publié. La dépendance `workspace:*` leakait dans le tarball et bloquait tout `npm install` / `npx` avec `EUNSUPPORTEDPROTOCOL`. Le code de `@cupel/shared` est bundlé via tsup `noExternal`.
+- Pivot du nom npm : `cupel` (refusé par la similar policy npm — too close to `cspell`) → `@aissabelkoussa/cupel` (scope perso). Le bin reste `cupel`, l'UX CLI ne change pas.
+- 0.3.1 déprécié sur npm.
+
 ## [0.3.1] — 2026-05-18
 
 ### Added (UX + community)
