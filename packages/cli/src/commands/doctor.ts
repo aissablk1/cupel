@@ -126,6 +126,30 @@ const RULES: Array<{
     regex: /[A-Za-z0-9+/]{600,}={0,2}/,
     describe: (m) => `blob base64 anormalement long (${m[0].length} chars)`,
   },
+  // ─── Règles 2026 — ASCII smuggling, tool poisoning, hex obfuscation ──
+  // Source : Snyk ToxicSkills (mai 2026), Invariant Labs MCP tool poisoning (avril 2025),
+  // Joseph Thacker & Riley Goodside red team Anthropic 2025.
+  {
+    kind: 'invisible_unicode',
+    weight: 45,
+    // Zero-width characters, RLO/LRO/RLE/LRE/PDF, BOM mid-file, Unicode Tags (E0000-E007F)
+    regex: /[​-‏‪-‮⁠-⁯﻿]|[\uDB40][\uDC00-\uDC7F]/,
+    describe: () => `caractère Unicode invisible (smuggling LLM)`,
+  },
+  {
+    kind: 'tool_poisoning_directive',
+    weight: 40,
+    // Directives cachées ciblant l'agent dans commentaires HTML ou texte
+    regex: /<!--\s*(?:SYSTEM|INTERNAL|ASSISTANT|CLAUDE|GPT|AI)[\s:]|\b(?:IMPORTANT FOR (?:ASSISTANT|AI|MODEL|LLM)|BEFORE RESPONDING|HIDDEN INSTRUCTION|DO NOT (?:TELL|MENTION|REVEAL) (?:THE )?USER)\b/i,
+    describe: (m) => `directive cachée ciblant l'agent : ${m[0].slice(0, 60)}`,
+  },
+  {
+    kind: 'hex_escape_chain',
+    weight: 30,
+    // Chaînes de \xNN ou \uNNNN consécutives (>= 8) — pattern d'obfuscation typique
+    regex: /(?:\\x[0-9a-f]{2}){8,}|(?:\\u[0-9a-f]{4}){6,}|String\.fromCharCode\(\s*\d+\s*(?:,\s*\d+\s*){10,}\)/i,
+    describe: (m) => `chaîne d'échappements hex/unicode (obfuscation) : ${m[0].slice(0, 60)}`,
+  },
 ];
 
 const TEXT_EXT = new Set([

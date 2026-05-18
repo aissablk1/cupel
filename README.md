@@ -49,7 +49,7 @@ Prérequis : **Node.js ≥ 22**.
 
 ## Ce que cupel détecte
 
-11 catégories de signaux, scoring composite, tier final `ok / warn / danger` :
+**14 catégories** de signaux, scoring composite, tier final `ok / warn / danger` :
 
 | Signal | Exemple |
 |---|---|
@@ -59,8 +59,14 @@ Prérequis : **Node.js ≥ 22**.
 | `prompt_injection` | « ignore all previous instructions » (FR + EN) |
 | `cred_file_read` | `cat ~/.ssh/id_rsa`, `~/.aws/credentials` |
 | `credential_pattern` | clés AWS / Stripe / OpenAI en clair |
-| `webhook_exfil` | endpoints connus d'exfiltration (`webhook.site`, ngrok) |
-| `powershell_iwr_iex` | `iwr https://x | iex` |
+| `webhook_exfil` | endpoints d'exfiltration (`webhook.site`, ngrok) |
+| `powershell_iwr_iex` | `iwr https://x \| iex` |
+| `eval_dynamic` | `eval(atob(...))` |
+| `env_dump` | `printenv \| curl` |
+| **`invisible_unicode`** *(v0.2)* | zero-width chars, RTL override, Unicode Tags (ASCII smuggling) |
+| **`tool_poisoning_directive`** *(v0.2)* | `<!-- SYSTEM: ... -->`, « IMPORTANT FOR ASSISTANT » |
+| **`hex_escape_chain`** *(v0.2)* | `\xNN\xNN…`, `String.fromCharCode(N,N,N…)` |
+| `long_base64_blob` | blob base64 > 600 chars |
 | `no_manifest` | absence de SKILL.md / README.md / manifest.json |
 | `unsigned` | aucune signature ed25519 / `.cupel-sig` |
 | `stale` | dernière modif > 365 jours |
