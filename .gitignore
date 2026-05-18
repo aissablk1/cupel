@@ -60,3 +60,6 @@ test-results/
 # CLI builds locaux
 packages/cli/lib/
 packages/sdk/lib/
+
+# Scan results (contient chemins utilisateur — PII)
+docs/audit/scan_results.json
