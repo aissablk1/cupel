@@ -1,4 +1,4 @@
-// Forgekit Security — Anti prompt-injection heuristics
+// Cupel Security — Anti prompt-injection heuristics
 // Author: Aïssa BELKOUSSA
 
 export const INJECTION_PATTERNS: Array<{ name: string; regex: RegExp; severity: 'critical' | 'high' | 'medium' }> = [

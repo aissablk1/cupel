@@ -23,7 +23,7 @@ export default async function CliPage({
       <header className="grid gap-8 md:grid-cols-12">
         <div className="md:col-span-8">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-terracotta)]">
-            Forgekit CLI
+            Cupel CLI
           </p>
           <h1 className="mt-4 font-display text-6xl tracking-tight leading-[0.98]">
             {t('title')}
@@ -53,16 +53,16 @@ export default async function CliPage({
               <TabsTrigger value="windows">{t('tab_windows')}</TabsTrigger>
             </TabsList>
             <TabsContent value="macos">
-              <CommandBlock command="brew install forgekit/tap/forgekit" label="Homebrew" />
+              <CommandBlock command="brew install cupel/tap/cupel" label="Homebrew" />
             </TabsContent>
             <TabsContent value="linux">
               <CommandBlock
-                command="curl -fsSL https://get.forgekit.io | bash"
+                command="curl -fsSL https://get.cupel.io | bash"
                 label="Script d'installation"
               />
             </TabsContent>
             <TabsContent value="windows">
-              <CommandBlock command="winget install Forgekit.CLI" label="winget" />
+              <CommandBlock command="winget install Cupel.CLI" label="winget" />
             </TabsContent>
           </Tabs>
         </div>
@@ -80,7 +80,7 @@ export default async function CliPage({
           </p>
         </div>
         <div className="md:col-span-8 flex flex-col gap-4">
-          <CommandBlock command="forgekit login" label="Authentification" />
+          <CommandBlock command="cupel login" label="Authentification" />
           <p className="text-sm text-[var(--color-graphite)]">
             Vous pouvez aussi gérer vos tokens depuis{' '}
             <Link href={`/${locale}/dashboard/tokens`} className="link-editorial">
@@ -103,10 +103,10 @@ export default async function CliPage({
           </p>
         </div>
         <div className="md:col-span-8 flex flex-col gap-4">
-          <CommandBlock command="forgekit search react" label="Rechercher" />
-          <CommandBlock command="forgekit install superpowers" label="Installer" />
-          <CommandBlock command="forgekit update --all" label="Mettre à jour" />
-          <CommandBlock command="forgekit publish ./my-skill" label="Publier" />
+          <CommandBlock command="cupel search react" label="Rechercher" />
+          <CommandBlock command="cupel install superpowers" label="Installer" />
+          <CommandBlock command="cupel update --all" label="Mettre à jour" />
+          <CommandBlock command="cupel publish ./my-skill" label="Publier" />
         </div>
       </section>
     </div>

@@ -2,7 +2,7 @@
  * ARCHIVED 2026-05-15 — Pivot v0 marketplace payant → annuaire gratuit + B2B Teams.
  * Sync orders one-shot LS obsolète. Voir docs/archive/README.md.
  *
- * Forgekit — scripts/lemonsqueezy/sync-orders.ts
+ * Cupel — scripts/lemonsqueezy/sync-orders.ts
  * Author: Aïssa BELKOUSSA
  * Created: 2026-05-14
  *

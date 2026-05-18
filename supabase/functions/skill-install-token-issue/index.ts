@@ -1,5 +1,5 @@
 // =============================================================================
-// Forgekit — Edge Function: skill-install-token-issue
+// Cupel — Edge Function: skill-install-token-issue
 // Author: Aïssa BELKOUSSA
 // Runtime: Deno (Supabase Edge Functions)
 // Description: Génère un token CLI opaque, stocke uniquement son hash SHA-256

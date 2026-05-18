@@ -1,4 +1,4 @@
-// Forgekit Security — Tests détection code dangereux
+// Cupel Security — Tests détection code dangereux
 // Author: Aïssa BELKOUSSA
 
 import { describe, it, expect } from 'vitest';

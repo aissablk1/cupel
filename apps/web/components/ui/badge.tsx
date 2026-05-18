@@ -1,5 +1,5 @@
 /**
- * Badge — Forgekit UI
+ * Badge — Cupel UI
  * Direction : Editorial Premium
  */
 import * as React from 'react';

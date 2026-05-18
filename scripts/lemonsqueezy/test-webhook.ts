@@ -1,5 +1,5 @@
 /**
- * Forgekit — scripts/lemonsqueezy/test-webhook.ts
+ * Cupel — scripts/lemonsqueezy/test-webhook.ts
  * Author: Aïssa BELKOUSSA
  * Created: 2026-05-14
  *

@@ -1,4 +1,4 @@
-// Forgekit CLI — entrypoint
+// Cupel CLI — entrypoint
 // Author: Aïssa BELKOUSSA
 
 import { Command } from 'commander';
@@ -16,22 +16,42 @@ import { validateCommand } from './commands/validate.js';
 import { publishCommand } from './commands/publish.js';
 import { doctorCommand } from './commands/doctor.js';
 
-const VERSION = '0.0.1';
+const VERSION = '0.1.0';
 
 function banner(): void {
-  // ANSI alignées DESIGN.md — terracotta + ivoire
+  // Palette de la coupelle — cendre chaude + or révélé
   console.log(
-    chalk.hex('#C9573B').bold('\n  forgekit') +
+    chalk.hex('#C9573B').bold('\n  cupel') +
       chalk.hex('#7A8471')(` v${VERSION}`) +
-      chalk.hex('#3A3D40')('  — AI dev skills marketplace\n'),
+      chalk.hex('#3A3D40')('  — révèle le pur sous l\'impur\n'),
   );
+}
+
+export { doctorCommand };
+
+export async function runDoctor(argv: string[]): Promise<void> {
+  const program = new Command();
+  program
+    .name('cupel')
+    .description('Cupel — audit local des skills IA (Claude Code, Cursor, Codex, Windsurf, Gemini, Continue). Sépare le métal pur des impuretés.')
+    .version(VERSION)
+    .option('-p, --path <dir>', 'Scanner aussi les skills d\'un projet (défaut: cwd)')
+    .option('--json', 'Sortie JSON pour CI / pipe')
+    .option('--strict', 'Exit code 2 si au moins un skill en tier danger')
+    .option('-v, --verbose', 'Afficher tous les signaux, même sur les skills sûrs')
+    .action((opts) => doctorCommand(opts));
+
+  await program.parseAsync(argv).catch((err: unknown) => {
+    console.error(chalk.hex('#962D2D')('\n✗ ' + (err instanceof Error ? err.message : String(err))));
+    process.exit(1);
+  });
 }
 
 export function run(argv: string[]): void {
   const program = new Command();
   program
-    .name('forgekit')
-    .description('Marketplace de skills IA pour devs pro')
+    .name('cupel')
+    .description('Cupel — audit & marketplace de skills IA (Claude Code, Cursor, Codex)')
     .version(VERSION)
     .hook('preAction', () => banner());
 
@@ -88,7 +108,11 @@ export function run(argv: string[]): void {
 
   program
     .command('doctor')
-    .description('Diagnostiquer l\'environnement (plateformes détectées, auth, version)')
+    .description('Audit local des skills installés (risque, signature, fraîcheur)')
+    .option('-p, --path <dir>', 'Scanner aussi les skills d\'un projet (défaut: cwd)')
+    .option('--json', 'Sortie JSON pour CI / pipe')
+    .option('--strict', 'Exit code 2 si au moins un skill en tier danger')
+    .option('-v, --verbose', 'Afficher tous les signaux, même sur les skills sûrs')
     .action(doctorCommand);
 
   program.parseAsync(argv).catch((err: unknown) => {

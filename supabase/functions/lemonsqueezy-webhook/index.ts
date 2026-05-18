@@ -1,5 +1,5 @@
 // =============================================================================
-// Forgekit — Edge Function: lemonsqueezy-webhook
+// Cupel — Edge Function: lemonsqueezy-webhook
 // Author: Aïssa BELKOUSSA
 // Runtime: Deno (Supabase Edge Functions)
 // =============================================================================

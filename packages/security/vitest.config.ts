@@ -1,4 +1,4 @@
-// Forgekit Security — Vitest config
+// Cupel Security — Vitest config
 // Author: Aïssa BELKOUSSA
 
 import { defineConfig } from 'vitest/config';

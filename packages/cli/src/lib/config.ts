@@ -1,4 +1,4 @@
-// Forgekit CLI — config persistante (~/.config/forgekit)
+// Cupel CLI — config persistante (~/.config/cupel)
 import Conf from 'conf';
 
 interface CLIConfig {
@@ -9,9 +9,9 @@ interface CLIConfig {
 }
 
 export const config = new Conf<CLIConfig>({
-  projectName: 'forgekit',
+  projectName: 'cupel',
   defaults: {
-    apiUrl: process.env.FORGEKIT_API_URL ?? 'https://api.forgekit.dev',
+    apiUrl: process.env.CUPEL_API_URL ?? 'https://api.cupel.dev',
     telemetryEnabled: false,
     installed: {},
   },

@@ -1,11 +1,11 @@
-// Forgekit CLI — check de nouvelle version sur npm + prompt utilisateur
+// Cupel CLI — check de nouvelle version sur npm + prompt utilisateur
 // Author: Aïssa BELKOUSSA
 
 import { request } from 'undici';
 import { config } from './config.js';
 import { ui } from './ui.js';
 
-const PACKAGE_NAME = '@forgekit/cli';
+const PACKAGE_NAME = 'cupel';
 const REGISTRY = 'https://registry.npmjs.org';
 const CHECK_INTERVAL_MS = 24 * 60 * 60 * 1000; // 24 h
 
@@ -76,14 +76,14 @@ export async function checkForUpdate(currentVersion: string): Promise<string | n
 /**
  * Affiche un encart non-bloquant si une mise à jour est dispo.
  * Pas de prompt interactif (ralentirait toute commande) — invite à exécuter
- * `npm i -g @forgekit/cli@latest`.
+ * `npm i -g cupel@latest`.
  */
 export async function notifyIfUpdateAvailable(currentVersion: string): Promise<void> {
   const latest = await checkForUpdate(currentVersion);
   if (!latest) return;
   console.error('');
   console.error(ui.rule(60));
-  console.error(ui.warn(`Forgekit ${currentVersion} ${ui.muted('→')} ${ui.title(latest)} disponible`));
+  console.error(ui.warn(`Cupel ${currentVersion} ${ui.muted('→')} ${ui.title(latest)} disponible`));
   console.error(ui.muted(`  npm i -g ${PACKAGE_NAME}@latest`));
   console.error(ui.rule(60));
   console.error('');

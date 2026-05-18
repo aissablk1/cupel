@@ -1,4 +1,4 @@
-// Forgekit CLI — placeholders pour commandes secondaires
+// Cupel CLI — placeholders pour commandes secondaires
 // (à étoffer ultérieurement)
 import chalk from 'chalk';
 import { config } from '../lib/config.js';
@@ -12,7 +12,7 @@ export async function logoutCommand(): Promise<void> {
 
 export async function whoamiCommand(): Promise<void> {
   if (!config.get('token')) {
-    console.log(chalk.hex('#3A3D40')('Non connecté — lance `forgekit login`'));
+    console.log(chalk.hex('#3A3D40')('Non connecté — lance `cupel login`'));
     return;
   }
   const me = await api.get<{ username: string; display_name: string }>('/v1/me');

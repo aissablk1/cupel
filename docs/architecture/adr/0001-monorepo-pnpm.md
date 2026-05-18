@@ -6,12 +6,12 @@
 
 ## Contexte
 
-Forgekit livre 4 artefacts qui partagent des types, des schémas zod et des
+Cupel livre 4 artefacts qui partagent des types, des schémas zod et des
 utilitaires (split revenue, slug, signature) :
 
 1. `apps/web` — Next.js 15 (front + API publique)
-2. `packages/cli` — `@forgekit/cli` (npm public)
-3. `packages/sdk` — `@forgekit/sdk` (npm public)
+2. `packages/cli` — `cupel` (npm public)
+3. `packages/sdk` — `@cupel/sdk` (npm public)
 4. `packages/security` — analyse statique + signature Ed25519 (interne)
 5. `packages/shared` — types + utils
 
@@ -27,7 +27,7 @@ pas de Bun (encore jeune sur native modules `node-postgres`, `sharp`).
 Structure :
 
 ```
-forgekit/
+cupel/
 ├── apps/web/
 ├── packages/{cli,sdk,security,shared}/
 ├── pnpm-workspace.yaml
@@ -42,7 +42,7 @@ Versioning : Changesets, releases manuelles. Pas de versioning auto sur
 
 **Positives :**
 
-- Type sharing instantané (`@forgekit/shared` exporte `Skill`, `Purchase`)
+- Type sharing instantané (`@cupel/shared` exporte `Skill`, `Purchase`)
 - Refactor cross-package atomique dans une seule PR
 - CI plus rapide avec Turbo cache local + remote (Vercel)
 - pnpm strict par défaut (pas de phantom deps)

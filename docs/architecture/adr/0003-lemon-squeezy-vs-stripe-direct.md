@@ -6,7 +6,7 @@
 
 ## Contexte
 
-Forgekit vend des skills à des devs partout dans le monde, dont 60–70 %
+Cupel vend des skills à des devs partout dans le monde, dont 60–70 %
 attendus en EU + UK + USA. Cela implique :
 
 - Collecte de la TVA EU OSS (≥1 country) + TVA UK + sales tax USA (>30 États)
@@ -18,7 +18,7 @@ Options :
 
 1. **Stripe direct** + integration manuelle TVA (Stripe Tax) + facturation maison
 2. **Lemon Squeezy** comme Merchant of Record (MoR) — LS facture l'acheteur,
-   collecte / reverse la TVA, Forgekit reçoit une enveloppe nette
+   collecte / reverse la TVA, Cupel reçoit une enveloppe nette
 3. **Paddle** MoR équivalent
 4. **Stripe Connect Express** côté créateur + Stripe Tax côté plateforme
 
@@ -55,19 +55,19 @@ Pour un achat à 29 €  HT :
 | Brut acheteur (TTC) | 34.80 € |
 | TVA 20 % (LS collecte) | 5.80 € |
 | Fee LS 5 % + 0.50 | 1.95 € |
-| Net Forgekit | 26.55 € |
+| Net Cupel | 26.55 € |
 | Part créateur 75 % | 19.91 € |
 | Part plateforme 25 % | 6.64 € |
 
 Le split est calculé sur le **net après TVA et fees LS**, en cents entiers
-(voir `splitRevenue()` dans `@forgekit/shared`).
+(voir `splitRevenue()` dans `@cupel/shared`).
 
 ## Alternatives rejetées
 
 - **Stripe direct** : compliance TVA EU OSS = >40 h/an + risque audit DGFIP
 - **Paddle** : équivalent fonctionnel à LS mais DX inférieure, dashboard
   moins lisible, payouts moins flexibles
-- **Stripe Connect seul** : Forgekit deviendrait MoR de facto = même
+- **Stripe Connect seul** : Cupel deviendrait MoR de facto = même
   problème TVA
 
 ## Références

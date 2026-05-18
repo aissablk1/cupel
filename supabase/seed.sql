@@ -1,5 +1,5 @@
 -- =============================================================================
--- Forgekit — Seed data (dev / demo)
+-- Cupel — Seed data (dev / demo)
 -- Author: Aïssa BELKOUSSA
 -- Date: 2026-05-14
 -- Notes: Idempotent — utilise ON CONFLICT DO NOTHING. UUIDs déterministes.
@@ -17,10 +17,10 @@ insert into auth.users (id, instance_id, aud, role, email, encrypted_password,
                         raw_user_meta_data)
 values
   ('00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000000',
-   'authenticated', 'authenticated', 'system@forgekit.local', '',
-   now(), now(), now(), '{"preferred_username":"forgekit","full_name":"Forgekit Official"}'::jsonb),
+   'authenticated', 'authenticated', 'system@cupel.local', '',
+   now(), now(), now(), '{"preferred_username":"cupel","full_name":"Cupel Official"}'::jsonb),
   ('00000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000000',
-   'authenticated', 'authenticated', 'aissa@forgekit.local', '',
+   'authenticated', 'authenticated', 'aissa@cupel.local', '',
    now(), now(), now(), '{"preferred_username":"aissa","full_name":"Aïssa BELKOUSSA"}'::jsonb)
 on conflict (id) do nothing;
 
@@ -30,7 +30,7 @@ on conflict (id) do nothing;
 
 insert into public.profiles (id, username, display_name, bio, is_verified_creator, is_admin, locale)
 values
-  ('00000000-0000-0000-0000-000000000001', 'forgekit', 'Forgekit Official',
+  ('00000000-0000-0000-0000-000000000001', 'cupel', 'Cupel Official',
    'Compte officiel — skills curés par l''équipe.', true, true, 'fr'),
   ('00000000-0000-0000-0000-000000000002', 'aissa', 'Aïssa BELKOUSSA',
    'Builder du marketplace. Skills frontend, SEO, sécurité.', true, true, 'fr')
@@ -56,7 +56,7 @@ insert into public.skills (
     '00000000-0000-0000-0000-000000000002',
     'SEO Auditor',
     'Audit SEO technique complet — Core Web Vitals, schema.org, GEO, AI Overviews.',
-    E'# SEO Auditor\n\nSkill spécialisé en audit SEO technique pour devs.\n\n## Capacités\n- Audit Lighthouse + Core Web Vitals (LCP, INP, CLS)\n- Vérification schema.org / JSON-LD\n- Détection erreurs canonical, hreflang, sitemap\n- Optimisation GEO (Generative Engine Optimization)\n- Rapport actionnable Markdown\n\n## Installation\n```bash\nforgekit install seo-auditor\n```',
+    E'# SEO Auditor\n\nSkill spécialisé en audit SEO technique pour devs.\n\n## Capacités\n- Audit Lighthouse + Core Web Vitals (LCP, INP, CLS)\n- Vérification schema.org / JSON-LD\n- Détection erreurs canonical, hreflang, sitemap\n- Optimisation GEO (Generative Engine Optimization)\n- Rapport actionnable Markdown\n\n## Installation\n```bash\ncupel install seo-auditor\n```',
     'seo',
     array['seo','lighthouse','schema-org','geo','core-web-vitals'],
     array['claude_code','cursor','codex']::platform[],

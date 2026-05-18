@@ -113,7 +113,7 @@ export default async function CheckoutPage({ params }: PageProps) {
               </Button>
             </form>
             <p className="mt-4 text-xs text-[var(--color-graphite)] leading-relaxed">
-              En finalisant cet achat, vous acceptez les conditions de vente Forgekit. Paiement
+              En finalisant cet achat, vous acceptez les conditions de vente Cupel. Paiement
               traité par Stripe en tant que Merchant of Record (TVA UE incluse).
             </p>
           </div>

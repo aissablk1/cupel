@@ -1,4 +1,4 @@
-// Forgekit Security — Détection code dangereux
+// Cupel Security — Détection code dangereux
 // Author: Aïssa BELKOUSSA
 
 export interface DangerPattern {
@@ -19,7 +19,7 @@ export const DANGER_PATTERNS: DangerPattern[] = [
   { name: 'Dynamic require', regex: /require\s*\(\s*[^'"\s)]+\s*\)/g, severity: 'high', why: 'Require dynamique non-littéral' },
   { name: 'Dynamic import via concat', regex: /import\s*\(\s*[^'"]*[+`]/g, severity: 'high', why: 'Import dynamique calculé' },
   { name: 'globalThis mutation', regex: /globalThis\.[a-zA-Z_$]+\s*=/g, severity: 'medium', why: 'Pollution global' },
-  { name: 'Fetch to unknown', regex: /fetch\s*\(\s*[`'"]https?:\/\/(?!api\.forgekit\.dev|cdn\.forgekit\.dev)/g, severity: 'medium', why: 'Appel réseau externe' },
+  { name: 'Fetch to unknown', regex: /fetch\s*\(\s*[`'"]https?:\/\/(?!api\.cupel\.dev|cdn\.cupel\.dev)/g, severity: 'medium', why: 'Appel réseau externe' },
   { name: 'Network: http/https raw', regex: /require\s*\(\s*['"](http|https|net|dgram)['"]/g, severity: 'medium', why: 'Module réseau bas niveau' },
   { name: 'Crypto raw without context', regex: /createCipheriv|createDecipheriv|createHmac\s*\(\s*['"]md5['"]/gi, severity: 'low', why: 'Crypto faible ou usage suspect' },
   { name: 'Base64 obfuscation', regex: /Buffer\.from\s*\(\s*['"][A-Za-z0-9+/=]{40,}['"],?\s*['"]base64['"]\s*\)/g, severity: 'medium', why: 'Décodage base64 long (obfuscation possible)' },

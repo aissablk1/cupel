@@ -1,5 +1,5 @@
 -- =============================================================================
--- Forgekit — Teams (B2B organizations)
+-- Cupel — Teams (B2B organizations)
 -- Author: Aïssa BELKOUSSA
 -- Migration: 0005_teams
 -- Date: 2026-05-15

@@ -1,5 +1,5 @@
 /**
- * Card — Forgekit UI
+ * Card — Cupel UI
  * Direction : Editorial Premium
  * Pas de shadow, bordure linen, hover encre.
  */

@@ -1,5 +1,5 @@
 /**
- * Dialog — Forgekit UI (Radix)
+ * Dialog — Cupel UI (Radix)
  */
 'use client';
 

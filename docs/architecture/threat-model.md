@@ -1,8 +1,8 @@
-# Threat Model — Forgekit Marketplace (STRIDE)
+# Threat Model — Cupel Marketplace (STRIDE)
 
 **Auteur** : Aïssa BELKOUSSA
 
-Application de la méthode STRIDE (Microsoft) aux surfaces de la marketplace Forgekit. Chaque ligne suit : **Menace → Vecteur → Impact → Contre-mesure → Statut**.
+Application de la méthode STRIDE (Microsoft) aux surfaces de la marketplace Cupel. Chaque ligne suit : **Menace → Vecteur → Impact → Contre-mesure → Statut**.
 
 ---
 
@@ -14,10 +14,10 @@ Application de la méthode STRIDE (Microsoft) aux surfaces de la marketplace For
 | `packages/cli`           | CLI d'installation côté utilisateur final   |
 | `packages/security`      | Scan + signature                            |
 | `apps/api`               | API back-end (upload, search, billing)      |
-| `cdn.forgekit.dev`       | Distribution tarballs signés                |
+| `cdn.cupel.dev`       | Distribution tarballs signés                |
 | Stripe                   | Paiements + payouts publishers              |
 
-Acteurs : **Utilisateur** (consume skills), **Publisher** (upload skills), **Admin Forgekit**, **Attaquant externe**.
+Acteurs : **Utilisateur** (consume skills), **Publisher** (upload skills), **Admin Cupel**, **Attaquant externe**.
 
 ---
 
@@ -26,8 +26,8 @@ Acteurs : **Utilisateur** (consume skills), **Publisher** (upload skills), **Adm
 | # | Vecteur                                                | Impact                                  | Contre-mesure                                                              | Statut       |
 | - | ------------------------------------------------------ | --------------------------------------- | -------------------------------------------------------------------------- | ------------ |
 | S1 | Attaquant publie un skill en se faisant passer pour un publisher connu | Confusion utilisateur, install malicieux | Compte vérifié (email + OTP), signature Ed25519 liée au compte, badge "verified" | implémenté   |
-| S2 | Spoofing email envoi confirmation publisher          | Phishing                                | SPF + DKIM + DMARC `reject` sur `forgekit.dev`                             | à confirmer  |
-| S3 | CDN serveur typosquatté (`forgkit.dev`)               | Install depuis source malveillante      | CLI hardcode `api.forgekit.dev` + cert pinning option                       | partiel      |
+| S2 | Spoofing email envoi confirmation publisher          | Phishing                                | SPF + DKIM + DMARC `reject` sur `cupel.dev`                             | à confirmer  |
+| S3 | CDN serveur typosquatté (`forgkit.dev`)               | Install depuis source malveillante      | CLI hardcode `api.cupel.dev` + cert pinning option                       | partiel      |
 | S4 | OAuth callback hijack                                  | Prise de contrôle compte                | `state` + PKCE, redirect URI strict                                         | implémenté   |
 
 ## T — Tampering (altération)
@@ -45,7 +45,7 @@ Acteurs : **Utilisateur** (consume skills), **Publisher** (upload skills), **Adm
 | - | ------------------------------------------------------ | --------------------------------------- | -------------------------------------------------------------------------- | ------------ |
 | R1 | Publisher nie avoir uploadé un skill malicieux        | Litige légal, KYC                       | Logs Postgres immuables + signature liée au compte + KYC Stripe Connect    | implémenté   |
 | R2 | Utilisateur nie un achat                               | Chargeback frauduleux                   | Stripe payment intent + email confirmation + IP/UA log                     | implémenté   |
-| R3 | Admin Forgekit modifie un skill sans trace            | Perte de confiance                      | Audit log append-only (Postgres + Loki) sur toute action admin             | implémenté   |
+| R3 | Admin Cupel modifie un skill sans trace            | Perte de confiance                      | Audit log append-only (Postgres + Loki) sur toute action admin             | implémenté   |
 
 ## I — Information disclosure (fuite)
 

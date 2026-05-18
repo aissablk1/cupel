@@ -6,7 +6,7 @@
 
 ## Vue d'ensemble
 
-Un skill Forgekit est une **archive ZIP** contenant :
+Un skill Cupel est une **archive ZIP** contenant :
 
 ```
 my-skill/
@@ -35,7 +35,7 @@ license: MIT
 tags: [frontend, react, design]
 ide_targets: [claude-code, cursor, codex, windsurf, gemini-cli]
 language: en
-forgekit_spec: 0.1.0
+cupel_spec: 0.1.0
 ---
 
 # My Awesome Skill
@@ -51,7 +51,7 @@ forgekit_spec: 0.1.0
 
 | Champ | Type | Requis | Notes |
 |---|---|---|---|
-| `name` | string | yes | kebab-case, 3–60 chars, unique sur Forgekit |
+| `name` | string | yes | kebab-case, 3–60 chars, unique sur Cupel |
 | `version` | semver | yes | `MAJOR.MINOR.PATCH` strict |
 | `description` | string | yes | 20–200 chars |
 | `author` | string | yes | nom d'affichage |
@@ -60,7 +60,7 @@ forgekit_spec: 0.1.0
 | `tags` | string[] | yes | 1–8 tags, kebab-case |
 | `ide_targets` | enum[] | yes | au moins 1 cible |
 | `language` | ISO 639-1 | yes | `en`, `fr`, etc. |
-| `forgekit_spec` | semver | yes | version de cette spec |
+| `cupel_spec` | semver | yes | version de cette spec |
 
 ## `manifest.json` — format
 
@@ -91,7 +91,7 @@ Tous les fichiers de l'archive doivent être listés dans `files` (sauf
 
 ## Signature
 
-Forgekit signe `manifest.json` **après** validation (static analysis +
+Cupel signe `manifest.json` **après** validation (static analysis +
 LLM review). Le fichier `manifest.sig` contient :
 
 ```
@@ -104,15 +104,15 @@ Vérification côté CLI :
 const ok = crypto.verify(
   null,
   manifestBytes,
-  forgekitPubkey,
+  cupelPubkey,
   signatureBytes,
 );
 ```
 
-Clé publique : embarquée dans `@forgekit/cli`, ET disponible sur
-`https://forgekit.dev/.well-known/forgekit-pubkey` (rotation cf. ADR 0004).
+Clé publique : embarquée dans `cupel`, ET disponible sur
+`https://cupel.dev/.well-known/cupel-pubkey` (rotation cf. ADR 0004).
 
-## Pipeline de validation (côté Forgekit)
+## Pipeline de validation (côté Cupel)
 
 À la publication d'une version :
 
@@ -127,7 +127,7 @@ Clé publique : embarquée dans `@forgekit/cli`, ET disponible sur
    - Vérification cohérence frontmatter ↔ contenu
    - Score 0–100 ; <70 = rejet, 70–84 = review humaine, ≥85 = auto-pass
 4. **Manifest computation** : SHA-256 par fichier, `manifest_sha256` global
-5. **Sign** : Ed25519 sign avec clé privée Forgekit, écrit `manifest.sig`
+5. **Sign** : Ed25519 sign avec clé privée Cupel, écrit `manifest.sig`
 6. **Upload R2** : `skills/{slug}/{version}/skill.zip` (immutable)
 7. **DB update** : `skill_versions` row `status=published`
 
@@ -141,7 +141,7 @@ Clé publique : embarquée dans `@forgekit/cli`, ET disponible sur
 ## Installation côté utilisateur
 
 ```bash
-npx forgekit install my-awesome-skill@1.2.0
+npx cupel install my-awesome-skill@1.2.0
 # - download skill.zip + manifest.sig
 # - verify Ed25519 signature contre pubkey embarquée
 # - verify SHA-256 chaque fichier
@@ -152,5 +152,5 @@ npx forgekit install my-awesome-skill@1.2.0
 
 ## Compatibilité ascendante
 
-`forgekit_spec` permet d'évoluer la spec sans casser le CLI. Le CLI supporte
+`cupel_spec` permet d'évoluer la spec sans casser le CLI. Le CLI supporte
 les 2 versions majeures les plus récentes (N et N-1).

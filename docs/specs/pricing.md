@@ -1,4 +1,4 @@
-# Spec — Pricing Forgekit
+# Spec — Pricing Cupel
 
 > Auteur : Aïssa BELKOUSSA
 > Créé : 2026-05-15
@@ -17,7 +17,7 @@
 
 **Inclus**
 - Browse l'annuaire complet
-- Install via `npx forgekit install <slug>`
+- Install via `npx cupel install <slug>`
 - Laisser des reviews (1–5 stars + commentaire)
 - Publier des skills publics (signés Ed25519 par la plateforme)
 - 1 workspace personnel solo

@@ -1,5 +1,5 @@
 -- =============================================================================
--- Forgekit — Row Level Security policies
+-- Cupel — Row Level Security policies
 -- Author: Aïssa BELKOUSSA
 -- Migration: 0002_rls
 -- =============================================================================

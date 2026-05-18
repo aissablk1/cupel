@@ -1,4 +1,4 @@
-// Forgekit CLI — login command
+// Cupel CLI — login command
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 import open from 'open';
@@ -13,7 +13,7 @@ export async function loginCommand(opts: { token?: string }): Promise<void> {
     console.log(chalk.hex('#3A3D40')(`\n→ Ouverture du dashboard : ${chalk.underline(url)}`));
     await open(url).catch(() => {});
     const answer = await inquirer.prompt<{ t: string }>([
-      { type: 'password', name: 't', message: 'Colle ton token Forgekit :', mask: '·' },
+      { type: 'password', name: 't', message: 'Colle ton token Cupel :', mask: '·' },
     ]);
     token = answer.t.trim();
   }

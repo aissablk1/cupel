@@ -1,4 +1,4 @@
-// Forgekit Security — Tests signature Ed25519
+// Cupel Security — Tests signature Ed25519
 // Author: Aïssa BELKOUSSA
 
 import { describe, it, expect } from 'vitest';

@@ -1,4 +1,4 @@
-// Forgekit CLI — commandes secondaires (update, remove, init, validate, publish)
+// Cupel CLI — commandes secondaires (update, remove, init, validate, publish)
 // Author: Aïssa BELKOUSSA
 
 import chalk from 'chalk';
@@ -9,7 +9,7 @@ import { config } from '../lib/config.js';
 import { api } from '../lib/api.js';
 import { detectInstalledPlatforms, getInstallPath } from '../lib/platforms.js';
 import { installCommand } from './install.js';
-import type { Platform } from '@forgekit/shared';
+import type { Platform } from '@cupel/shared';
 
 export async function updateCommand(skill?: string): Promise<void> {
   const installed = config.get('installed');
@@ -87,7 +87,7 @@ export async function validateCommand(path: string = '.'): Promise<void> {
   // Validation locale basique — la vraie passe par packages/security via API
   if (!content.startsWith('---')) throw new Error('Frontmatter YAML manquant');
   console.log(chalk.hex('#7A8471')('✓ Skill valide (vérification locale)'));
-  console.log(chalk.hex('#3A3D40')('  Pour un scan complet : forgekit publish (lance le scan serveur)'));
+  console.log(chalk.hex('#3A3D40')('  Pour un scan complet : cupel publish (lance le scan serveur)'));
 }
 
 export async function publishCommand(path: string = '.'): Promise<void> {

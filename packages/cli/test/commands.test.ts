@@ -1,4 +1,4 @@
-// Forgekit CLI — tests commands & lib (slugify, signature, semver, retry)
+// Cupel CLI — tests commands & lib (slugify, signature, semver, retry)
 // Author: Aïssa BELKOUSSA
 
 import { describe, it, expect } from 'vitest';

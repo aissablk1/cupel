@@ -1,5 +1,5 @@
 -- =============================================================================
--- Forgekit — Audit log (org-scoped)
+-- Cupel — Audit log (org-scoped)
 -- Author: Aïssa BELKOUSSA
 -- Migration: 0007_audit_log
 -- Date: 2026-05-15

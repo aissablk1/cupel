@@ -1,5 +1,5 @@
 -- =============================================================================
--- Forgekit — pgTAP tests (RLS policies)
+-- Cupel — pgTAP tests (RLS policies)
 -- Author: Aïssa BELKOUSSA
 -- Date: 2026-05-14
 -- Usage: psql -f supabase/tests/rls.test.sql

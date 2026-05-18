@@ -1,4 +1,4 @@
-// Forgekit Security — Tests détection de secrets
+// Cupel Security — Tests détection de secrets
 // Author: Aïssa BELKOUSSA
 
 import { describe, it, expect } from 'vitest';

@@ -2,7 +2,7 @@
 // Wrapper checkout one-shot LS obsolète. Webhook LS conservé en place pour Teams.
 // Voir docs/archive/README.md.
 //
-// Forgekit SDK — Lemon Squeezy wrapper
+// Cupel SDK — Lemon Squeezy wrapper
 // Author: Aïssa BELKOUSSA
 
 import {

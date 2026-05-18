@@ -1,4 +1,4 @@
-// Forgekit CLI — tests détection plateformes
+// Cupel CLI — tests détection plateformes
 // Author: Aïssa BELKOUSSA
 
 import { describe, it, expect } from 'vitest';

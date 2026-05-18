@@ -1,0 +1,34 @@
+{
+  "name": "@cupel/doctor",
+  "version": "0.0.1",
+  "description": "Audit local des skills IA installés — Claude Code, Cursor, Codex, Windsurf, Gemini, Continue. Zero network, offline.",
+  "author": "Aïssa BELKOUSSA <contact@aissabelkoussa.fr>",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "cupel-doctor": "./bin/cupel-doctor.mjs"
+  },
+  "files": ["bin", "dist/index.js", "README.md"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "chalk": "^5.3.0"
+  },
+  "devDependencies": {
+    "cupel": "workspace:*",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.2",
+    "@types/node": "^22.7.4"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "keywords": ["claude-code", "cursor", "ai", "skills", "security", "audit", "cli"],
+  "publishConfig": {
+    "access": "public"
+  }
+}

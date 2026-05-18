@@ -1,5 +1,5 @@
 /**
- * Tabs — Forgekit UI (Radix)
+ * Tabs — Cupel UI (Radix)
  */
 'use client';
 

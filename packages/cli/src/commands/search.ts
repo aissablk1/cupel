@@ -1,4 +1,4 @@
-// Forgekit CLI — search
+// Cupel CLI — search
 import chalk from 'chalk';
 import { api } from '../lib/api.js';
 

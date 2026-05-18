@@ -1,5 +1,5 @@
 -- =============================================================================
--- Forgekit — Initial schema
+-- Cupel — Initial schema
 -- Author: Aïssa BELKOUSSA
 -- Migration: 0001_init
 -- Date: 2026-05-14

@@ -1,5 +1,5 @@
 /**
- * Input — Forgekit UI
+ * Input — Cupel UI
  * Direction : Editorial Premium
  */
 import * as React from 'react';

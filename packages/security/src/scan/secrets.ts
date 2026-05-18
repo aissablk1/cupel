@@ -1,4 +1,4 @@
-// Forgekit Security — Scan secrets
+// Cupel Security — Scan secrets
 // Author: Aïssa BELKOUSSA
 // NOTE: les patterns ci-dessous détectent les fuites de secrets dans
 // le contenu des skills uploadés. Le contenu littéral des regex est

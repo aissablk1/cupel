@@ -1,8 +1,8 @@
-// Forgekit CLI — détection des plateformes IDE installées
+// Cupel CLI — détection des plateformes IDE installées
 import { existsSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
-import type { Platform } from '@forgekit/shared';
+import type { Platform } from '@cupel/shared';
 
 const PATHS: Record<Platform, string> = {
   claude_code: join(homedir(), '.claude', 'skills'),
@@ -30,4 +30,25 @@ export function detectInstalledPlatforms(): Platform[] {
 
 export function getInstallPath(platform: Platform, skillSlug: string): string {
   return join(PATHS[platform], skillSlug);
+}
+
+export function getPlatformSkillsRoot(platform: Platform): string {
+  return PATHS[platform];
+}
+
+export function getProjectLocalSkillsRoots(
+  projectPath: string,
+): Array<{ platform: Platform; root: string }> {
+  const candidates: Array<{ platform: Platform; rel: string }> = [
+    { platform: 'claude_code', rel: '.claude/skills' },
+    { platform: 'cursor', rel: '.cursor/rules' },
+    { platform: 'codex', rel: '.codex/skills' },
+    { platform: 'windsurf', rel: '.windsurf/rules' },
+    { platform: 'gemini_cli', rel: '.gemini/skills' },
+    { platform: 'copilot_cli', rel: '.copilot/skills' },
+    { platform: 'continue', rel: '.continue/skills' },
+  ];
+  return candidates
+    .map((c) => ({ platform: c.platform, root: join(projectPath, c.rel) }))
+    .filter((c) => existsSync(c.root));
 }

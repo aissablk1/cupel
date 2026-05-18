@@ -1,5 +1,5 @@
 -- =============================================================================
--- Forgekit — Utility SQL functions
+-- Cupel — Utility SQL functions
 -- Author: Aïssa BELKOUSSA
 -- Migration: 0004_functions
 -- Date: 2026-05-14

@@ -10,8 +10,8 @@ Certains skills cibleront à terme des données très sensibles côté client
 (secrets d'entreprise, codebases propriétaires, données patients RGPD).
 Les acheteurs Teams / Enterprise demanderont des garanties sur le fait que :
 
-1. Le **code des skills ne fuit pas** côté Forgekit
-2. Les **inputs LLM ne sont pas loggés** côté Forgekit ni revendus
+1. Le **code des skills ne fuit pas** côté Cupel
+2. Les **inputs LLM ne sont pas loggés** côté Cupel ni revendus
 3. La **chaîne de signature** est vérifiable et auditable (transparency)
 
 En 2026, le confidential computing (Intel TDX, AMD SEV-SNP, AWS Nitro
@@ -26,7 +26,7 @@ des trusted enclaves pour Claude Cowork.
 1. Préparer un **upsell consulting** sur le sujet (mention dans `PROJECT.nfo`)
 2. Garder l'architecture compatible :
    - Code de validation skill = container Docker reproductible (peut tourner en TDX)
-   - Pas de logging d'inputs utilisateurs côté Forgekit dès aujourd'hui
+   - Pas de logging d'inputs utilisateurs côté Cupel dès aujourd'hui
    - Signatures Ed25519 prêtes pour intégration future dans une transparency log
      (Sigstore Rekor)
 

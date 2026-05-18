@@ -1,4 +1,4 @@
-// Forgekit Security — Scan orchestrateur
+// Cupel Security — Scan orchestrateur
 // Author: Aïssa BELKOUSSA
 
 import { scanContentForSecrets, type SecretFinding } from './secrets.js';

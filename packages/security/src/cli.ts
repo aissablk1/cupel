@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-// Forgekit Security — CLI standalone
+// Cupel Security — CLI standalone
 // Author: Aïssa BELKOUSSA
 //
 // Usage:
-//   forgekit-security scan <path> [--json] [--fail-on=warn|fail]
+//   cupel-security scan <path> [--json] [--fail-on=warn|fail]
 //
 // Exit codes:
 //   0 = pass (ou warn si --fail-on=fail)
@@ -84,7 +84,7 @@ function colorize(verdict: ScanResult['verdict'], text: string): string {
 }
 
 function printHuman(target: string, result: ScanResult): void {
-  console.log(`\nForgekit Security scan — ${target}`);
+  console.log(`\nCupel Security scan — ${target}`);
   console.log('─'.repeat(60));
   console.log(`Verdict : ${colorize(result.verdict, result.verdict.toUpperCase())}`);
   console.log(`Score   : ${result.score}/100`);
@@ -108,7 +108,7 @@ function printHuman(target: string, result: ScanResult): void {
 }
 
 function usage(): never {
-  console.error('Usage: forgekit-security scan <path> [--json] [--fail-on=warn|fail]');
+  console.error('Usage: cupel-security scan <path> [--json] [--fail-on=warn|fail]');
   process.exit(3);
 }
 

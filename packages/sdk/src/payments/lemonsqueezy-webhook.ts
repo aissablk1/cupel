@@ -1,4 +1,4 @@
-// Forgekit SDK — Lemon Squeezy webhook helpers
+// Cupel SDK — Lemon Squeezy webhook helpers
 // Author: Aïssa BELKOUSSA
 
 import { createHmac, timingSafeEqual } from 'node:crypto';

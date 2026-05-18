@@ -1,5 +1,5 @@
 // =============================================================================
-// Forgekit — Edge Function: cron-payouts
+// Cupel — Edge Function: cron-payouts
 // Author: Aïssa BELKOUSSA
 // Runtime: Deno (Supabase Edge Functions)
 // Description: Cron mensuel — calcule les payouts du mois précédent pour

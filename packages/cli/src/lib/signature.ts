@@ -1,18 +1,18 @@
-// Forgekit CLI — vérification de signature Ed25519 avec public key pinning
+// Cupel CLI — vérification de signature Ed25519 avec public key pinning
 // Author: Aïssa BELKOUSSA
 
 import { createPublicKey, verify, createHash } from 'node:crypto';
 
 /**
- * Clé publique Ed25519 du marketplace Forgekit (épinglée).
+ * Clé publique Ed25519 du marketplace Cupel (épinglée).
  * Format SPKI base64 (DER → base64). Remplacée à la rotation de clé via
  * release CLI signée. Ne JAMAIS lire depuis l'API : le pinning est la défense
  * primaire contre un compromis de la chaîne de distribution.
  *
  * TODO Phase 1 : remplacer par la vraie clé production après cérémonie de génération.
  */
-export const FORGEKIT_PUBLIC_KEY_SPKI_B64 =
-  process.env.FORGEKIT_PUBKEY_OVERRIDE ??
+export const CUPEL_PUBLIC_KEY_SPKI_B64 =
+  process.env.CUPEL_PUBKEY_OVERRIDE ??
   'MCowBQYDK2VwAyEA1234567890abcdefghijklmnopqrstuvwxyzABCDEFGH=';
 
 export interface ManifestSignaturePayload {
@@ -51,7 +51,7 @@ export function canonicalPayload(p: ManifestSignaturePayload): Buffer {
 export function verifySignature(
   payload: ManifestSignaturePayload,
   signatureB64: string,
-  publicKeySpkiB64: string = FORGEKIT_PUBLIC_KEY_SPKI_B64,
+  publicKeySpkiB64: string = CUPEL_PUBLIC_KEY_SPKI_B64,
 ): VerifyResult {
   try {
     const key = createPublicKey({

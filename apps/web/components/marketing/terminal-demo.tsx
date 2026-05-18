@@ -21,7 +21,7 @@ export function TerminalDemo() {
       <div className="space-y-2 p-6 text-[var(--color-ivory)]">
         <p>
           <span className="text-[var(--color-sage)]">$</span>{' '}
-          <span className="text-[var(--color-terracotta-soft)]">npx forgekit install</span>{' '}
+          <span className="text-[var(--color-terracotta-soft)]">npx cupel install</span>{' '}
           <span>seo-auditor</span>
         </p>
         <p className="text-[var(--color-linen)]">↳ Detected platform: Claude Code</p>

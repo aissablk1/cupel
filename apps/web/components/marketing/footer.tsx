@@ -9,7 +9,7 @@ export function Footer({ locale }: { locale: Locale }) {
       <div className="mx-auto max-w-[1280px] px-6 py-16 md:px-16">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
-            <p className="font-display text-3xl tracking-tight">Forgekit</p>
+            <p className="font-display text-3xl tracking-tight">Cupel</p>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-[var(--color-graphite)]">
               {t('footer_signature')}
             </p>

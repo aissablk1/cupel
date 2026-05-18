@@ -1,4 +1,4 @@
-// Forgekit — Shared types & utilities
+// Cupel — Shared types & utilities
 // Author: Aïssa BELKOUSSA
 
 export * from './constants';

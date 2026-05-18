@@ -1,5 +1,5 @@
 -- =============================================================================
--- Forgekit — Teams RLS policies
+-- Cupel — Teams RLS policies
 -- Author: Aïssa BELKOUSSA
 -- Migration: 0006_teams_rls
 -- Date: 2026-05-15

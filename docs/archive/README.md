@@ -4,7 +4,7 @@ Date: 2026-05-15
 Statut: archive (lecture seule)
 ---
 
-# Archive Forgekit
+# Archive Cupel
 
 Ce dossier conserve, pour traçabilité, les modules et docs rendus obsolètes par les pivots successifs du produit. Les fichiers ici ne sont **plus importés** par le code de production et ne doivent **pas être réintroduits** sans relire le contexte du pivot correspondant.
 
@@ -12,14 +12,14 @@ Ce dossier conserve, pour traçabilité, les modules et docs rendus obsolètes p
 
 ### Contexte
 
-Forgekit v0 visait un marketplace payant de skills IA individuels : achat one-shot ou abonnement par skill, paiement via Lemon Squeezy (Merchant of Record EU), payouts créateurs via Stripe Connect Express, revenue share 75/25.
+Cupel v0 visait un marketplace payant de skills IA individuels : achat one-shot ou abonnement par skill, paiement via Lemon Squeezy (Merchant of Record EU), payouts créateurs via Stripe Connect Express, revenue share 75/25.
 
 Après audit de la traction préliminaire, de la concurrence (registres communautaires gratuits déjà installés — Anthropic Skills, awesome-claude-skills, plugins GitHub) et de la friction unitaire (TVA + KYC créateur + ticket moyen faible), le produit pivote vers :
 
 1. **Annuaire gratuit** des skills (découvrabilité + audit sécurité = valeur publique)
 2. **B2B Teams** payant (Stripe Billing standard, abonnements seat-based, factures NET30)
 
-Le revenue share individuel par skill est abandonné. Stripe **Connect** devient inutile (pas de payouts à des tiers) ; on utilise désormais **Stripe Billing standard** côté Forgekit en tant que vendeur direct B2B.
+Le revenue share individuel par skill est abandonné. Stripe **Connect** devient inutile (pas de payouts à des tiers) ; on utilise désormais **Stripe Billing standard** côté Cupel en tant que vendeur direct B2B.
 
 ### Fichiers archivés
 

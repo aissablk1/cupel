@@ -37,7 +37,7 @@ export default async function SkillDetailPage({ params }: PageProps) {
 
   if (!skill) notFound();
 
-  const installCmd = `forgekit install ${skill.slug}`;
+  const installCmd = `cupel install ${skill.slug}`;
   const isFree = skill.pricing_model === 'free' || skill.price_cents === 0;
 
   return (

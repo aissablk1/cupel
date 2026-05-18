@@ -1,4 +1,4 @@
-// Forgekit CLI — thème terminal aligné DESIGN.md
+// Cupel CLI — thème terminal aligné DESIGN.md
 // Author: Aïssa BELKOUSSA
 
 import chalk from 'chalk';

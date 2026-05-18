@@ -1,8 +1,8 @@
-# Architecture Sécurité — Forgekit Marketplace
+# Architecture Sécurité — Cupel Marketplace
 
 **Auteur** : Aïssa BELKOUSSA
 
-Document de référence pour la couche sécurité de Forgekit. Couvre la pipeline de scan, la signature cryptographique des skills, et la distribution des clés publiques.
+Document de référence pour la couche sécurité de Cupel. Couvre la pipeline de scan, la signature cryptographique des skills, et la distribution des clés publiques.
 
 ---
 
@@ -32,7 +32,7 @@ Chaque skill uploadé sur la marketplace traverse une pipeline déterministe **a
                                                         ▼
                                          ┌─────────────────────────┐
                                          │  Publication CDN        │
-                                         │  cdn.forgekit.dev       │
+                                         │  cdn.cupel.dev       │
                                          └─────────────────────────┘
 ```
 
@@ -45,7 +45,7 @@ Chaque skill uploadé sur la marketplace traverse une pipeline déterministe **a
 - Taille décompressée bornée (50 Mo total, 5 Mo par fichier, ratio < 100x).
 - Nombre d'entrées plafonné à 5 000.
 
-### 1.2 Static scan (`@forgekit/security/scan`)
+### 1.2 Static scan (`@cupel/security/scan`)
 
 Trois sous-scanners parallèles sur chaque fichier texte du skill :
 
@@ -90,9 +90,9 @@ Le manifest JSON est sérialisé avec **clés triées récursivement** (`canonic
 
 | Clé                                    | Rôle                                              | Stockage                                  | Rotation        |
 | -------------------------------------- | ------------------------------------------------- | ----------------------------------------- | --------------- |
-| `forgekit-root` (Ed25519)              | Signe la **liste** des clés de publishers actifs  | HSM / Vault (jamais sur serveur web)      | Annuelle        |
-| `forgekit-publisher-<account_id>`      | Signe les manifests d'un publisher individuel     | Vault server-side, jamais exposée client  | Sur demande     |
-| `forgekit-ci` (Ed25519)                | Signe les builds CI automatisés                   | GitHub Actions OIDC + Vault dynamic creds | Hebdomadaire    |
+| `cupel-root` (Ed25519)              | Signe la **liste** des clés de publishers actifs  | HSM / Vault (jamais sur serveur web)      | Annuelle        |
+| `cupel-publisher-<account_id>`      | Signe les manifests d'un publisher individuel     | Vault server-side, jamais exposée client  | Sur demande     |
+| `cupel-ci` (Ed25519)                | Signe les builds CI automatisés                   | GitHub Actions OIDC + Vault dynamic creds | Hebdomadaire    |
 
 La **root key** ne signe **jamais** un manifest directement : elle signe une chaîne `publisher_pubkey → root_pubkey`. Cela permet de révoquer un publisher sans rotation de la root.
 
@@ -102,10 +102,10 @@ La **root key** ne signe **jamais** un manifest directement : elle signe une cha
 
 ### 3.1 Trust store côté CLI
 
-Le CLI `@forgekit/cli` embarque la **root public key** en dur (constante TypeScript, vérifiée au build). Toutes les autres clés publiques sont fetchées dynamiquement via :
+Le CLI `cupel` embarque la **root public key** en dur (constante TypeScript, vérifiée au build). Toutes les autres clés publiques sont fetchées dynamiquement via :
 
 ```
-GET https://api.forgekit.dev/v1/keys
+GET https://api.cupel.dev/v1/keys
 ```
 
 Réponse signée par la root :
@@ -133,9 +133,9 @@ Le client met en cache pendant 24h max. Toute clé non listée → installation 
 
 ## 4. Vérification côté client (install)
 
-Quand un utilisateur fait `forgekit install <skill>` :
+Quand un utilisateur fait `cupel install <skill>` :
 
-1. Fetch tarball + `signed-manifest.json` depuis `cdn.forgekit.dev`.
+1. Fetch tarball + `signed-manifest.json` depuis `cdn.cupel.dev`.
 2. Vérifier que `signed.public_key` est dans la trust list (et non révoquée).
 3. `verifyManifest(manifest, signed)` → doit renvoyer `true`.
 4. Vérifier que chaque fichier du tarball matche un hash listé dans le manifest.

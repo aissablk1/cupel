@@ -1,4 +1,4 @@
-// Forgekit Security — LLM review via Claude Haiku
+// Cupel Security — LLM review via Claude Haiku
 // Author: Aïssa BELKOUSSA
 
 import Anthropic from '@anthropic-ai/sdk';

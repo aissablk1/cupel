@@ -7,7 +7,7 @@ const cspHeader = `
   default-src 'self';
   script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io https://*.lemonsqueezy.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  img-src 'self' blob: data: https://*.supabase.co https://cdn.forgekit.dev https://*.googleusercontent.com https://avatars.githubusercontent.com;
+  img-src 'self' blob: data: https://*.supabase.co https://cdn.cupel.dev https://*.googleusercontent.com https://avatars.githubusercontent.com;
   font-src 'self' https://fonts.gstatic.com data:;
   connect-src 'self' https://*.supabase.co https://*.lemonsqueezy.com https://plausible.io https://*.sentry.io;
   frame-src 'self' https://*.lemonsqueezy.com;
@@ -27,7 +27,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: '*.supabase.co' },
-      { protocol: 'https', hostname: 'cdn.forgekit.dev' },
+      { protocol: 'https', hostname: 'cdn.cupel.dev' },
       { protocol: 'https', hostname: '*.googleusercontent.com' },
       { protocol: 'https', hostname: 'avatars.githubusercontent.com' },
     ],

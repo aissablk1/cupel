@@ -45,7 +45,7 @@ function TeamsContent({ locale }: { locale: Locale }) {
                 >
                   {t('cta_primary')}
                 </Link>
-                <a href="mailto:teams@forgekit.dev?subject=Demo%20Forgekit%20Teams" className="link-editorial text-base">
+                <a href="mailto:teams@cupel.dev?subject=Demo%20Cupel%20Teams" className="link-editorial text-base">
                   {t('cta_secondary')}
                 </a>
               </div>

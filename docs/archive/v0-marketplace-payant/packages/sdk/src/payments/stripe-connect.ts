@@ -2,7 +2,7 @@
 // Stripe Connect (payouts créateurs) remplacé par Stripe Billing standard pour Teams.
 // Voir docs/archive/README.md.
 //
-// Forgekit SDK — Stripe Connect (payouts créateurs)
+// Cupel SDK — Stripe Connect (payouts créateurs)
 // Author: Aïssa BELKOUSSA
 // Phase 2 — payouts mensuels aux créateurs via Stripe Connect Express
 

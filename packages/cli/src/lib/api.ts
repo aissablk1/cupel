@@ -1,4 +1,4 @@
-// Forgekit CLI — client API
+// Cupel CLI — client API
 import { request } from 'undici';
 import { config } from './config.js';
 
@@ -16,7 +16,7 @@ async function call<T>(
   const apiUrl = config.get('apiUrl');
   const headers: Record<string, string> = {
     'content-type': 'application/json',
-    'user-agent': 'forgekit-cli/0.0.1',
+    'user-agent': 'cupel-cli/0.0.1',
   };
   if (token) headers.authorization = `Bearer ${token}`;
 

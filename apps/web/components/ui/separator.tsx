@@ -1,5 +1,5 @@
 /**
- * Separator — Forgekit UI
+ * Separator — Cupel UI
  */
 'use client';
 

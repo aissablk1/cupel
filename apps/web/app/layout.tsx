@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import '../styles/globals.css';
 
 export const metadata: Metadata = {
-  title: { default: 'Forgekit', template: '%s — Forgekit' },
+  title: { default: 'Cupel', template: '%s — Cupel' },
   description: 'Le marketplace des skills IA pour devs pro.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'),
   authors: [{ name: 'Aïssa BELKOUSSA', url: 'https://aissabelkoussa.fr' }],
   creator: 'Aïssa BELKOUSSA',
   openGraph: {
     type: 'website',
-    title: 'Forgekit — Le marketplace des skills IA',
+    title: 'Cupel — Le marketplace des skills IA',
     description: 'Découvrez, installez et vendez des skills Claude Code, Cursor et Codex.',
     locale: 'fr_FR',
     alternateLocale: ['en_US'],

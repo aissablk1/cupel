@@ -1,4 +1,4 @@
-// Forgekit — Teams (B2B) types
+// Cupel — Teams (B2B) types
 // Author: Aïssa BELKOUSSA
 
 export const ORG_PLANS = ['free', 'teams', 'enterprise'] as const;

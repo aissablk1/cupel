@@ -1,4 +1,4 @@
-// Forgekit CLI — vitest config
+// Cupel CLI — vitest config
 // Author: Aïssa BELKOUSSA
 
 import { defineConfig } from 'vitest/config';

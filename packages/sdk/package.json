@@ -1,7 +1,7 @@
 {
-  "name": "@forgekit/sdk",
+  "name": "@cupel/sdk",
   "version": "0.0.1",
-  "description": "Forgekit SDK — programmatic client",
+  "description": "Cupel SDK — programmatic client",
   "author": "Aïssa BELKOUSSA <contact@aissabelkoussa.fr>",
   "license": "MIT",
   "type": "module",
@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@forgekit/shared": "workspace:*",
+    "@cupel/shared": "workspace:*",
     "@lemonsqueezy/lemonsqueezy.js": "^4.0.0",
     "stripe": "^17.2.0",
     "undici": "^6.20.0",

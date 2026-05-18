@@ -1,4 +1,4 @@
-# Spec — Positionnement Forgekit
+# Spec — Positionnement Cupel
 
 > Auteur : Aïssa BELKOUSSA
 > Créé : 2026-05-15
@@ -15,7 +15,7 @@ Vendre un skill à l'unité revient à vendre ce que les concurrents donnent gra
 
 ## Nouveau positionnement
 
-> Forgekit est l'annuaire des skills IA pour devs **et** le control plane des équipes qui veulent gouverner leur usage interne.
+> Cupel est l'annuaire des skills IA pour devs **et** le control plane des équipes qui veulent gouverner leur usage interne.
 
 Trois promesses :
 
@@ -56,7 +56,7 @@ Trois promesses :
 
 ## Concurrence
 
-| Acteur | Modèle | Force | Faiblesse vs Forgekit |
+| Acteur | Modèle | Force | Faiblesse vs Cupel |
 |---|---|---|---|
 | Anthropic skills officiels | Gratuit, intégré | Distribution | Pas de gouvernance B2B, pas de skills internes |
 | GitHub awesome lists | Gratuit, fragmenté | Volume | Pas de signature, pas d'audit, pas de control plane |
@@ -64,7 +64,7 @@ Trois promesses :
 | Codeium / Cody / Tabnine | Plateforme IA dev | Suite intégrée | Pas centrés skills, pas de marketplace ouvert |
 | GitHub Copilot Extensions | Captif Copilot | Distribution Microsoft | Mono-IDE, pas de Confidential Compute |
 
-**Différenciation Forgekit**
+**Différenciation Cupel**
 1. Multi-IDE (Claude Code + Cursor + Codex + Windsurf + Gemini CLI) — mapping cross-IDE
 2. Gouvernance B2B native (SSO, audit, allowlist, skills internes)
 3. Hébergement EU + Confidential Compute pour secteurs régulés
@@ -77,7 +77,7 @@ Trois promesses :
 
 **Headline** : « L'annuaire des skills IA pour devs. Trouve, installe, contribue — gratuitement. »
 **Sub** : « 100+ skills audités et signés pour Claude Code, Cursor, Codex, Windsurf, Gemini CLI. »
-**CTA** : `npx forgekit install <skill>` + bouton « Browse skills »
+**CTA** : `npx cupel install <skill>` + bouton « Browse skills »
 
 ### Teams (landing /teams)
 
@@ -91,7 +91,7 @@ Trois promesses :
 **Sub** : « SCIM, Confidential Compute, on-prem mirror, SOC 2. Hébergement EU. »
 **CTA** : « Parler à un expert »
 
-## Anti-positionnement (ce que Forgekit n'est PAS)
+## Anti-positionnement (ce que Cupel n'est PAS)
 
 - **Pas un IDE** — on s'intègre à ceux qui existent, on ne les remplace pas
 - **Pas un agent IA** — on distribue les capacités, on n'est pas la couche d'inférence

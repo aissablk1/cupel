@@ -1,4 +1,4 @@
-// Forgekit Security — Signature manifest (Ed25519)
+// Cupel Security — Signature manifest (Ed25519)
 // Author: Aïssa BELKOUSSA
 
 import { sha256 } from '@noble/hashes/sha256';

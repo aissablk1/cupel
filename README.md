@@ -1,4 +1,4 @@
-# Forgekit
+# Cupel
 
 > Annuaire public gratuit de skills IA + control plane B2B pour équipes dev — Claude Code, Cursor, Codex, Windsurf, Gemini CLI.
 
@@ -8,7 +8,7 @@
 
 ## Positionnement
 
-Anthropic publie ses skills gratuitement et GitHub regorge de skills communautaires : vendre un skill à l'unité n'a plus de sens. Forgekit capture la valeur là où elle reste : **la gouvernance B2B**. Côté public, tout est gratuit (browse, install CLI, reviews). Côté entreprise, deux plans payants apportent workspace privé, SSO, audit log, allowlist/blocklist, skills internes non publiés, et — sur Enterprise — Confidential Compute, SCIM et SOC 2.
+Anthropic publie ses skills gratuitement et GitHub regorge de skills communautaires : vendre un skill à l'unité n'a plus de sens. Cupel capture la valeur là où elle reste : **la gouvernance B2B**. Côté public, tout est gratuit (browse, install CLI, reviews). Côté entreprise, deux plans payants apportent workspace privé, SSO, audit log, allowlist/blocklist, skills internes non publiés, et — sur Enterprise — Confidential Compute, SCIM et SOC 2.
 
 | Plan | Prix | Cible | Cœur de valeur |
 |---|---|---|---|
@@ -27,19 +27,19 @@ Détails : `docs/specs/pricing.md` et `docs/specs/positioning.md`.
 | Frontend | Next.js 15 (App Router, RSC), Tailwind CSS 4, shadcn/ui, Framer Motion, react-hook-form, zod, next-intl |
 | Backend | Supabase Postgres 16, Auth (Google + GitHub), Storage, Edge Functions (Deno), Cloudflare R2 |
 | Paiement | Stripe Billing (subscriptions Teams/Enterprise, seats, proration, factures B2B SEPA + carte + virement) |
-| CLI | Node.js 22, commander, ora, chalk, inquirer — npm `@forgekit/cli` |
+| CLI | Node.js 22, commander, ora, chalk, inquirer — npm `cupel` |
 | Sécurité | Static analysis + LLM review (Claude Haiku) + signature SHA-256 + manifest signé Ed25519 |
 | Monitoring | Sentry, Plausible, Better Stack Logs, Statuspage |
 
 ## Structure (monorepo pnpm)
 
 ```
-forgekit/
+cupel/
 ├── apps/
 │   └── web/                # Next.js 15 app
 ├── packages/
-│   ├── cli/                # @forgekit/cli
-│   ├── sdk/                # @forgekit/sdk
+│   ├── cli/                # cupel
+│   ├── sdk/                # @cupel/sdk
 │   ├── security/           # static analysis + signing
 │   └── shared/             # types + utils
 ├── supabase/

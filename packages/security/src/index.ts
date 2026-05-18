@@ -1,4 +1,4 @@
-// Forgekit Security — public API
+// Cupel Security — public API
 // Author: Aïssa BELKOUSSA
 
 export * from './scan/index.js';

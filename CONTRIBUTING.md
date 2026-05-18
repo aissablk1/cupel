@@ -1,9 +1,9 @@
-# Contribuer à Forgekit
+# Contribuer à Cupel
 
 > Auteur : Aïssa BELKOUSSA
 > Créé : 2026-05-14
 
-Merci de l'intérêt pour Forgekit. Ce document couvre **deux flux** :
+Merci de l'intérêt pour Cupel. Ce document couvre **deux flux** :
 
 1. Contribuer un **skill** au marketplace
 2. Contribuer au **code source** de la plateforme (rare en phase 0–2, repo privé)
@@ -14,7 +14,7 @@ Merci de l'intérêt pour Forgekit. Ce document couvre **deux flux** :
 
 ### Prérequis
 
-- Compte Forgekit (auth via GitHub ou Google)
+- Compte Cupel (auth via GitHub ou Google)
 - Node 22+ et `npx` disponibles
 - Un éditeur de Markdown préféré
 
@@ -23,7 +23,7 @@ Merci de l'intérêt pour Forgekit. Ce document couvre **deux flux** :
 1. **Initialiser**
 
    ```bash
-   npx @forgekit/cli init my-awesome-skill
+   npx cupel init my-awesome-skill
    ```
 
    Génère un dossier conforme à `docs/specs/skill-spec.md`.
@@ -38,7 +38,7 @@ Merci de l'intérêt pour Forgekit. Ce document couvre **deux flux** :
 3. **Tester localement**
 
    ```bash
-   npx @forgekit/cli validate ./my-awesome-skill
+   npx cupel validate ./my-awesome-skill
    ```
 
    Vérifie : frontmatter, hashes, absence d'`eval`/`exec`, secrets, etc.
@@ -46,16 +46,16 @@ Merci de l'intérêt pour Forgekit. Ce document couvre **deux flux** :
 4. **Soumettre**
 
    ```bash
-   npx @forgekit/cli publish ./my-awesome-skill
+   npx cupel publish ./my-awesome-skill
    ```
 
-   Upload vers Forgekit, déclenche le pipeline de validation. Délai
+   Upload vers Cupel, déclenche le pipeline de validation. Délai
    typique : 60 secondes.
 
 5. **Suivre la validation**
 
    Dashboard → My skills → Validation status. Si rejet : reasons détaillées,
-   correction puis `forgekit publish` à nouveau (version bumped).
+   correction puis `cupel publish` à nouveau (version bumped).
 
 ### Guidelines de qualité
 
@@ -95,8 +95,8 @@ Violation = retrait immédiat + ban compte.
 ### Setup
 
 ```bash
-git clone git@github.com:aissablk1/forgekit-marketplace.git
-cd forgekit-marketplace
+git clone git@github.com:aissablk1/cupel.git
+cd cupel
 pnpm install
 cp .env.example .env.local   # remplir
 pnpm supabase:start
@@ -160,7 +160,7 @@ pnpm test:e2e
 ### Sécurité
 
 Vulnérabilité ? **Ne pas ouvrir d'issue publique.**
-Email : `security@forgekit.dev` (PGP key à venir).
+Email : `security@cupel.dev` (PGP key à venir).
 
 ---
 

@@ -1,5 +1,5 @@
 -- =============================================================================
--- Forgekit — Seed categories
+-- Cupel — Seed categories
 -- Author: Aïssa BELKOUSSA
 -- Migration: 0003_seed_categories
 -- =============================================================================

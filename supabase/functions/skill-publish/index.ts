@@ -1,5 +1,5 @@
 // =============================================================================
-// Forgekit — Edge Function: skill-publish
+// Cupel — Edge Function: skill-publish
 // Author: Aïssa BELKOUSSA
 // Runtime: Deno (Supabase Edge Functions)
 // Description: Reçoit un zip URL (R2), vérifie l'ownership du skill,

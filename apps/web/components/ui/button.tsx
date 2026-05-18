@@ -1,5 +1,5 @@
 /**
- * Button — Forgekit UI
+ * Button — Cupel UI
  * Direction : Editorial Premium
  * Author: Aïssa BELKOUSSA
  */

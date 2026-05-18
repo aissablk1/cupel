@@ -2,7 +2,7 @@
 
 > Auteur : Aïssa BELKOUSSA
 > Créé : 2026-05-14
-> Base URL : `https://api.forgekit.dev/v1`
+> Base URL : `https://api.cupel.dev/v1`
 > Auth : Bearer token (PAT généré dans dashboard, scope `read` ou `write`)
 > Format : JSON, encoding UTF-8
 > Versionning : URL path (`/v1`), deprecation 6 mois avant retrait
@@ -142,14 +142,14 @@ Statut de validation : `pending` → `passed` / `failed` (avec `reasons[]`).
 
 ### Webhooks (sortants)
 
-Forgekit envoie des webhooks aux URLs configurées dans le dashboard :
+Cupel envoie des webhooks aux URLs configurées dans le dashboard :
 
 - `skill.published` — nouvelle version publiée
 - `purchase.created` — un achat a été enregistré
 - `purchase.refunded`
 - `subscription.created` / `updated` / `cancelled`
 
-Signature : `X-Forgekit-Signature: t=<unix>,v1=<hmac-sha256>` (compatible
+Signature : `X-Cupel-Signature: t=<unix>,v1=<hmac-sha256>` (compatible
 Stripe-style). Tolérance ±5 min.
 
 ## Erreurs
@@ -158,7 +158,7 @@ Format Problem Details RFC 9457 :
 
 ```json
 {
-  "type": "https://forgekit.dev/errors/rate-limited",
+  "type": "https://cupel.dev/errors/rate-limited",
   "title": "Too Many Requests",
   "status": 429,
   "detail": "Limit 60/min on endpoint /v1/skills",
@@ -188,7 +188,7 @@ Endpoints `POST` write acceptent `Idempotency-Key: <uuid>`. La même clé sur
 ## CORS
 
 Pas de CORS depuis browsers en `v1` (server-to-server only). Le front
-Forgekit utilise des Server Actions / Route Handlers Next.js qui parlent au
+Cupel utilise des Server Actions / Route Handlers Next.js qui parlent au
 même backend en interne.
 
 ## Deprecation

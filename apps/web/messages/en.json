@@ -26,7 +26,7 @@
     "track_free_cta": "Browse the registry ›",
     "track_teams_label": "For teams",
     "track_teams_title": "Private workspace, internal skills, governance",
-    "track_teams_body": "Your devs love AI skills. Your CTO wants to know what's running. Forgekit Teams reconciles both — SSO, audit log, allowlist, private skills.",
+    "track_teams_body": "Your devs love AI skills. Your CTO wants to know what's running. Cupel Teams reconciles both — SSO, audit log, allowlist, private skills.",
     "track_teams_bullets_1": "SSO + SCIM, signed audit log",
     "track_teams_bullets_2": "Internal non-public skills",
     "track_teams_bullets_3": "Per-project allowlist & policy",
@@ -97,10 +97,10 @@
     "faq_a5": "Yes, both ways. No penalty, pro-rata applied on the current period."
   },
   "teams": {
-    "kicker": "Forgekit Teams",
+    "kicker": "Cupel Teams",
     "title": "Your devs love AI skills.",
     "title_italic": "Your CTO wants to know what's running.",
-    "lede": "Forgekit Teams reconciles both: private workspace, signed audit log, per-project allowlist, internal non-public skills. Without slowing anyone down.",
+    "lede": "Cupel Teams reconciles both: private workspace, signed audit log, per-project allowlist, internal non-public skills. Without slowing anyone down.",
     "cta_primary": "Start the trial ›",
     "cta_secondary": "Book a demo ›",
     "features_kicker": "Six levers",
@@ -170,7 +170,7 @@
     "skills_title": "My skills"
   },
   "login": {
-    "title": "Sign in to Forgekit",
+    "title": "Sign in to Cupel",
     "lede": "Sign in to install, buy or publish skills.",
     "google": "Continue with Google",
     "github": "Continue with GitHub",
@@ -188,7 +188,7 @@
     "refund": "14-day money-back guarantee"
   },
   "cli": {
-    "title": "Forgekit CLI",
+    "title": "Cupel CLI",
     "lede": "Install, manage and publish skills from your terminal.",
     "step_install": "Install",
     "step_login": "Sign in",

@@ -13,6 +13,11 @@ Auteur : Aïssa BELKOUSSA.
 
 ### Added
 
+- **`cupel doctor` réécrit en audit de risque local (2026-05-15)** — l'ancienne commande de diagnostic d'environnement devient un véritable audit de sécurité des skills IA installés localement
+- Nouveau package public `@cupel/doctor` — utilisable sans installation via `npx @cupel/doctor`, pensé pour les devs qui veulent juste auditer sans adopter tout le CLI Cupel
+- `cupel doctor` — scan multi-plateformes (7 plateformes supportées : Claude Code, Cursor, Codex, Windsurf, Gemini CLI, GitHub Copilot CLI, Continue), 7 règles de risque regex (secrets, exfiltration, shell injection…), 4 signaux structurels (taille, profondeur, dépendances, permissions)
+- `cupel doctor` — trois formats de sortie : rapport humain coloré, JSON machine-readable (`--json`), mode strict CI (`--strict`, exit ≠ 0 si risque détecté)
+- `cupel doctor` — zéro réseau, 100 % local : aucune télémétrie, aucun upload, aucune dépendance cloud
 - **Pivot B2B Teams (2026-05-15)** : annuaire public gratuit + plans payants Teams (9 €/seat/mois, 5–50 seats) et Enterprise (29 €/seat/mois, ≥ 25 seats)
 - `docs/specs/pricing.md` — détail des 3 plans (Public, Teams, Enterprise), comparatif, réductions, IDs Stripe
 - `docs/specs/positioning.md` — positionnement, cibles, messaging, concurrence, anti-positionnement
@@ -65,5 +70,5 @@ Auteur : Aïssa BELKOUSSA.
 - Workflows CI : `ci.yml`, `deploy-prod.yml`, `release-cli.yml`, `security-scan.yml`
 - Documentation architecture : `payments.md`, `observability.md`, `runbooks.md`
 
-[Unreleased]: https://github.com/aissablk1/forgekit-marketplace/compare/v0.0.1...HEAD
-[0.0.1]: https://github.com/aissablk1/forgekit-marketplace/releases/tag/v0.0.1
+[Unreleased]: https://github.com/aissablk1/cupel/compare/v0.0.1...HEAD
+[0.0.1]: https://github.com/aissablk1/cupel/releases/tag/v0.0.1

@@ -26,7 +26,7 @@
     "track_free_cta": "Parcourir l'annuaire ›",
     "track_teams_label": "Pour les équipes",
     "track_teams_title": "Workspace privé, skills internes, gouvernance",
-    "track_teams_body": "Vos devs adorent les skills IA. Votre CTO veut savoir ce qui tourne. Forgekit Teams réconcilie les deux — SSO, audit log, allowlist, skills privés.",
+    "track_teams_body": "Vos devs adorent les skills IA. Votre CTO veut savoir ce qui tourne. Cupel Teams réconcilie les deux — SSO, audit log, allowlist, skills privés.",
     "track_teams_bullets_1": "SSO + SCIM, audit log signé",
     "track_teams_bullets_2": "Skills internes non-publics",
     "track_teams_bullets_3": "Allowlist & politique par projet",
@@ -97,10 +97,10 @@
     "faq_a5": "Oui, dans les deux sens. Pas de pénalité, pro-rata appliqué sur la période en cours."
   },
   "teams": {
-    "kicker": "Forgekit Teams",
+    "kicker": "Cupel Teams",
     "title": "Vos devs adorent les skills IA.",
     "title_italic": "Votre CTO veut savoir ce qui tourne.",
-    "lede": "Forgekit Teams réconcilie les deux : workspace privé, audit log signé, allowlist par projet, skills internes non-publics. Sans freiner personne.",
+    "lede": "Cupel Teams réconcilie les deux : workspace privé, audit log signé, allowlist par projet, skills internes non-publics. Sans freiner personne.",
     "cta_primary": "Démarrer l'essai ›",
     "cta_secondary": "Réserver une démo ›",
     "features_kicker": "Six leviers",
@@ -170,7 +170,7 @@
     "skills_title": "Mes skills"
   },
   "login": {
-    "title": "Se connecter à Forgekit",
+    "title": "Se connecter à Cupel",
     "lede": "Connectez-vous pour installer, acheter ou publier des skills.",
     "google": "Continuer avec Google",
     "github": "Continuer avec GitHub",
@@ -188,7 +188,7 @@
     "refund": "Garantie satisfait ou remboursé 14 jours"
   },
   "cli": {
-    "title": "Forgekit CLI",
+    "title": "Cupel CLI",
     "lede": "Installez, gérez et publiez vos skills depuis le terminal.",
     "step_install": "Installer",
     "step_login": "Se connecter",

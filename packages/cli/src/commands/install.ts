@@ -1,4 +1,4 @@
-// Forgekit CLI — install command
+// Cupel CLI — install command
 import chalk from 'chalk';
 import ora from 'ora';
 import inquirer from 'inquirer';
@@ -13,7 +13,7 @@ import { dirname } from 'node:path';
 import { api } from '../lib/api.js';
 import { config } from '../lib/config.js';
 import { detectInstalledPlatforms, getInstallPath } from '../lib/platforms.js';
-import type { Platform } from '@forgekit/shared';
+import type { Platform } from '@cupel/shared';
 
 interface SkillInfo {
   id: string;

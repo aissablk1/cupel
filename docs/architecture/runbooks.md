@@ -1,4 +1,4 @@
-# Runbooks — Incidents Forgekit
+# Runbooks — Incidents Cupel
 
 > Author : Aïssa BELKOUSSA
 
@@ -24,7 +24,7 @@
 
 ## R-003 R2 5xx sur downloads
 
-**Symptômes** : CLI `forgekit install` échoue, logs CF R2.
+**Symptômes** : CLI `cupel install` échoue, logs CF R2.
 
 1. Vérifier dashboard Cloudflare R2
 2. Vérifier credentials non rotés

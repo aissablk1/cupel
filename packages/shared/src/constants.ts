@@ -1,4 +1,4 @@
-// Forgekit — Constants
+// Cupel — Constants
 
 export const PLATFORMS = [
   'claude_code',

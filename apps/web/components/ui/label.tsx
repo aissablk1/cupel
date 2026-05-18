@@ -1,5 +1,5 @@
 /**
- * Label — Forgekit UI
+ * Label — Cupel UI
  */
 'use client';
 

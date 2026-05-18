@@ -1,4 +1,4 @@
-# DESIGN.md — Forgekit
+# DESIGN.md — Cupel
 
 > Direction esthétique unique, choisie et validée avant toute ligne de code UI.
 > Conforme à CLAUDE.md §10 + design-anti-slop.md.

@@ -1,4 +1,4 @@
-// Forgekit Security — Tests prompt injection
+// Cupel Security — Tests prompt injection
 // Author: Aïssa BELKOUSSA
 
 import { describe, it, expect } from 'vitest';

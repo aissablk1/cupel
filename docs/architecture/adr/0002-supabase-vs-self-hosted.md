@@ -6,7 +6,7 @@
 
 ## Contexte
 
-Forgekit a besoin d'une base relationnelle (Postgres), d'auth OAuth
+Cupel a besoin d'une base relationnelle (Postgres), d'auth OAuth
 (Google + GitHub), de stockage objet (skills.zip), et d'un runtime serverless
 pour les webhooks signés (Lemon Squeezy, Stripe). En phase 0 nous sommes
 solo-founder, en EU, sans équipe ops.

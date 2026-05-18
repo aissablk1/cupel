@@ -1,4 +1,4 @@
-// Forgekit — Shared utils
+// Cupel — Shared utils
 
 import { REVENUE_SHARE, VAT_RATES_EU } from '../constants';
 

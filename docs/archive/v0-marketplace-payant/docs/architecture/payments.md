@@ -2,7 +2,7 @@
 
 # Architecture — Paiements (v0, archivé)
 
-> Forgekit utilise **Lemon Squeezy** comme Merchant of Record EU (gère TVA + facturation) et **Stripe Connect** pour les payouts aux créateurs en phase 2.
+> Cupel utilise **Lemon Squeezy** comme Merchant of Record EU (gère TVA + facturation) et **Stripe Connect** pour les payouts aux créateurs en phase 2.
 > Author : Aïssa BELKOUSSA
 
 ## Vue d'ensemble
@@ -64,15 +64,15 @@ Mensuel cron :
 ## TVA
 
 - LS collecte et reverse la TVA EU automatiquement (MoR)
-- Forgekit stocke `vat_cents` pour reporting interne mais ne facture pas la TVA séparément
-- Voir `computeVAT()` dans `@forgekit/shared` pour preview UI uniquement
+- Cupel stocke `vat_cents` pour reporting interne mais ne facture pas la TVA séparément
+- Voir `computeVAT()` dans `@cupel/shared` pour preview UI uniquement
 
 ## Sécurité
 
 - Webhook signature : HMAC-SHA256 vérifiée avec `timingSafeEqual`
 - Secret stocké en `LEMONSQUEEZY_WEBHOOK_SECRET` (Supabase Vault en prod)
 - Idempotency : table `purchases` a `unique(user_id, skill_id, ls_order_id)` — doublons rejetés
-- Pas de stockage carte / IBAN côté Forgekit
+- Pas de stockage carte / IBAN côté Cupel
 - Stripe Connect : KYC géré par Stripe (Express accounts)
 
 ## Variables d'environnement
@@ -94,6 +94,6 @@ STRIPE_CONNECT_CLIENT_ID
 
 ## Phases
 
-- **Phase 1** (lancement) : Lemon Squeezy seul, paiements en escrow Forgekit, payouts manuels mensuels (virement perso ou Wise)
+- **Phase 1** (lancement) : Lemon Squeezy seul, paiements en escrow Cupel, payouts manuels mensuels (virement perso ou Wise)
 - **Phase 2** (M6+) : Stripe Connect Express activé, payouts automatiques le 5 de chaque mois
 - **Phase 3** (M12+) : metering pay-per-use, factures B2B PO/NET30 pour Teams plan

@@ -1,12 +1,12 @@
-# @forgekit/security
+# @cupel/security
 
-Couche sécurité de la marketplace Forgekit : scan statique des skills uploadés, signature Ed25519 des manifests, audit LLM optionnel.
+Couche sécurité de la marketplace Cupel : scan statique des skills uploadés, signature Ed25519 des manifests, audit LLM optionnel.
 
 **Auteur** : Aïssa BELKOUSSA
 
 ## Pourquoi
 
-Forgekit distribue des **skills IA exécutés par des agents** (Claude Code, Cursor, Codex). Un skill est une boîte contenant du Markdown, du code, des assets. Trois classes de menace dominent :
+Cupel distribue des **skills IA exécutés par des agents** (Claude Code, Cursor, Codex). Un skill est une boîte contenant du Markdown, du code, des assets. Trois classes de menace dominent :
 
 1. **Fuite de secrets** dans le code uploadé (AWS, Stripe, OpenAI, JWT, PEM, DB URLs).
 2. **Code dangereux** côté runtime (`eval`, `Function`, `child_process`, `exec`, FS destructif).
@@ -17,9 +17,9 @@ Le package fournit la pipeline de scan + la signature cryptographique des manife
 ## Surface publique
 
 ```ts
-import { scanSkill } from '@forgekit/security/scan';
-import { signManifest, verifyManifest } from '@forgekit/security/sign';
-import { reviewSkillWithLLM } from '@forgekit/security/llm';
+import { scanSkill } from '@cupel/security/scan';
+import { signManifest, verifyManifest } from '@cupel/security/sign';
+import { reviewSkillWithLLM } from '@cupel/security/llm';
 ```
 
 ### `scanSkill({ files })`
@@ -39,9 +39,9 @@ Audit Haiku 4.5 du contenu d'un skill. Nécessite `ANTHROPIC_API_KEY`. Sortie JS
 ## CLI
 
 ```bash
-forgekit-security scan ./my-skill           # scan répertoire ou fichier
-forgekit-security scan ./skill.md --json    # sortie JSON pour CI
-forgekit-security scan ./pkg --fail-on=warn # exit 2 sur warn
+cupel-security scan ./my-skill           # scan répertoire ou fichier
+cupel-security scan ./skill.md --json    # sortie JSON pour CI
+cupel-security scan ./pkg --fail-on=warn # exit 2 sur warn
 ```
 
 Exit codes : `0=pass`, `1=fail`, `2=warn` (si `--fail-on=warn`), `3=erreur invocation`.
@@ -60,8 +60,8 @@ Détail STRIDE complet : `docs/architecture/threat-model.md`. Pipeline et distri
 ## Tests
 
 ```bash
-pnpm --filter @forgekit/security test
-pnpm --filter @forgekit/security typecheck
+pnpm --filter @cupel/security test
+pnpm --filter @cupel/security typecheck
 ```
 
 Fixtures dans `test/fixtures/` :

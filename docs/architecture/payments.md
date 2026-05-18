@@ -1,6 +1,6 @@
 # Architecture — Paiements
 
-> Forgekit utilise **Stripe Billing** pour les abonnements B2B (plans Teams et Enterprise). L'annuaire public reste gratuit : aucun paiement n'est requis pour browse, installer un skill via le CLI ou laisser une review.
+> Cupel utilise **Stripe Billing** pour les abonnements B2B (plans Teams et Enterprise). L'annuaire public reste gratuit : aucun paiement n'est requis pour browse, installer un skill via le CLI ou laisser une review.
 > Auteur : Aïssa BELKOUSSA
 > Mis à jour : 2026-05-15 (pivot B2B Teams)
 
@@ -71,7 +71,7 @@ Annuel disponible sur demande (Enterprise) avec PO/NET30 via Stripe Invoicing.
 ## TVA et facturation
 
 - Stripe Tax activé (auto-calcul TVA EU, gestion seuils OSS)
-- Forgekit reste vendeur (pas de MoR) — KBis FR, SIREN exposé sur facture
+- Cupel reste vendeur (pas de MoR) — KBis FR, SIREN exposé sur facture
 - Numérotation factures déléguée à Stripe Invoicing
 - Reverse charge B2B intra-EU géré par Stripe Tax
 
@@ -80,7 +80,7 @@ Annuel disponible sur demande (Enterprise) avec PO/NET30 via Stripe Invoicing.
 - Webhook signature Stripe vérifiée avec `stripe.webhooks.constructEvent` + `timingSafeEqual`
 - Secret stocké en `STRIPE_WEBHOOK_SECRET` (Supabase Vault en prod)
 - Idempotency-Key Stripe sur toute mutation côté serveur
-- Pas de stockage carte/IBAN côté Forgekit (PCI-DSS SAQ-A)
+- Pas de stockage carte/IBAN côté Cupel (PCI-DSS SAQ-A)
 - Customer Portal Stripe pour gestion CB, factures, annulation
 
 ## Variables d'environnement

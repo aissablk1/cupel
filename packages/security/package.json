@@ -1,5 +1,5 @@
 {
-  "name": "@forgekit/security",
+  "name": "@cupel/security",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.30.0",
-    "@forgekit/shared": "workspace:*",
+    "@cupel/shared": "workspace:*",
     "@noble/hashes": "^1.5.0",
     "@noble/ed25519": "^2.1.0",
     "gray-matter": "^4.0.3",

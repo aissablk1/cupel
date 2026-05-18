@@ -1,4 +1,4 @@
-# Roadmap Forgekit — 12 mois
+# Roadmap Cupel — 12 mois
 
 > Auteur : Aïssa BELKOUSSA
 > Créé : 2026-05-14
@@ -34,7 +34,7 @@ Anthropic publie ses propres skills gratuitement et GitHub regorge de skills com
 - Browse public : recherche, filtres (stack, IDE, langue, tag)
 - Upload skill via dashboard créateur (drag-drop zip ou import GitHub)
 - Pipeline validation : static analysis + LLM review (Claude Haiku) + signature Ed25519
-- `@forgekit/cli` publié sur npm (`npx forgekit install <slug>`)
+- `cupel` publié sur npm (`npx cupel install <slug>`)
 - 100 skills seed (curation + import GitHub awesome lists)
 - Reviews + ratings (1–5 stars)
 
@@ -71,7 +71,7 @@ Anthropic publie ses propres skills gratuitement et GitHub regorge de skills com
 - Préparation SOC 2 Type I (politiques + Vanta)
 - API publique read (catalog) + write (admin workspace)
 - Webhooks workspace (sur publication / install / révocation)
-- Skills certifiés « Forgekit Verified » (review humain payée par éditeur)
+- Skills certifiés « Cupel Verified » (review humain payée par éditeur)
 
 **KPI** : 2 contrats Enterprise (≥ 50 seats chacun), 15 workspaces Teams, 15 k€ MRR.
 
@@ -105,7 +105,7 @@ Anthropic publie ses propres skills gratuitement et GitHub regorge de skills com
 | Risque | Mitigation |
 |---|---|
 | Anthropic ou GitHub lance un control plane B2B équivalent | Vitesse + curation EU + Confidential Compute différenciateur |
-| Skills internes des entreprises ne quittent pas leur Git | Argumentaire : Forgekit n'exfiltre pas, le code reste chez Supabase EU / on-prem mirror |
+| Skills internes des entreprises ne quittent pas leur Git | Argumentaire : Cupel n'exfiltre pas, le code reste chez Supabase EU / on-prem mirror |
 | Dépendance Claude Code | Multi-IDE dès Phase 2 (mapping cross-IDE inclus dans Teams) |
 | Coût Vercel / Supabase au scale | Alertes spend, ADR sortie planifié |
 | Solo-founder bandwidth | Sub-traitance design / RA / SOC 2 selon besoin |

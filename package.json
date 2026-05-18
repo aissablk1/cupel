@@ -1,5 +1,5 @@
 {
-  "name": "forgekit",
+  "name": "cupel",
   "version": "0.0.1",
   "private": true,
   "description": "Marketplace de skills IA pour devs pro",
@@ -25,9 +25,9 @@
     "supabase:reset": "supabase db reset",
     "supabase:types": "supabase gen types typescript --local > packages/shared/src/database.types.ts",
     "supabase:push": "supabase db push",
-    "cli:build": "pnpm --filter @forgekit/cli build",
-    "cli:link": "pnpm --filter @forgekit/cli link --global",
-    "security:scan": "pnpm --filter @forgekit/security scan",
+    "cli:build": "pnpm --filter cupel build",
+    "cli:link": "pnpm --filter cupel link --global",
+    "security:scan": "pnpm --filter @cupel/security scan",
     "clean": "pnpm -r exec rm -rf .next dist .turbo node_modules && rm -rf node_modules"
   },
   "devDependencies": {

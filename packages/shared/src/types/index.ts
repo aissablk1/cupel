@@ -1,4 +1,4 @@
-// Forgekit — Types métier
+// Cupel — Types métier
 // Author: Aïssa BELKOUSSA
 
 import type { Category, Currency, Platform, PricingModel, SkillStatus } from '../constants';

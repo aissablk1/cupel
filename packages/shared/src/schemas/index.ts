@@ -1,4 +1,4 @@
-// Forgekit — Zod schemas
+// Cupel — Zod schemas
 // Author: Aïssa BELKOUSSA
 
 import { z } from 'zod';

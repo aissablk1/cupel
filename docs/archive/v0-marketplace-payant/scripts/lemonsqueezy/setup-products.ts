@@ -2,7 +2,7 @@
  * ARCHIVED 2026-05-15 — Pivot v0 marketplace payant → annuaire gratuit + B2B Teams.
  * Setup catalogue produits LS individuels obsolète. Voir docs/archive/README.md.
  *
- * Forgekit — scripts/lemonsqueezy/setup-products.ts
+ * Cupel — scripts/lemonsqueezy/setup-products.ts
  * Author: Aïssa BELKOUSSA
  * Created: 2026-05-14
  *
