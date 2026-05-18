@@ -9,6 +9,27 @@ Auteur : Aïssa BELKOUSSA.
 
 ---
 
+## [0.3.0] — 2026-05-18
+
+### Added
+- `--sarif` : sortie SARIF 2.1.0 pour intégration native GitHub Code Scanning, GitLab Code Quality, VS Code SARIF Viewer
+- Mapping des règles vers le schéma SARIF (`error`/`warning`/`note`) basé sur le poids interne
+
+### Changed
+- Description npm mise à jour pour refléter 14 catégories de détection
+- Documentation README/page produit/article blog : « 11 catégories » → « 14 catégories »
+
+## [0.2.0] — 2026-05-18
+
+### Added — 3 règles 2026 (réaction à Snyk ToxicSkills + Invariant Labs MCP poisoning)
+- **`invisible_unicode`** (poids 45) — détection ASCII smuggling : zero-width characters (`U+200B-200F`), RLO/LRO/PDF overrides (`U+202A-202E`), Unicode Tags (`U+E0000-E007F`)
+- **`tool_poisoning_directive`** (poids 40) — directives cachées ciblant l'agent : commentaires HTML `<!-- SYSTEM/INTERNAL/ASSISTANT: ... -->`, patterns « IMPORTANT FOR ASSISTANT », « BEFORE RESPONDING », « HIDDEN INSTRUCTION », « DO NOT TELL THE USER »
+- **`hex_escape_chain`** (poids 30) — obfuscation par séquences d'échappements consécutives : `\xNN\xNN…` (≥ 8), `\uNNNN\uNNNN…` (≥ 6), `String.fromCharCode(N,N,…)` (≥ 11 codes)
+
+### Tests
+- 7 nouveaux tests pour les règles 2026 (5 cas positifs + 1 cas RLO + 1 contrôle anti-faux-positif)
+- Total : 30 → 37 tests verts
+
 ## [Unreleased]
 
 ### Added

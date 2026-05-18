@@ -16,7 +16,7 @@ import { validateCommand } from './commands/validate.js';
 import { publishCommand } from './commands/publish.js';
 import { doctorCommand } from './commands/doctor.js';
 
-const VERSION = '0.2.0';
+const VERSION = '0.3.0';
 
 function banner(): void {
   // Palette de la coupelle — cendre chaude + or révélé
@@ -37,6 +37,7 @@ export async function runDoctor(argv: string[]): Promise<void> {
     .version(VERSION)
     .option('-p, --path <dir>', 'Scanner aussi les skills d\'un projet (défaut: cwd)')
     .option('--json', 'Sortie JSON pour CI / pipe')
+    .option('--sarif', 'Sortie SARIF 2.1.0 pour GitHub Code Scanning / GitLab / VS Code')
     .option('--strict', 'Exit code 2 si au moins un skill en tier danger')
     .option('-v, --verbose', 'Afficher tous les signaux, même sur les skills sûrs')
     .action((opts) => doctorCommand(opts));

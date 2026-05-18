@@ -40,6 +40,7 @@ interface SkillAudit {
 interface DoctorOptions {
   path?: string;
   json?: boolean;
+  sarif?: boolean;
   strict?: boolean;
   verbose?: boolean;
 }
@@ -432,6 +433,86 @@ function renderReport(audits: SkillAudit[], verbose: boolean): void {
   }
 }
 
+// ─── SARIF 2.1.0 output (GitHub Code Scanning, GitLab, VS Code) ───────────
+// https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html
+
+interface SarifResult {
+  ruleId: string;
+  level: 'error' | 'warning' | 'note';
+  message: { text: string };
+  locations: Array<{
+    physicalLocation: {
+      artifactLocation: { uri: string };
+    };
+  }>;
+}
+
+function tierToSarifLevel(t: Tier): 'error' | 'warning' | 'note' {
+  if (t === 'danger') return 'error';
+  if (t === 'warn') return 'warning';
+  return 'note';
+}
+
+function renderSarif(audits: SkillAudit[], version: string): string {
+  const ruleIds = new Set<string>();
+  const results: SarifResult[] = [];
+
+  for (const a of audits) {
+    for (const sig of a.signals) {
+      ruleIds.add(sig.kind);
+      results.push({
+        ruleId: sig.kind,
+        level: tierToSarifLevel(a.tier),
+        message: {
+          text: `[${a.platform}/${a.slug}] ${sig.kind} — ${sig.evidence ?? ''}`,
+        },
+        locations: [
+          {
+            physicalLocation: {
+              artifactLocation: { uri: a.path },
+            },
+          },
+        ],
+      });
+    }
+  }
+
+  const rules = Array.from(ruleIds).map((id) => {
+    const rule = RULES.find((r) => r.kind === id);
+    return {
+      id,
+      name: id,
+      shortDescription: { text: id.replace(/_/g, ' ') },
+      defaultConfiguration: {
+        level: (rule?.weight ?? 0) >= 40 ? 'error' : rule?.weight ?? 0 >= 20 ? 'warning' : 'note',
+      },
+      helpUri: `https://github.com/aissablk1/cupel#${id}`,
+    };
+  });
+
+  const sarif = {
+    $schema:
+      'https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json',
+    version: '2.1.0',
+    runs: [
+      {
+        tool: {
+          driver: {
+            name: 'cupel',
+            version,
+            informationUri: 'https://aissabelkoussa.fr/cupel',
+            organization: 'Aïssa BELKOUSSA',
+            rules,
+          },
+        },
+        results,
+      },
+    ],
+  };
+
+  return JSON.stringify(sarif, null, 2);
+}
+
 // ─── Entrypoint ───────────────────────────────────────────────────────────
 
 export async function doctorCommand(opts: DoctorOptions = {}): Promise<void> {
@@ -450,7 +531,9 @@ export async function doctorCommand(opts: DoctorOptions = {}): Promise<void> {
     }
   }
 
-  if (opts.json) {
+  if (opts.sarif) {
+    process.stdout.write(renderSarif(audits, '0.3.0') + '\n');
+  } else if (opts.json) {
     process.stdout.write(JSON.stringify({ projectPath, audits }, null, 2) + '\n');
   } else {
     renderReport(audits, opts.verbose ?? false);
