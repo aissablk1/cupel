@@ -6,9 +6,10 @@ import type { Locale } from '../../../../i18n';
 export default async function LoginPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
+  const { locale: rawLocale } = await params;
+  const locale = rawLocale as Locale;
   const t = await getTranslations('login');
 
   async function signInWith(provider: 'google' | 'github') {

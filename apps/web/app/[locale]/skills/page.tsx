@@ -7,9 +7,10 @@ export const revalidate = 60;
 export default async function SkillsCatalogPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
+  const { locale: rawLocale } = await params;
+  const locale = rawLocale as Locale;
   const t = await getTranslations('skills');
 
   let skills: SkillCardData[] | null = null;

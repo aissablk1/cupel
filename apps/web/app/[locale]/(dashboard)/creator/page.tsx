@@ -18,9 +18,10 @@ export const dynamic = 'force-dynamic';
 export default async function CreatorDashboardPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
+  const { locale: rawLocale } = await params;
+  const locale = rawLocale as Locale;
   const t = await getTranslations('creator');
   const supabase = await createClient();
   const {

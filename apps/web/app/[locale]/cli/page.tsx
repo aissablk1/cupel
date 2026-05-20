@@ -13,9 +13,10 @@ import { Separator } from '@/components/ui/separator';
 export default async function CliPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
+  const { locale: rawLocale } = await params;
+  const locale = rawLocale as Locale;
   const t = await getTranslations('cli');
 
   return (

@@ -17,9 +17,10 @@ export const dynamic = 'force-dynamic';
 export default async function DashboardPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
+  const { locale: rawLocale } = await params;
+  const locale = rawLocale as Locale;
   const t = await getTranslations('dashboard');
   const supabase = await createClient();
   const {
@@ -67,15 +68,17 @@ export default async function DashboardPage({
         <h2 className="font-display text-3xl tracking-tight mb-8">{t('recent_title')}</h2>
         {purchases && purchases.length > 0 ? (
           <ul className="border border-[var(--color-linen)] rounded-[4px] divide-y divide-[var(--color-linen)]">
-            {purchases.map((p) => (
+            {purchases.map((p) => {
+              const skill = Array.isArray(p.skill) ? p.skill[0] : p.skill;
+              return (
               <li key={p.id} className="flex items-center justify-between px-6 py-4">
                 <div className="flex items-center gap-4">
                   <Badge variant="success">Achat</Badge>
                   <Link
-                    href={`/${locale}/skills/${p.skill?.slug ?? ''}`}
+                    href={`/${locale}/skills/${skill?.slug ?? ''}`}
                     className="link-editorial font-medium"
                   >
-                    {p.skill?.name ?? 'Skill'}
+                    {skill?.name ?? 'Skill'}
                   </Link>
                 </div>
                 <div className="flex items-center gap-6 text-sm">
@@ -83,7 +86,8 @@ export default async function DashboardPage({
                   <span className="text-[var(--color-graphite)]">{formatDate(p.created_at)}</span>
                 </div>
               </li>
-            ))}
+              );
+            })}
           </ul>
         ) : (
           <p className="text-[var(--color-graphite)]">Aucune activité pour le moment.</p>

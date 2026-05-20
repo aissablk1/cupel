@@ -3,8 +3,9 @@ import Link from 'next/link';
 import type { Locale } from '../../i18n';
 import { TerminalDemo } from '../../components/marketing/terminal-demo';
 
-export default async function LandingPage({ params }: { params: Promise<{ locale: Locale }> }) {
-  const { locale } = await params;
+export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: rawLocale } = await params;
+  const locale = rawLocale as Locale;
   return <LandingContent locale={locale} />;
 }
 

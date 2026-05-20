@@ -18,11 +18,12 @@ import { formatPrice, formatDate } from '@/lib/utils';
 export const revalidate = 60;
 
 interface PageProps {
-  params: Promise<{ locale: Locale; slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export default async function SkillDetailPage({ params }: PageProps) {
-  const { locale, slug } = await params;
+  const { locale: rawLocale, slug } = await params;
+  const locale = rawLocale as Locale;
   const t = await getTranslations('skill_detail');
   const supabase = await createClient();
 
@@ -37,6 +38,7 @@ export default async function SkillDetailPage({ params }: PageProps) {
 
   if (!skill) notFound();
 
+  const creator = Array.isArray(skill.creator) ? skill.creator[0] : skill.creator;
   const installCmd = `cupel install ${skill.slug}`;
   const isFree = skill.pricing_model === 'free' || skill.price_cents === 0;
 
@@ -117,8 +119,8 @@ export default async function SkillDetailPage({ params }: PageProps) {
                 </Button>
               )}
               <Button variant="secondary" asChild>
-                <Link href={`/${locale}/creators/${skill.creator?.username ?? ''}`}>
-                  {t('creator')}&nbsp;: {skill.creator?.display_name ?? '—'}
+                <Link href={`/${locale}/creators/${creator?.username ?? ''}`}>
+                  {t('creator')}&nbsp;: {creator?.display_name ?? '—'}
                 </Link>
               </Button>
             </div>

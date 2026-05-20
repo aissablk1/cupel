@@ -3,8 +3,9 @@ import Link from 'next/link';
 import type { Locale } from '../../../i18n';
 import { TeamsFeature, type TeamsFeatureItem } from '../../../components/marketing/teams-feature';
 
-export default async function TeamsPage({ params }: { params: Promise<{ locale: Locale }> }) {
-  const { locale } = await params;
+export default async function TeamsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: rawLocale } = await params;
+  const locale = rawLocale as Locale;
   return <TeamsContent locale={locale} />;
 }
 
