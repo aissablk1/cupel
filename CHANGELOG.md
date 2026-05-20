@@ -9,6 +9,43 @@ Auteur : Aïssa BELKOUSSA.
 
 ---
 
+## [Unreleased]
+
+### Changed
+- Consolidation identité projet : références « Forgekit » historiques remplacées par « cupel » (10 fichiers : `LICENSE`, `supabase/config.toml*`, `scripts/ops/healthcheck.sh`, `scripts/ops/backup-db.sh`, `packages/cli/.eslintrc.cjs`, `packages/doctor/_publish-doctor.sh`, `packages/cli/templates/SKILL.md.tmpl`, `packages/cli/templates/README.md.tmpl`, `.env.example`).
+- `PROJECT.nfo` aligné sur v0.3.x CLI public + vitrine `apps/web` (status, version, repository public, tagline orienté CLI d'audit local).
+- Monétisation Lemon Squeezy conservée dans la roadmap (CLI Pro, audit humain 400 €) — déclenchement futur, pas immédiat. CSP `apps/web/next.config.ts` conserve `*.lemonsqueezy.com`.
+- `apps/web/next.config.ts` : `Permissions-Policy` complété avec `interest-cohort=()` (anti-FLoC).
+
+### Date
+- 2026-05-20
+
+---
+
+## [Consolidation] — 2026-05-20
+
+Audit complet post-6-vagues mai 2026 (cf. `docs/audit/CONSOLIDATION_2026-05-20.md`).
+
+### Findings principaux
+
+- **CLI `@aissabelkoussa/cupel` v0.3.3 production-ready** — seul livrable mature, ROADMAP publique cohérente
+- **16/16 tables publiques Supabase avec RLS + policies** — schéma sécurité solide (vérifié exhaustivement)
+- **Headers next.config.ts production-grade** — CSP strict, HSTS preload, X-Frame-Options DENY
+- **Aucune fuite `service_role` côté client** (grep exhaustif `apps/web/src apps/web/app packages/*/src`)
+
+### Dette identifiée (à arbitrer par Aïssa avant v0.4)
+
+- P0 : 10 fichiers techniques mentionnent encore « Forgekit » (`.env.example`, `LICENSE`, `supabase/config.toml*`, `scripts/ops/*`, `packages/cli/templates/*`, etc.)
+- P0 : `PROJECT.nfo` désaligné (status pivot B2B, version 0.0.3 vs réalité CLI 0.3.3 public)
+- P0 : section `[Unreleased]` obsolète (toute la trame pivot B2B Teams jamais sortie en release)
+- P1 : `apps/web/` Next.js scaffolding inerte (pas de page produit live), `_defensive/` packages npm en quarantaine, `@lemonsqueezy/lemonsqueezy.js` zombie dans `packages/sdk`
+
+### Recommandation
+
+Continuer **sur le CLI uniquement**. Archiver `apps/web` + `_defensive` (option future à ressortir si traction CLI le justifie). Détails et TODO complet : `docs/audit/CONSOLIDATION_2026-05-20.md`.
+
+---
+
 ## [0.3.3] — 2026-05-18
 
 ### Fixed (faux positif massif)

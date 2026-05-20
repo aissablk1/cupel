@@ -1,4 +1,4 @@
-Forgekit — Licence propriétaire
+cupel — Licence propriétaire
 Copyright (c) 2026 Aïssa BELKOUSSA. Tous droits réservés.
 
 Le présent logiciel et l'ensemble de ses composants — code source, scripts,
@@ -26,12 +26,12 @@ d'Aïssa BELKOUSSA.
 
    L'accès au code source est strictement réservé à l'auteur et aux
    collaborateurs explicitement désignés par lui. Les artefacts publics
-   (npm packages `@forgekit/cli`, `@forgekit/sdk`) sont distribués sous
+   (npm packages `@aissabelkoussa/cupel`, `@cupel/doctor`, `@cupel/sdk`) sont distribués sous
    licence dédiée mentionnée dans leur `package.json` respectif.
 
 3. SKILLS PUBLIÉS PAR DES TIERS
 
-   Les skills publiés sur le marketplace Forgekit par des créateurs tiers
+   Les skills publiés via cupel par des créateurs tiers
    restent la propriété de leurs auteurs respectifs, sous la licence SPDX
    qu'ils déclarent. Cette licence ne s'applique qu'au code de la plateforme.
 

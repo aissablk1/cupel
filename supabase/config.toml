@@ -1,7 +1,7 @@
-# Forgekit — Supabase config (template — copy to config.toml et adapte)
+# cupel — Supabase config (template — copy to config.toml et adapte)
 # Author: Aïssa BELKOUSSA
 
-project_id = "forgekit"
+project_id = "cupel"
 
 [api]
 enabled = true
@@ -22,7 +22,7 @@ port = 54323
 [auth]
 enabled = true
 site_url = "http://localhost:5309"
-additional_redirect_urls = ["http://localhost:5309/auth/callback", "https://forgekit.dev/auth/callback"]
+additional_redirect_urls = ["http://localhost:5309/auth/callback", "https://cupel.dev/auth/callback"]
 jwt_expiry = 3600
 enable_refresh_token_rotation = true
 

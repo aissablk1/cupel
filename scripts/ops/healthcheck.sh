@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Forgekit — healthcheck.sh
+# cupel — healthcheck.sh
 # Author: Aïssa BELKOUSSA
 # Created: 2026-05-14
 #
@@ -10,14 +10,14 @@
 #   ./scripts/ops/healthcheck.sh                # all targets
 #   ENV=staging ./scripts/ops/healthcheck.sh
 #
-# Env requis : FORGEKIT_WEB_URL, FORGEKIT_API_URL, SUPABASE_URL
+# Env requis : CUPEL_WEB_URL, CUPEL_API_URL, SUPABASE_URL
 # Log : _backup/healthcheck/YYYY-MM-DD.log
 
 set -euo pipefail
 
 ENV="${ENV:-production}"
-WEB_URL="${FORGEKIT_WEB_URL:-https://forgekit.dev}"
-API_URL="${FORGEKIT_API_URL:-https://api.forgekit.dev}"
+WEB_URL="${CUPEL_WEB_URL:-https://cupel.dev}"
+API_URL="${CUPEL_API_URL:-https://api.cupel.dev}"
 SUPABASE_URL="${SUPABASE_URL:-}"
 TIMEOUT="${HEALTHCHECK_TIMEOUT:-10}"
 

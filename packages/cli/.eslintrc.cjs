@@ -1,4 +1,4 @@
-// Forgekit CLI — ESLint config
+// cupel CLI — ESLint config
 // Author: Aïssa BELKOUSSA
 
 module.exports = {

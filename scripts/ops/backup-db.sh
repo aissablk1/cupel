@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Forgekit — backup-db.sh
+# cupel — backup-db.sh
 # Author: Aïssa BELKOUSSA
 # Created: 2026-05-14
 #
@@ -11,7 +11,7 @@
 #
 # Env requis :
 #   SUPABASE_DB_URL          (postgres://...)
-#   R2_BUCKET                (ex. forgekit-backups)
+#   R2_BUCKET                (ex. cupel-backups)
 #   R2_ENDPOINT              (https://<accountid>.r2.cloudflarestorage.com)
 #   AWS_ACCESS_KEY_ID        (R2 access key)
 #   AWS_SECRET_ACCESS_KEY    (R2 secret key)
@@ -31,9 +31,9 @@ STAMP="$(date -u +%Y-%m-%d_%H%M%SZ)"
 TMP_DIR="$(mktemp -d)"
 trap 'rm -rf "${TMP_DIR}"' EXIT
 
-DUMP_FILE="${TMP_DIR}/forgekit_${STAMP}.sql.gz"
+DUMP_FILE="${TMP_DIR}/cupel_${STAMP}.sql.gz"
 ENC_FILE="${DUMP_FILE}.age"
-REMOTE_KEY="daily/forgekit_${STAMP}.sql.gz.age"
+REMOTE_KEY="daily/cupel_${STAMP}.sql.gz.age"
 
 echo "[$(date -u +%FT%TZ)] pg_dump start"
 pg_dump \

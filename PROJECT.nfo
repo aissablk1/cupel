@@ -1,122 +1,135 @@
 ================================================================================
 
-  ███████╗ ██████╗ ██████╗  ██████╗ ███████╗██╗  ██╗██╗████████╗
-  ██╔════╝██╔═══██╗██╔══██╗██╔════╝ ██╔════╝██║ ██╔╝██║╚══██╔══╝
-  █████╗  ██║   ██║██████╔╝██║  ███╗█████╗  █████╔╝ ██║   ██║
-  ██╔══╝  ██║   ██║██╔══██╗██║   ██║██╔══╝  ██╔═██╗ ██║   ██║
-  ██║     ╚██████╔╝██║  ██║╚██████╔╝███████╗██║  ██╗██║   ██║
-  ╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝
+   ██████╗██╗   ██╗██████╗ ███████╗██╗
+  ██╔════╝██║   ██║██╔══██╗██╔════╝██║
+  ██║     ██║   ██║██████╔╝█████╗  ██║
+  ██║     ██║   ██║██╔═══╝ ██╔══╝  ██║
+  ╚██████╗╚██████╔╝██║     ███████╗███████╗
+   ╚═════╝ ╚═════╝ ╚═╝     ╚══════╝╚══════╝
 
-  Annuaire public gratuit + gouvernance B2B des skills IA pour devs
+  Audit local zéro-réseau des skills IA pour devs
 
 ================================================================================
 
-  Project     : Cupel (nom de travail — à valider)
-  Tagline     : L'annuaire des skills IA + le control plane des équipes dev
+  Project     : cupel
+  Tagline     : CLI d'audit local des skills IA — zéro réseau, multi-plateformes
   Author      : Aïssa BELKOUSSA
   Contact     : contact@aissabelkoussa.fr
-  Website     : à définir (cupel.dev / devshelf.dev — à arbitrer)
+  Website     : cupel.dev (à activer)
   Portfolio   : aissabelkoussa.fr
-  Repository  : aissablk1/cupel (privé)
-  License     : Propriétaire — tous droits réservés
+  Repository  : aissablk1/cupel (public, GitHub)
+  License     : MIT (CLI publié) — propriétaire (apps/web vitrine)
   Created     : 2026-05-14
-  Updated     : 2026-05-15
-  Version     : 0.0.3
-  Status      : Phase 0 — pivot B2B Teams (annuaire gratuit + plans payants)
+  Updated     : 2026-05-20
+  Version     : 0.3.3 (CLI @aissabelkoussa/cupel — publié sur npm)
+  Status      : v0.3.x — CLI public on npm + apps/web vitrine
   Dev port    : 5309 (port à vie — ne pas réassigner)
 
 ================================================================================
   DESCRIPTION
 ================================================================================
 
-  Cupel est un annuaire public gratuit de « skills » IA pour les outils
-  de développement (Claude Code, Cursor, Codex, Windsurf, Gemini CLI), doublé
-  d'un control plane B2B payant pour les équipes qui veulent gouverner leur
-  usage interne des skills.
+  cupel est un CLI d'audit local des skills IA (Claude Code, Cursor, Codex,
+  Windsurf, Gemini CLI, Continue, Copilot CLI). Il détecte les patterns à
+  risque (prompt injection, tool poisoning, exfiltration de secrets, etc.)
+  via 14 règles regex + signaux structurels, en local, sans aucun appel
+  réseau. Sortie humaine / JSON / SARIF 2.1.0.
 
-  Pivot 2026-05-15 : Anthropic publie ses skills gratuitement, GitHub regorge
-  de skills communautaires. Vendre un skill à l'unité n'a plus de sens. La
-  valeur capturable se déplace vers la gouvernance B2B : workspace privé,
-  skills internes non publiés, SSO, audit log, allowlist/blocklist, partage
-  cross-IDE, conformité.
+  Le repo héberge également `apps/web` — vitrine du CLI (landing, doc,
+  install). La marketplace B2B Teams initialement envisagée n'est plus la
+  direction active : la monétisation se prépare via Lemon Squeezy (CLI Pro,
+  audit humain à 400 €) et reste dans la roadmap mais non implémentée
+  aujourd'hui.
 
-  Modèle économique en trois plans :
-  1. Public         gratuit       browse, install CLI, reviews
-  2. Teams          9 €/seat/mois workspace privé, SSO, audit, allowlist
-                    (5 à 50 devs) skills internes non publics
-  3. Enterprise    29 €/seat/mois SCIM, Confidential Compute, on-prem mirror
-                    (≥ 25 seats)  SOC 2, custom signing key, SLA
+  Distribution :
+  - CLI public      @aissabelkoussa/cupel — npm — MIT — zéro réseau
+  - Alias léger     @cupel/doctor — npx point d'entrée marketing
+  - SDK             @cupel/sdk — accès programmatique (alpha)
 
 ================================================================================
   STACK
 ================================================================================
 
-  Frontend     Next.js 15 (App Router, RSC) + Tailwind CSS 4 + shadcn/ui
+  CLI          Node.js 22 + commander + tsup + Vitest (38 tests)
+               npm scope @aissabelkoussa/cupel (bin: cupel)
+               + @cupel/doctor (alias léger npx)
+
+  Vitrine web  Next.js 16 (App Router, RSC) + Tailwind CSS 4 + shadcn/ui
                + Framer Motion + react-hook-form + zod + next-intl
 
-  Backend      Supabase Postgres 16 + Auth (Google/GitHub) + Storage
-               + Edge Functions (Deno) + Cloudflare R2
+  Backend      Supabase Postgres 16 + Auth + Storage + Edge Functions
+               (scaffolding prêt — pas branché en production)
 
-  Paiement     Stripe Billing (subscriptions Teams/Enterprise, seats,
-               proration, factures B2B SEPA + carte + virement)
+  Paiement     Lemon Squeezy (roadmap monétisation CLI Pro — non actif)
 
-  CLI          Node.js 22 + commander + ora + chalk + inquirer
-               npm scope @cupel/cli
+  Sécurité     RLS 16/16 tables publiques + policies, CSP strict, HSTS preload
+               Static analysis + LLM review (Claude Haiku) — phase 2
 
-  Sécurité     Static analysis + LLM review (Claude Haiku) + signature SHA-256
+  Monitoring   Sentry + Plausible + Better Stack Logs
 
-  Monitoring   Sentry + Plausible + Better Stack Logs + Statuspage
-
-  Hébergement  Vercel (front) + Cloudflare Workers (CLI API) + Supabase EU
+  Hébergement  Vercel (front) + Cloudflare Workers (futur CLI API)
+               + Supabase EU
 
 ================================================================================
   STRUCTURE
 ================================================================================
 
   apps/
-  ├── web/                    Next.js 15 frontend + API
+  ├── web/                    Next.js 16 — vitrine du CLI
+  ├── cli/                    @aissabelkoussa/cupel (alias namespace)
+  └── doctor/                 @cupel/doctor (alias léger)
   packages/
-  ├── cli/                    @cupel/cli (npm)
-  ├── sdk/                    @cupel/sdk (programmatic access)
+  ├── cli/                    Source CLI (commands, rules, scanner)
+  ├── doctor/                 Source alias @cupel/doctor
+  ├── sdk/                    @cupel/sdk (programmatic — alpha)
   └── shared/                 Types + utils partagés
   supabase/
-  ├── migrations/             Migrations SQL versionnées
+  ├── migrations/             16 tables avec RLS + policies
   └── functions/              Edge Functions Deno
   docs/
   ├── sessions/               Journal QQOQCCP horodaté (CLAUDE.md §23)
   ├── architecture/           ADRs + diagrammes
-  └── specs/                  Spécifications fonctionnelles
-  scripts/                    Outils CLI dev local
-  _backup/                    Backups locaux (CLAUDE.md §6)
+  ├── specs/                  Spécifications (archive marketplace incluse)
+  └── audit/                  Audits sécurité + consolidation
+  scripts/ops/                healthcheck.sh + backup-db.sh
+  _backup/                    Snapshots locaux (CLAUDE.md §6)
+  _defensive/                 Packages npm anti-typosquatting (à arbitrer)
 
 ================================================================================
   INSTALL
 ================================================================================
 
-  Prérequis : Node 22+, pnpm 9+, Supabase CLI, Vercel CLI
+  Utilisateurs CLI (recommandé) :
 
-  pnpm install
-  cp .env.example .env.local
-  # Remplir les vars Supabase / Lemon Squeezy / Cloudflare R2
-  pnpm supabase start
-  pnpm dev
+    npx @aissabelkoussa/cupel scan
+    npx @cupel/doctor                    # alias léger
+
+  Développeurs du repo :
+
+    Prérequis : Node 22+, pnpm 9+, Supabase CLI (optionnel)
+    pnpm install
+    cp .env.example .env.local
+    pnpm dev                              # apps/web sur :5309
 
 ================================================================================
   USAGE
 ================================================================================
 
-  Développement local
-    pnpm dev                  Lance Next.js + Supabase local
-    pnpm build                Build production
-    pnpm test                 Tests Vitest
+  CLI
+    cupel scan                          Audit du répertoire courant
+    cupel scan --path <dir>             Audit d'un répertoire ciblé
+    cupel scan --json                   Sortie JSON
+    cupel scan --sarif                  Sortie SARIF 2.1.0
+    cupel scan --verbose                Détail par règle déclenchée
 
-  Migrations
+  Vitrine web (dev local)
+    pnpm dev                            Lance Next.js sur :5309
+    pnpm build                          Build production
+    pnpm test                           Tests Vitest
+
+  Migrations Supabase (dev local)
     pnpm supabase migration new <name>
     pnpm supabase db push
-
-  CLI
-    pnpm --filter cli build
-    node packages/cli/bin/cupel.js install <skill>
 
 ================================================================================
   ENV
@@ -124,6 +137,7 @@
 
   Voir .env.example — variables sensibles JAMAIS commitées.
   Secrets en production : Vercel + Supabase Vault + Cloudflare secrets.
+  Lemon Squeezy : clés présentes en placeholder, activation différée.
 
 ================================================================================
   CRÉDITS
@@ -135,27 +149,26 @@
   CONTACT
 ================================================================================
 
-  Mail   : contact@aissabelkoussa.fr
+  Mail      : contact@aissabelkoussa.fr
   Portfolio : aissabelkoussa.fr
 
 ================================================================================
   NOTES
 ================================================================================
 
-  - Nom « Cupel » provisoire, arbitrage final entre Cupel / Devshelf
-    après vérif INPI/EUIPO/USPTO + dispo domaines.
-  - Direction esthétique : « Editorial Premium » (Migra display + Geist body)
-  - Polices bannies : Inter, Roboto, Arial, Open Sans, Lato, system-ui,
-    Space Grotesk (CLAUDE.md anti-slop §10)
-  - Confidential Computing intégré dans Enterprise (différenciateur clé)
-  - Pivot 2026-05-15 : abandon vente skill à l'unité (75/25), bascule sur
-    annuaire gratuit + B2B Teams payant. Voir docs/specs/positioning.md
-    et docs/specs/pricing.md.
-  - `cupel doctor` réécrit en audit de risque local (2026-05-15) : scan
-    multi-plateformes (7 plateformes IDE), 7 règles regex + 4 signaux
-    structurels, sortie humaine/JSON/strict, zéro réseau. Package standalone
-    `@cupel/doctor` exposé pour `npx @cupel/doctor` — point d'entrée
-    léger pour les devs qui veulent auditer sans adopter tout le CLI.
+  - Nom npm CLI : @aissabelkoussa/cupel (scope perso après refus npm
+    similar policy sur `cupel` seul, jugé trop proche de `cspell`).
+    Le bin reste `cupel`, l'UX inchangée.
+  - Direction esthétique vitrine : « Editorial Premium » (Migra display
+    + Geist body + Newsreader italic). Polices bannies : Inter, Roboto,
+    Arial, Open Sans, Lato, system-ui, Space Grotesk (CLAUDE.md §10).
+  - Headers HTTP apps/web : CSP strict, HSTS preload, X-Frame-Options
+    DENY, Permissions-Policy. État de l'art.
+  - Supabase : 16/16 tables publiques avec RLS + au moins une policy.
+  - Monétisation Lemon Squeezy conservée dans la roadmap (CLI Pro,
+    audit humain 400 €) — déclenchement futur, pas actif aujourd'hui.
+  - Pivot identité 2026-05-20 : références « Forgekit » historiques
+    purgées (10 fichiers). Voir docs/audit/CONSOLIDATION_2026-05-20.md.
 
 ================================================================================
   © 2026 Aïssa BELKOUSSA — Tous droits réservés
