@@ -67,15 +67,17 @@ show_status() {
     return
   fi
   local unpushed
-  unpushed=$(git log --oneline @{u}..HEAD 2>/dev/null | wc -l | tr -d ' ' || echo "?")
-  if [[ "$unpushed" == "0" ]]; then
-    color_ok "$name : up-to-date"
-  elif [[ "$unpushed" == "?" ]]; then
+  if git rev-parse '@{u}' >/dev/null 2>&1; then
+    unpushed=$(git log --oneline '@{u}..HEAD' | wc -l | tr -d ' ')
+    if [[ "$unpushed" == "0" ]]; then
+      color_ok "$name : up-to-date"
+    else
+      color_warn "$name : $unpushed commits non poussés"
+    fi
+  else
     local local_commits
     local_commits=$(git log --oneline 2>/dev/null | wc -l | tr -d ' ')
-    color_warn "$name : pas d'upstream, $local_commits commits locaux"
-  else
-    color_warn "$name : $unpushed commits non poussés"
+    color_warn "$name : pas d'upstream (jamais push), $local_commits commits locaux prêts"
   fi
 }
 
