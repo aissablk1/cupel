@@ -40,6 +40,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@cupel/shared": "workspace:*",
     "@types/inquirer": "^9.0.7",
     "@types/yauzl": "^2.10.3",
     "@types/node": "^22.7.4",
