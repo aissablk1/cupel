@@ -66,6 +66,7 @@ describe('doctor — auditSkill', () => {
 
   it('flags AWS access key literal', () => {
     makeSkill(root, 'creds', {
+      // gitleaks:allow — fixture pour valider la détection du pattern AWS dans auditSkill
       'SKILL.md': 'token: AKIAIOSFODNN7ABCDEFGH',
       '.cupel-sig': 'x',
     });

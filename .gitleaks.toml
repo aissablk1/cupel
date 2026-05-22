@@ -1,0 +1,10 @@
+# Configuration gitleaks pour cupel.
+# Étend les règles par défaut + allowlist pour les fixtures de tests.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Fixtures de tests : tokens factices nécessaires pour valider la détection"
+paths = [
+  '''packages/cli/test/doctor\.test\.ts''',
+]
