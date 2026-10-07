@@ -11,6 +11,18 @@ Auteur : Aïssa BELKOUSSA.
 
 ## [Unreleased]
 
+### Security
+
+- CLI : `tar` ≥ 7.5.22 (critique), `undici` ≥ 6.29.0, `inquirer` 11 → 12 (supprime `external-editor` → `tmp@0.0.33`,
+  haute) ; `fast-uri` 3.1.8 dans le lockfile. Installation npm neuve du CLI : 0 vulnérabilité (`npm audit`).
+
+### Fixed
+
+- CI rouge depuis mai : version de pnpm déclarée deux fois (`version: 9` + `packageManager`) ; filtre `--filter cupel`
+  qui ne correspondait plus à aucun paquet depuis le renommage en `@aissabelkoussa/cupel` (typecheck, tests et build
+  passaient à vide) → filtre corrigé + `--fail-if-no-match`. Le job supply-chain audite désormais le CLI tel qu'un
+  utilisateur npm l'installe.
+
 ### Changed
 
 - Licence des paquets publiés (`@aissabelkoussa/cupel`, `@cupel/doctor`, `@cupel/sdk`) : MIT → **Apache-2.0**, avec un
