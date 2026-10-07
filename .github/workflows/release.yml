@@ -1,7 +1,7 @@
 name: Release cupel
 
 # Publication auto sur npm avec provenance (sigstore signature)
-# Trigger : git tag cupel-cli-v0.3.1 && git push origin cupel-cli-v0.3.1
+# Trigger : git tag cupel-cli-v<version> && git push origin cupel-cli-v<version> (version = packages/cli/package.json)
 
 on:
   push:
@@ -57,10 +57,13 @@ jobs:
           fi
           echo "✓ Version match : $tag_version"
 
-      - name: Publish to npm with provenance
-        run: cd packages/cli && npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # Trusted Publishing (OIDC) : aucun token npm stocké. Configuré sur npmjs.com pour
+      # aissablk1/cupel + release.yml. Exige npm >= 11.5.1 ; la provenance est ajoutée automatiquement.
+      - name: Upgrade npm for trusted publishing
+        run: npm install -g npm@^11.5.1
+
+      - name: Publish to npm (trusted publishing, provenance)
+        run: cd packages/cli && npm publish --access public
 
       - name: Create GitHub Release with changelog
         uses: softprops/action-gh-release@v2
@@ -72,13 +75,13 @@ jobs:
             ## Installation
 
             ```bash
-            npx cupel
+            npx @aissabelkoussa/cupel
             ```
 
             Or globally:
 
             ```bash
-            npm i -g cupel
+            npm i -g @aissabelkoussa/cupel
             ```
 
             Verify the package signature:

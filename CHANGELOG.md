@@ -11,6 +11,10 @@ Auteur : Aïssa BELKOUSSA.
 
 ## [Unreleased]
 
+## [0.4.0] — 2026-10-08
+
+Publication de `@aissabelkoussa/cupel` 0.4.0.
+
 ### Security
 
 - CLI : `tar` ≥ 7.5.22 (critique), `undici` ≥ 6.29.0, `inquirer` 11 → 12 (supprime `external-editor` → `tmp@0.0.33`,

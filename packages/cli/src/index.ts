@@ -16,7 +16,7 @@ import { validateCommand } from './commands/validate.js';
 import { publishCommand } from './commands/publish.js';
 import { doctorCommand } from './commands/doctor.js';
 
-const VERSION = '0.3.3';
+const VERSION = '0.4.0';
 
 function banner(): void {
   // Palette de la coupelle — cendre chaude + or révélé
