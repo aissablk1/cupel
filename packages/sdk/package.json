@@ -9,19 +9,17 @@
   "types": "./src/index.ts",
   "scripts": {
     "build": "tsc",
-    "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@cupel/shared": "workspace:*",
     "@lemonsqueezy/lemonsqueezy.js": "^4.0.0",
     "stripe": "^17.2.0",
-    "undici": "^6.20.0",
+    "undici": "^6.29.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^22.7.4",
-    "typescript": "^5.6.2",
-    "vitest": "^2.1.2"
+    "typescript": "^5.6.2"
   }
 }

@@ -11,6 +11,21 @@ Auteur : Aïssa BELKOUSSA.
 
 ## [Unreleased]
 
+### Security
+
+- Plateforme : `pnpm audit` complet (prod + dev) passe de 108 vulnérabilités (8 critiques, 54 hautes) à 1 faible.
+  - `next` 16.2.6 → 16.4.0 (critique ; la 16.2.x épingle encore `postcss@8.4.31` et `sharp@0.34.5`),
+    `next-intl` aligné ; `@sentry/nextjs` 8 → 11 (la v8 ne déclarait pas Next 16 comme compatible).
+  - `vitest` 2 → 4.1.11 dans `packages/cli` (38 tests) et `packages/security` (24 tests) ; `undici` ≥ 6.29.0 dans `@cupel/sdk`.
+  - Lockfile régénéré à neuf (dépendances transitives remontées dans leurs plages).
+
+### Removed
+
+- Outillage mort, porteur de failles : dans `apps/web`, `vitest`, `happy-dom`, `@testing-library/react`,
+  `@vitejs/plugin-react` (aucun test) et `eslint`, `eslint-config-next` (aucune config ; `next lint` n'existe plus
+  dans Next 16), avec les scripts `test`, `test:watch` et `lint` qui échouaient ; `vitest` de `@cupel/sdk` (aucun test) ;
+  `gray-matter` de `@cupel/security` (jamais importé).
+
 ## [0.4.0] — 2026-10-08
 
 Publication de `@aissabelkoussa/cupel` 0.4.0.
