@@ -12,6 +12,11 @@ Auteur : Aïssa BELKOUSSA.
 ## [Unreleased]
 
 ### Changed
+
+- Licence des paquets publiés (`@aissabelkoussa/cupel`, `@cupel/doctor`, `@cupel/sdk`) : MIT → **Apache-2.0**, avec un
+  fichier `NOTICE` (mention de l'auteur obligatoire dans toute redistribution, section 4(d)). Texte de licence ajouté
+  dans chaque paquet et déclaré dans `files`. Les versions déjà publiées sous MIT restent sous MIT. La plateforme reste
+  propriétaire (`LICENSE` racine). README, `PROJECT.nfo` et site (`docs/index.html`) alignés.
 - Consolidation identité projet : références « Forgekit » historiques remplacées par « cupel » (10 fichiers : `LICENSE`, `supabase/config.toml*`, `scripts/ops/healthcheck.sh`, `scripts/ops/backup-db.sh`, `packages/cli/.eslintrc.cjs`, `packages/doctor/_publish-doctor.sh`, `packages/cli/templates/SKILL.md.tmpl`, `packages/cli/templates/README.md.tmpl`, `.env.example`).
 - `PROJECT.nfo` aligné sur v0.3.x CLI public + vitrine `apps/web` (status, version, repository public, tagline orienté CLI d'audit local).
 - Monétisation Lemon Squeezy conservée dans la roadmap (CLI Pro, audit humain 400 €) — déclenchement futur, pas immédiat. CSP `apps/web/next.config.ts` conserve `*.lemonsqueezy.com`.

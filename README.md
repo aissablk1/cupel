@@ -4,7 +4,7 @@
 
 [![npm](https://img.shields.io/npm/v/cupel?label=npm)](https://www.npmjs.com/package/cupel)
 [![tests](https://img.shields.io/badge/tests-30%2F30-success)](packages/cli/test)
-[![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![license](https://img.shields.io/badge/license-Apache--2.0-blue)](packages/cli/LICENSE)
 
 ```bash
 npx cupel
@@ -182,4 +182,10 @@ cupel/
 
 ## Licence
 
-MIT — fait pour être forké, audité, amélioré.
+Les paquets publiés — [`@aissabelkoussa/cupel`](packages/cli), [`@cupel/doctor`](packages/doctor) et
+[`@cupel/sdk`](packages/sdk) — sont sous **[Apache-2.0](packages/cli/LICENSE)** : faits pour être forkés, audités,
+améliorés, à condition de conserver la mention de l'auteur de leur fichier [`NOTICE`](packages/cli/NOTICE).
+
+La plateforme (`apps/web`, `packages/security`, `packages/shared`, `supabase/`) reste propriétaire : voir [`LICENSE`](LICENSE).
+
+Les versions déjà publiées sur npm sous MIT restent sous MIT.

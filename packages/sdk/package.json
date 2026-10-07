@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Cupel SDK — programmatic client",
   "author": "Aïssa BELKOUSSA <contact@aissabelkoussa.fr>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",

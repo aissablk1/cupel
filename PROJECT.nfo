@@ -18,7 +18,7 @@
   Website     : cupel.dev (à activer)
   Portfolio   : aissabelkoussa.fr
   Repository  : aissablk1/cupel (public, GitHub)
-  License     : MIT (CLI publié) — propriétaire (apps/web vitrine)
+  License     : Apache-2.0 (paquets publiés : cli, doctor, sdk) — propriétaire (plateforme)
   Created     : 2026-05-14
   Updated     : 2026-05-20
   Version     : 0.3.3 (CLI @aissabelkoussa/cupel — publié sur npm)
@@ -42,7 +42,7 @@
   aujourd'hui.
 
   Distribution :
-  - CLI public      @aissabelkoussa/cupel — npm — MIT — zéro réseau
+  - CLI public      @aissabelkoussa/cupel — npm — Apache-2.0 — zéro réseau
   - Alias léger     @cupel/doctor — npx point d'entrée marketing
   - SDK             @cupel/sdk — accès programmatique (alpha)
 

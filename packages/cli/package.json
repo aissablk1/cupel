@@ -3,7 +3,7 @@
   "version": "0.3.3",
   "description": "Cupel — audit local des skills IA (Claude Code, Cursor, Codex). 14 règles de détection : prompt injection, ASCII smuggling, tool poisoning, exfiltration credentials, reverse shells, obfuscation hex. Zero network. Inspiré de la coupelle de l'essayeur d'or, qui sépare le pur de l'impur depuis 4000 ans.",
   "author": "Aïssa BELKOUSSA <contact@aissabelkoussa.fr>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "type": "module",
   "homepage": "https://aissabelkoussa.fr/cupel",
   "repository": {
@@ -14,7 +14,7 @@
   "bin": {
     "cupel": "./bin/cupel.mjs"
   },
-  "files": ["bin", "dist", "templates", "README.md"],
+  "files": ["bin", "dist", "templates", "README.md", "LICENSE", "NOTICE"],
   "exports": {
     ".": {
       "import": "./dist/index.js",

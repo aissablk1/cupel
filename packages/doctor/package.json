@@ -3,12 +3,12 @@
   "version": "0.0.1",
   "description": "Audit local des skills IA installés — Claude Code, Cursor, Codex, Windsurf, Gemini, Continue. Zero network, offline.",
   "author": "Aïssa BELKOUSSA <contact@aissabelkoussa.fr>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "type": "module",
   "bin": {
     "cupel-doctor": "./bin/cupel-doctor.mjs"
   },
-  "files": ["bin", "dist/index.js", "README.md"],
+  "files": ["bin", "dist/index.js", "README.md", "LICENSE", "NOTICE"],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
