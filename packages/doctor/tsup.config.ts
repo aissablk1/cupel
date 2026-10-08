@@ -9,7 +9,7 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   shims: true,
-  noExternal: ['cupel', '@cupel/shared'],
+  noExternal: ['@aissabelkoussa/cupel', '@cupel/shared'],
   banner: {
     js: "import { createRequire as __cupelCreateRequire } from 'module'; const require = __cupelCreateRequire(import.meta.url);",
   },

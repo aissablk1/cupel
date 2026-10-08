@@ -19,6 +19,17 @@ Auteur : Aïssa BELKOUSSA.
   - `vitest` 2 → 4.1.11 dans `packages/cli` (38 tests) et `packages/security` (24 tests) ; `undici` ≥ 6.29.0 dans `@cupel/sdk`.
   - Lockfile régénéré à neuf (dépendances transitives remontées dans leurs plages).
 
+### Fixed
+
+- `@aissabelkoussa/cupel` publie enfin ses types : `exports["."].types` pointait vers `dist/index.d.ts`, jamais généré
+  (`dts: false`). Le `.d.ts` est autonome (aucune référence à `@cupel/shared`, non publié).
+- `@cupel/doctor` dépendait de `cupel: workspace:*`, résolu par accident vers la racine du dépôt (homonyme) depuis le
+  renommage : il pointe désormais sur `@aissabelkoussa/cupel`. Son binaire `bin/forgekit-doctor.mjs` ne correspondait pas
+  au `bin` déclaré (`bin/cupel-doctor.mjs`) : renommé.
+- `@cupel/sdk` n'avait pas de `tsconfig.json` (son typecheck affichait l'aide de `tsc`) : ajouté, 0 erreur.
+- Security Scan : `aquasecurity/trivy-action@0.24.0` n'existe plus (étiquettes désormais préfixées `v`) → épinglé sur le
+  SHA de `v0.36.0`, qui inclut le correctif de GHSA-9p44-j4g5-cfx5.
+
 ### Removed
 
 - Outillage mort, porteur de failles : dans `apps/web`, `vitest`, `happy-dom`, `@testing-library/react`,

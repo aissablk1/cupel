@@ -1,1 +1,1 @@
-export { runDoctor } from 'cupel';
+export { runDoctor } from '@aissabelkoussa/cupel';
