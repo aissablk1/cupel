@@ -5,6 +5,10 @@ on:
     - cron: '0 6 * * 1'  # lundi 6h UTC
   workflow_dispatch:
 
+# Moindre privilège : lecture seule par défaut, écriture accordée job par job.
+permissions:
+  contents: read
+
 jobs:
   cve-deps:
     runs-on: ubuntu-latest
@@ -21,6 +25,9 @@ jobs:
 
   trivy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write # publication du SARIF dans l'onglet Security (code scanning)
     steps:
       - uses: actions/checkout@v4
       - name: Trivy filesystem scan
