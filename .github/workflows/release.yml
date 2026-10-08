@@ -9,8 +9,8 @@ on:
       - "cupel-cli-v*"
 
 permissions:
-  contents: read
-  id-token: write  # ← obligatoire pour sigstore provenance
+  contents: write  # création de la GitHub Release (softprops/action-gh-release)
+  id-token: write  # ← obligatoire pour trusted publishing (OIDC) et la provenance sigstore
 
 jobs:
   publish:
